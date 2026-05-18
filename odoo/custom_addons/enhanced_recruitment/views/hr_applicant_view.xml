@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ===================================================== -->
+    <!-- 1. Inherit the List View -->
+    <!-- ===================================================== -->
+    <record id="hr_applicant_view_tree_inherit_rating" model="ir.ui.view">
+        <field name="name">hr.applicant.tree.inherit.rating</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.crm_case_tree_view_job"/>
+        <field name="arch" type="xml">
+
+            <!-- Replace priority stars with numeric rating -->
+            <xpath expr="//field[@name='priority']" position="replace">
+                <field name="custom_rating" string="Evaluation Rating"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- 2. Inherit the Form View -->
+    <!-- ===================================================== -->
+    <record id="hr_applicant_view_form_enhanced" model="ir.ui.view">
+        <field name="name">hr.applicant.form.enhanced</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Replace priority widget -->
+            <xpath expr="//field[@name='priority']" position="replace">
+                <field name="custom_rating"
+                       placeholder="0-10"
+                       options="{'hide_zero': True}"/>
+            </xpath>
+
+            <!-- Add applicant location fields -->
+            <xpath expr="//field[@name='linkedin_profile']" position="after">
+                <field name="applicant_city_id"/>
+                <field name="applicant_country_id"
+                       readonly="1"
+                       force_save="1"/>
+            </xpath>
+
+            <!-- Hide original type_id -->
+            <xpath expr="//field[@name='type_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Add education details section -->
+            <xpath expr="//group[group[field[@name='applicant_country_id']]]"
+                   position="after">
+
+                <group string="EDUCATION DETAILS">
+
+                    <group>
+                        <field name="type_id"
+                               string="Degree"
+                               invisible="0"/>
+
+                        <field name="stream"/>
+                        <field name="university_id"/>
+                    </group>
+
+                    <group>
+                        <field name="university_city_id"
+                               readonly="1"
+                               force_save="1"/>
+
+                        <field name="university_country_id"
+                               readonly="1"
+                               force_save="1"/>
+                    </group>
+
+                </group>
+
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- 3. Inherit the Kanban View -->
+    <!-- ===================================================== -->
+    <record id="hr_applicant_kanban_view_inherit_rating" model="ir.ui.view">
+        <field name="name">hr.applicant.kanban.inherit.rating</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
+        <field name="arch" type="xml">
+
+            <!-- Odoo 19 compatible xpath -->
+            <xpath expr="//footer/field[@name='priority']"
+                   position="replace">
+
+                <div class="d-flex align-items-center">
+                    <strong class="me-1">Rating:</strong>
+                    <field name="custom_rating"/>
+                </div>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

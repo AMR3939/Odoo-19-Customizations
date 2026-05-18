@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <data>
+
+        <!-- =====================================================
+             Event QR Code Form Customization
+        ====================================================== -->
+
+        <record id="view_event_form_inherit_qr"
+                model="ir.ui.view">
+
+            <field name="name">event.event.form.qr</field>
+
+            <field name="model">event.event</field>
+
+            <field name="inherit_id"
+                   ref="event.view_event_form"/>
+
+            <field name="arch"
+                   type="xml">
+
+                <!-- =============================================
+                     Insert QR Code Section
+                ============================================== -->
+
+                <xpath expr="//field[@name='name']"
+                       position="after">
+
+                    <group>
+
+                        <field name="qr_code"
+                               widget="image"
+                               string="QR Code"
+                               filename="qr_code_filename"
+                               options="{'preview_image': 'qr_code'}"/> 
+
+                        <button name="action_download_qr"
+                                type="object"
+                                string="Download QR Code"
+                                class="btn btn-primary"/>
+
+                    </group>
+
+                </xpath>
+
+            </field>
+
+        </record>
+
+    </data>
+
+</odoo>

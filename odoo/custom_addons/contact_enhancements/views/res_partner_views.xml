@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_inherited_pro_enhancements" model="ir.ui.view">
+        <field name="name">res.partner.form.pro.enhancements</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='city']" position="before">
+                <field name="city_id" placeholder="City" required="1"
+                       context="{'default_state_id': state_id, 'default_country_id': country_id}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='city']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='state_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='country_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="create_uid" string="Created By" readonly="1" options="{'no_open': True}"/>
+                <field name="create_date" string="Created On" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_tree_inherited_pro_enhancements" model="ir.ui.view">
+        <field name="name">res.partner.list.pro.enhancements</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="city_id" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="after">
+                 <field name="create_uid" string="Created By" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

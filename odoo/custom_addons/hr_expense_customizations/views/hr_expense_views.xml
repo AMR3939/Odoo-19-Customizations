@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <!-- =====================================================
+             HR Expense Form Customizations
+        ====================================================== -->
+
+        <record id="hr_expense_view_form_customizations"
+                model="ir.ui.view">
+
+            <field name="name">hr.expense.form.customizations</field>
+
+            <field name="model">hr.expense</field>
+
+            <field name="inherit_id"
+                   ref="hr_expense.hr_expense_view_form"/>
+
+            <field name="arch" type="xml">
+
+                <!-- =====================================================
+                     Extend Statusbar
+                ====================================================== -->
+
+                <xpath expr="//field[@name='state']"
+                       position="attributes">
+
+                    <attribute name="statusbar_visible">
+                        draft,reported,submitted,approved,finance_approved,done
+                    </attribute>
+
+                </xpath>
+
+                <!-- =====================================================
+                     Finance Manager Field
+                ====================================================== -->
+
+                <xpath expr="//field[@name='manager_id']"
+                       position="after">
+
+                    <field name="finance_manager_id"
+                           widget="many2one_avatar_user"
+                           readonly="state != 'draft'"/>
+
+                </xpath>
+
+                <!-- =====================================================
+                     Finance Approve Button
+                ====================================================== -->
+
+                <xpath expr="//button[@name='action_approve']"
+                       position="after">
+
+                    <button name="action_finance_approve"
+                            string="Finance Approve"
+                            type="object"
+                            class="btn btn-primary"
+                            groups="hr_expense_customizations.group_finance_approver"
+                            invisible="state != 'approved'"/>
+
+                </xpath>
+
+                <!-- =====================================================
+                     Spreadsheet Import Section
+                ====================================================== -->
+
+                <xpath expr="//sheet/group"
+                       position="after">
+
+                    <group string="Spreadsheet Import">
+
+                        <field name="spreadsheet_file"
+                               filename="spreadsheet_filename"/>
+
+                        <field name="spreadsheet_filename"
+                               invisible="1"/>
+
+                        <button name="action_import_from_spreadsheet"
+                                string="Import Spreadsheet"
+                                type="object"
+                                class="btn btn-primary"/>
+
+                    </group>
+
+                </xpath>
+
+            </field>
+
+        </record>
+
+    </data>
+
+</odoo>

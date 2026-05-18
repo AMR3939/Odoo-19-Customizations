@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Graph View 1: Contacts by City (using new city_id) -->
+    <record id="view_contact_dashboard_city_bar_default" model="ir.ui.view">
+        <field name="name">contact_enhancements.res_partner_graph_city_bar_default</field>
+        <field name="model">res.partner</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <graph string="Contacts by City" type="bar" sample="1">
+                <field name="city_id" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Graph View 2: Contacts by Creator (Pie Chart) -->
+    <record id="view_contact_dashboard_creator_pie_graph" model="ir.ui.view">
+        <field name="name">contact_enhancements.res_partner_graph_creator_pie</field>
+        <field name="model">res.partner</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <graph string="Contacts by Creator" type="pie" sample="1">
+                <field name="create_uid" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View: City by Row, Creator by Column (using new city_id) -->
+    <record id="view_contact_dashboard_pivot" model="ir.ui.view">
+        <field name="name">contact_enhancements.res_partner_pivot_dashboard</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <pivot string="Contact Analysis Pivot" sample="1">
+                <field name="city_id" type="row"/>
+                <field name="create_uid" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Search View for the Dashboard (Updated) -->
+    <record id="view_contact_dashboard_search" model="ir.ui.view">
+        <field name="name">contact_enhancements.res_partner_search_dashboard</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Search Contacts for Dashboard">
+                <field name="name" string="Name/Company"/>
+                <field name="city_id"/>
+                <field name="country_id"/>
+                <field name="create_uid" string="Created By"/>
+                <separator/>
+                <filter string="All Contacts" name="all_contacts" domain="[]"/>
+                <separator/>
+                <!-- These filters in the dropdown work perfectly -->
+                <filter string="Companies" name="filter_companies" domain="[('is_company','=',True)]"/>
+                <filter string="Individuals" name="filter_individuals" domain="[('is_company','=',False)]"/>
+                <separator/>
+                <group>
+                    <filter string="City" name="group_by_city" context="{'group_by':'city_id'}"/>
+                    <filter string="Country" name="group_by_country" context="{'group_by':'country_id'}"/>
+                    <filter string="Created By" name="group_by_creator" context="{'group_by':'create_uid'}"/>
+                    <filter string="Creation Month" name="group_by_creation_month" context="{'group_by':'create_date:month'}"/>
+                </group>
+                <searchpanel>
+                    <!--
+                        THIS IS THE FIX:
+                        The field 'is_company' (boolean) has been removed because the searchpanel
+                        category view does not support it. The standard <filter> tags above
+                        provide the same functionality correctly.
+                    -->
+                    <field name="country_id" string="Country" icon="fa-globe" enable_counters="1"/>
+                    <field name="city_id" string="City" icon="fa-map-marker" enable_counters="1" limit="0"/>
+                    <field name="create_uid" string="Created By" icon="fa-user" select="multi" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <!-- Window Action for the Contact Dashboard (Updated) -->
+    <record id="action_contact_dashboard_main_pro" model="ir.actions.act_window">
+        <field name="name">Contact Analysis Dashboard</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">graph,pivot,list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),             (0, 0, {'view_mode': 'graph', 'view_id': ref('contact_enhancements.view_contact_dashboard_city_bar_default')}),             (0, 0, {'view_mode': 'pivot', 'view_id': ref('contact_enhancements.view_contact_dashboard_pivot')}),             (0, 0, {'view_mode': 'list', 'view_id': ref('base.view_partner_tree')}),             (0, 0, {'view_mode': 'form', 'view_id': ref('base.view_partner_form')})         ]"/>
+        <field name="search_view_id" ref="contact_enhancements.view_contact_dashboard_search"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">Visualize and analyze your contact data.</p>
+        </field>
+    </record>
+
+    <!-- Menu Item for the Dashboard -->
+    <menuitem id="menu_contact_analysis_dashboard" name="Contact Analysis" parent="contacts.menu_contacts" action="action_contact_dashboard_main_pro" sequence="150"/>
+
+</odoo>

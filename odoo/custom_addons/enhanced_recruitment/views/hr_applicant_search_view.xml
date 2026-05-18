@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_applicant_view_search_enhanced" model="ir.ui.view">
+        <field name="name">hr.applicant.search.enhanced</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_search_bis"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_ids']" position="before">
+                <field name="stream"/>
+                <field name="university_id"/>
+                <field name="applicant_city_id" string="Applicant City"/>
+            </xpath>
+            <xpath expr="//group/filter[@name='responsible']" position="after">
+                <separator/>
+                <filter string="Stream" name="group_by_stream" context="{'group_by': 'stream'}"/>
+                <filter string="University" name="group_by_university" context="{'group_by': 'university_id'}"/>
+                <filter string="Applicant City" name="group_by_applicant_city" context="{'group_by': 'applicant_city_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

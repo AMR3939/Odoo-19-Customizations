@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- =====================================================
+         Finance Approver Group
+    ====================================================== -->
+
+    <record id="group_finance_approver"
+            model="res.groups">
+
+        <field name="name">
+            Finance Approver
+        </field>
+
+        <field name="sequence">
+            40
+        </field>
+
+        <field name="privilege_id"
+               ref="hr_expense.res_groups_privilege_expenses"/>
+
+        <field name="implied_ids"
+               eval="[(4, ref('hr_expense.group_hr_expense_team_approver'))]"/>
+
+    </record>
+
+</odoo>
