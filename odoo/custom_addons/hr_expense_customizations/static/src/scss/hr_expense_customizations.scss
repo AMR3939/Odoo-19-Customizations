@@ -1,0 +1,165 @@
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.o_main_navbar {
+    background-color: #CED5D8;
+    color: black;
+    border: none !important;
+}
+
+.o_main_navbar .o_menu_brand {
+    padding-left: 0;
+    font-size: 1.2em;
+    color: black;
+    border: none !important;
+}
+
+.o_main_navbar .o_menu_sections .o_nav_entry,
+.o_main_navbar .o_menu_sections .dropdown-toggle,
+.o_menu_sections .dropdown-toggle {
+    background-color: #CED5D8;
+    color: black;
+    border: none !important;
+}
+
+.o-dropdown--menu .dropdown-toggle.focus,
+.o-dropdown--menu .dropdown-item.focus {
+    background-color: #CED5D8;
+}
+
+.oe_topbar_name.d-none.d-lg-block {
+    color: black;
+}
+
+/* =====================================================
+   LINKS
+===================================================== */
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+/* =====================================================
+   FORMS
+===================================================== */
+
+.form-check-input:checked {
+    background-color: #005040;
+    border-color: #005040;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.btn-info,
+.text-bg-action {
+    background-color: #005040 !important;
+    border-color: #005040 !important;
+}
+
+.text-bg-info {
+    color: #FFFFFF !important;
+    background-color: #005040 !important;
+}
+
+.btn:hover {
+    background-color: #CED5D8;
+}
+
+.btn-outline-primary {
+    color: black;
+    border-color: black;
+}
+
+.btn.btn-secondary.o_switch_view {
+    background-color: #757575 !important;
+    border: none;
+}
+
+.btn.btn-primary:disabled,
+.btn.btn-primary:active,
+.btn.btn-primary:focus {
+    background-color: #005040 !important;
+    border-color: #005040 !important;
+}
+
+/* =====================================================
+   LISTS
+===================================================== */
+
+.list-group-item.active {
+    background-color: #EAC800;
+    border-color: #EAC800;
+}
+
+/* =====================================================
+   ICONS
+===================================================== */
+
+.o_button_icon.fa.fa-fw.fa-file-text-o {
+    color: #005040;
+}
+
+/* =====================================================
+   NOTEBOOK TABS
+===================================================== */
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    color: #FFFFFF;
+    background-color: #005040;
+    border-color: #005040;
+}
+
+.o_notebook .nav-link {
+    color: #005040;
+    outline-color: #005040;
+    border-color: #dee2e6;
+}
+// =====================================================
+// Odoo 19 Expense Statusbar Colors
+// =====================================================
+
+.o_statusbar_status {
+
+    .o_arrow_button {
+
+        // =====================================
+        // DEFAULT STATES
+        // =====================================
+
+        background-color: #CED5D8 !important;
+        color: #000000 !important;
+        border-color: #CED5D8 !important;
+
+        &:before {
+            border-left-color: #CED5D8 !important;
+        }
+
+        &:after {
+            border-left-color: #FFFFFF !important;
+        }
+    }
+
+    // =========================================
+    // CURRENT / SELECTED STATE
+    // =========================================
+
+    .o_arrow_button_current {
+
+        background-color: #757575 !important;
+        color: #FFFFFF !important;
+        border-color: #757575 !important;
+
+        &:before {
+            border-left-color: #757575 !important;
+        }
+
+        &:after {
+            border-left-color: #FFFFFF !important;
+        }
+    }
+}

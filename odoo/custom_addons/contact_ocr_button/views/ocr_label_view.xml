@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List View -->
+    <record id="view_ocr_label_list" model="ir.ui.view">
+        <field name="name">ocr.label.list</field>
+        <field name="model">ocr.label</field>
+
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="target_field"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_ocr_label" model="ir.actions.act_window">
+        <field name="name">OCR Labels</field>
+        <field name="res_model">ocr.label</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem
+        id="menu_ocr_label_config"
+        name="OCR Labels"
+        parent="contacts.res_partner_menu_config"
+        action="action_ocr_label"
+        sequence="100"/>
+
+</odoo>

@@ -1,0 +1,49 @@
+.btn-primary {
+    color: #FFFFFF !important;
+    background-color: #005040 !important;
+    border-color: #005040 !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    color: #FFFFFF !important;
+    background-color: #006b56 !important;
+    border-color: #006b56 !important;
+}
+
+.btn-primary:disabled {
+    color: #FFFFFF !important;
+    background-color: #005040 !important;
+    border-color: #005040 !important;
+}
+
+/* Input Focus */
+
+.o_input:focus,
+.form-control:focus {
+    border-color: #EAC800 !important;
+    box-shadow: none !important;
+}
+
+/* Icons */
+
+.fa-mobile,
+.fa-phone,
+.fa-envelope,
+.fw-bold.ms-1 {
+    color: #005040 !important;
+}
+
+/* Dropdown / Datepicker Buttons */
+
+.o_dropdown_button,
+.o_datepicker_button {
+    color: #212529 !important;
+}
+
+/* Back Arrow */
+
+.oi-arrow-left {
+    color: #005040 !important;
+}

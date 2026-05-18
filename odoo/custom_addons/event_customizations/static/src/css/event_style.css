@@ -1,0 +1,79 @@
+/* Event card left date section 
+/* =========================================================
+   NOTEBOOK TABS
+========================================================= */
+
+.nav-tabs.nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    color: #000000ac;
+    background-color: #005040;
+    border-color: #005040 #005040 #005040 #005040;
+}
+
+.nav-tabs .nav-item.show .nav-link {
+    color: #000000ac;
+    background-color: #005040;
+    border-color: #005040 #005040 #005040 #005040 !important;
+}
+
+.o_notebook .nav-link {
+    color: #005040;
+    outline-color: #005040;
+}
+
+.o_notebook .nav-link {
+    border-color: #dee2e6;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #005040;
+}
+
+/* =========================================================
+   NOTEBOOK CSS VARIABLES
+========================================================= */
+
+:root {
+    --notebook-link-border-color-active: #005040;
+    --notebook-link-border-color-active-accent: #005040;
+}
+
+/* =========================================================
+   TEXT COLORS
+========================================================= */
+
+.text-danger {
+    --color: RGBA(0,80,64, var(--text-opacity, 1));
+    color: var(--color) !important;
+}
+
+/* =========================================================
+   PRIMARY BACKGROUND OVERRIDE
+========================================================= */
+
+.text-bg-primary,
+.bg-primary {
+    color: #FFFFFF !important;
+    background-color: RGBA(234, 200, 0, var(--bg-opacity, 1)) !important;
+}
+
+/* =========================================================
+   FORM BUTTON BOX
+========================================================= */
+
+.o_form_buttonbox .oe_stat_button .o_button_icon {
+    font-size: 1.5em;
+    color: var(--o-stat-button-color, #005040);
+}
+
+/* =========================================================
+   EVENT KANBAN COLOR
+========================================================= */
+
+.o_event_kanban_view .bg-primary,
+.o_event_kanban_view .text-bg-primary,
+.o_event_kanban_view .o_kanban_record .bg-primary {
+    background: #EAC800 !important;
+    background-color: #EAC800 !important;
+    border-color: #EAC800 !important;
+}

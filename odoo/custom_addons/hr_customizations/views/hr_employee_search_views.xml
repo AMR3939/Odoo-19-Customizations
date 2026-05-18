@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="hr_employee_view_search_customizations"
+            model="ir.ui.view">
+
+        <field name="name">hr.employee.search.customizations</field>
+
+        <field name="model">hr.employee</field>
+
+        <field name="inherit_id"
+               ref="hr.view_employee_filter"/>
+
+        <field name="arch"
+               type="xml">
+
+            <!-- =============================================
+                 Search Fields
+            ============================================== -->
+
+            <xpath expr="//field[@name='name']"
+                   position="after">
+
+                <!-- Replaced work_city_id with work_location_id -->
+
+                <field name="work_location_id"/>
+
+                <field name="work_country_id"/>
+
+                <field name="degree_id"/>
+
+                <field name="stream_id"/>
+
+                <field name="university_id"/>
+
+                <field name="place_of_birth_id"/>
+
+                <field name="pob_city_id"
+                       string="Place of Birth City"/>
+
+                <field name="pob_country_id"
+                       string="Place of Birth Country"/>
+
+            </xpath>
+
+
+            <!-- =============================================
+                 Group By Filters
+            ============================================== -->
+
+            <xpath expr="//group"
+                   position="inside">
+
+                <separator/>
+
+                <filter string="Work Country"
+                        name="group_by_work_country"
+                        context="{'group_by': 'work_country_id'}"/>
+
+                <!-- Replaced Work City with Work Location -->
+
+                <filter string="Work Location"
+                        name="group_by_work_location"
+                        context="{'group_by': 'work_location_id'}"/>
+
+                <separator/>
+
+                <filter string="Place of Birth Country"
+                        name="group_by_pob_country"
+                        context="{'group_by': 'pob_country_id'}"/>
+
+                <filter string="Place of Birth City"
+                        name="group_by_pob_city"
+                        context="{'group_by': 'pob_city_id'}"/>
+
+                <separator/>
+
+                <filter string="Degree"
+                        name="group_by_degree"
+                        context="{'group_by': 'degree_id'}"/>
+
+                <filter string="Stream"
+                        name="group_by_stream"
+                        context="{'group_by': 'stream_id'}"/>
+
+                <filter string="University"
+                        name="group_by_university"
+                        context="{'group_by': 'university_id'}"/>
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+</odoo>

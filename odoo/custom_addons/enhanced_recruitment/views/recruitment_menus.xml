@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action Definitions -->
+    <record id="action_hr_stream" model="ir.actions.act_window">
+        <field name="name">Streams</field>
+        <field name="res_model">hr.stream</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_res_university" model="ir.actions.act_window">
+        <field name="name">Universities</field>
+        <field name="res_model">res.university</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu Items placed under Recruitment > Configuration > Applications -->
+    <menuitem id="menu_hr_stream"
+              name="Streams"
+              parent="hr_recruitment.menu_hr_recruitment_config_applications"
+              action="action_hr_stream"
+              sequence="2"/>
+    <menuitem id="menu_res_university"
+              name="Universities"
+              parent="hr_recruitment.menu_hr_recruitment_config_applications"
+              action="action_res_university"
+              sequence="3"/>
+    <!-- Link to the central Cities action from 'contact_enhancements' -->
+    <menuitem id="menu_res_city_recruitment_link"
+              name="Cities"
+              parent="hr_recruitment.menu_hr_recruitment_config_applications"
+              action="contact_enhancements.action_res_city"
+              sequence="4"/>
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_stream,hr.stream.access,model_hr_stream,,1,1,1,1
+access_res_university,res.university.access,model_res_university,,1,1,1,1
+access_res_city_recruitment,res.city.access,contact_enhancements.model_res_city,base.group_user,1,0,0,0
+access_hr_applicant_custom_rating,hr.applicant.custom.rating.access,model_hr_applicant,hr_recruitment.group_hr_recruitment_user,1,1,1,1
+access_hr_applicant_fields_admin,hr.applicant.fields.admin.access,model_hr_applicant,base.group_system,1,1,1,1
+access_hr_applicant_all_users,hr.applicant.all.users.access,model_hr_applicant,base.group_user,1,1,1,1
+access_hr_applicant_recruitment_manager,hr.applicant.recruitment.manager.access,model_hr_applicant,hr_recruitment.group_hr_recruitment_manager,1,1,1,1

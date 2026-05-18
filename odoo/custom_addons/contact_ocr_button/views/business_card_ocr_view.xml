@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Upload Wizard View -->
+    <record id="view_business_card_ocr_upload" model="ir.ui.view">
+        <field name="name">business.card.ocr.upload</field>
+        <field name="model">ocr.wizard</field>
+
+        <field name="arch" type="xml">
+            <form string="Business Card OCR - Upload">
+
+                <sheet>
+                    <group>
+                        <field name="partner_id" invisible="1"/>
+                        <field name="upload_image" widget="image"/>
+                    </group>
+
+                    <footer>
+                        <button name="action_extract_data"
+                                type="object"
+                                string="Extract"
+                                class="btn-primary"/>
+
+                        <button string="Cancel"
+                                class="btn-secondary"
+                                special="cancel"/>
+                    </footer>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Result Wizard View -->
+    <record id="view_business_card_ocr_result" model="ir.ui.view">
+        <field name="name">business.card.ocr.result</field>
+        <field name="model">ocr.wizard</field>
+
+        <field name="arch" type="xml">
+            <form string="Business Card OCR - Results">
+
+                <sheet>
+
+                    <group>
+                        <field name="partner_id" invisible="1"/>
+                    </group>
+
+                    <div class="row">
+
+                        <!-- OCR Text -->
+                        <div class="col-5">
+                            <h4>Detected Text</h4>
+
+                            <field name="ocr_line_ids" nolabel="1">
+
+                                <list editable="bottom">
+                                    <field name="box_text"/>
+                                    <field name="label_id"
+                                           widget="selection"
+                                           options="{'no_open': True}"/>
+                                </list>
+
+                            </field>
+                        </div>
+
+                        <!-- Image Preview -->
+                        <div class="col-7">
+                            <h4>Preview</h4>
+
+                            <field name="preview_image"
+                                   widget="image"
+                                   nolabel="1"
+                                   readonly="1"/>
+                        </div>
+
+                    </div>
+
+                    <footer>
+
+                        <button name="action_back_to_upload"
+                                type="object"
+                                string="Back"
+                                class="btn-secondary"/>
+
+                        <button name="action_apply_and_close"
+                                type="object"
+                                string="Save to Contact"
+                                class="btn-primary"/>
+
+                    </footer>
+
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+</odoo>
