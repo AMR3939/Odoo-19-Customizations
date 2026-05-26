@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- GD top-level menu (My Designs) and sub-menu are defined
+         in product_approval_views.xml to keep concerns together.
+         This file handles any additional product view tweaks. -->
+
+    <record id="product_template_search_inherit" model="ir.ui.view">
+        <field name="name">product.template.search.workflow</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter name="my_products" string="My Products" domain="[('create_uid','=',uid)]"/>
+                <separator/>
+                <filter name="first_approval" string="First Approval" domain="[('approval_state','=','first_approval')]"/>
+                <filter name="second_approval" string="Second Approval" domain="[('approval_state','=','second_approval')]"/>
+                <filter name="approved" string="Approved" domain="[('approval_state','=','approved')]"/>
+                <filter name="rejected" string="Rejected" domain="[('approval_state','=','rejected')]"/>
+            </xpath>
+            <xpath expr="//search/group" position="inside">
+                <filter string="Approval Status" name="groupby_approval_state" context="{'group_by': 'approval_state'}"/>
+                <filter string="Created By" name="groupby_create_uid" context="{'group_by': 'create_uid'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_tree_workflow_inherit" model="ir.ui.view">
+        <field name="name">product.template.tree.workflow.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="decoration-warning">approval_state=='first_approval'</attribute>
+                <attribute name="decoration-info">approval_state=='second_approval'</attribute>
+                <attribute name="decoration-success">approval_state=='approved'</attribute>
+                <attribute name="decoration-danger">approval_state=='rejected'</attribute>
+            </xpath>
+            <xpath expr="//list" position="inside">
+                <field name="approval_state" optional="show" widget="badge" 
+                       decoration-warning="approval_state=='first_approval'"
+                       decoration-info="approval_state=='second_approval'"
+                       decoration-success="approval_state=='approved'"
+                       decoration-danger="approval_state=='rejected'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
