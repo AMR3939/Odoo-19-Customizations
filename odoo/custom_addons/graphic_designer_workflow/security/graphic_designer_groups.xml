@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 1. Hidden Technical Group for Dashboard/Operations -->
+        <record id="group_inventory_operations_access" model="res.groups">
+            <field name="name">Inventory / Operations Access (Technical)</field>
+        </record>
+
+        <!-- 2. Refine Standard "Inventory User" to be the most RESTRICTED base -->
+        <record id="stock.group_stock_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="sequence">10</field>
+            <field name="privilege_id" ref="stock.res_groups_privilege_inventory"/>
+            <!-- We keep its existing implications but it will NO LONGER see the menus -->
+        </record>
+
+        <!-- 3. Custom Roles: Inherit from User but stay restricted from Dashboard -->
+        <record id="group_graphic_designer" model="res.groups">
+            <field name="name">Graphic Designer</field>
+            <field name="sequence">11</field>
+            <field name="privilege_id" ref="stock.res_groups_privilege_inventory"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('product.group_product_variant'))]"/>
+        </record>
+        <!-- [MODIFY] security/security_groups.xml -->
+
+
+        <record id="group_design_manager" model="res.groups">
+            <field name="name">Design Manager</field>
+            <field name="sequence">12</field>
+            <field name="privilege_id" ref="stock.res_groups_privilege_inventory"/>
+            <field name="implied_ids" eval="[(4, ref('group_graphic_designer')), (4, ref('group_inventory_operations_access')), (4, ref('stock.group_stock_user'))]"/>
+        </record>
+
+        <record id="group_ecommerce_head" model="res.groups">
+            <field name="name">E-Commerce Head</field>
+            <field name="sequence">13</field>
+            <field name="privilege_id" ref="stock.res_groups_privilege_inventory"/>
+            <field name="implied_ids" eval="[(4, ref('group_graphic_designer')), (4, ref('group_inventory_operations_access')), (4, ref('stock.group_stock_manager'))]"/>
+        </record>
+
+        <!-- 4. Update Administrator to be the ONLY one with Dashboard Access -->
+        <record id="stock.group_stock_manager" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="sequence">20</field>
+            <field name="implied_ids" eval="[(4, ref('group_design_manager')), (4, ref('group_ecommerce_head')), (4, ref('group_inventory_operations_access'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- 1. Hide 'Overview' Dashboard -->
+        <record id="stock.stock_picking_type_menu" model="ir.ui.menu">
+            <field name="group_ids" eval="[(6, 0, [ref('graphic_designer_workflow.group_inventory_operations_access')])]"/>
+        </record>
+
+        <!-- 2. Hide 'Operations' Parent Menu -->
+        <record id="stock.menu_stock_warehouse_mgmt" model="ir.ui.menu">
+            <field name="group_ids" eval="[(6, 0, [ref('graphic_designer_workflow.group_inventory_operations_access')])]"/>
+        </record>
+
+        <!-- 3. Hide 'Lots / Serial Numbers' from the Products dropdown -->
+        <record id="stock.menu_action_production_lot_form" model="ir.ui.menu">
+            <field name="group_ids" eval="[(6, 0, [ref('graphic_designer_workflow.group_inventory_operations_access')])]"/>
+        </record>
+
+        <!-- 4. Hide 'Reporting' Menu -->
+        <record id="stock.menu_warehouse_report" model="ir.ui.menu">
+            <field name="group_ids" eval="[(6, 0, [ref('graphic_designer_workflow.group_ecommerce_head')])]"/>
+        </record>
+
+        <!-- 5. Show 'Configuration' Menu for Operations Access -->
+        <record id="stock.menu_stock_config_settings" model="ir.ui.menu">
+            <field name="group_ids" eval="[(6, 0, [ref('graphic_designer_workflow.group_ecommerce_head')])]"/>
+        </record>
+    </data>
+</odoo>

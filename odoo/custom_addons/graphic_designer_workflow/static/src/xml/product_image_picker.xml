@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="graphic_designer_workflow.ProductImagePicker">
+        <div class="o_product_image_picker">
+            <!-- Hidden file input for local uploads -->
+            <input type="file" accept="image/*" style="display:none;"
+                   t-ref="fileInput" t-on-change="onFileSelected"/>
+
+            <t t-if="state.currentImageUrl">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <img t-att-src="state.currentImageUrl" style="width:60px; height:60px; object-fit:contain; border:1px solid #e5e7eb; border-radius:8px; background:#f9fafb;"/>
+                    <div style="display:flex; flex-direction:column; gap:4px;">
+                        <button type="button" class="btn btn-sm btn-outline-primary" t-on-click="openPicker">Change</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger" t-on-click="clearImage">Remove</button>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" t-on-click="openPicker">
+                        <i class="fa fa-image me-1"/> Pick Image
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" title="Upload from your computer" t-on-click="triggerFileUpload">
+                        <i class="fa fa-upload"/>
+                    </button>
+                </div>
+            </t>
+
+            <t t-if="state.pickerOpen">
+                <div style="position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:9999; display:flex; align-items:center; justify-content:center;" t-on-click.self="closePicker">
+                    <div style="background:#fff; border-radius:14px; padding:24px; width:560px; max-width:95vw; max-height:80vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                            <span style="font-weight:700; font-size:15px; color:#111827;">Select Product Image</span>
+                            <button type="button" class="btn-close" t-on-click="closePicker"/>
+                        </div>
+                        <t t-if="state.loading">
+                            <div style="text-align:center; padding:40px; color:#6b7280;">
+                                <i class="fa fa-spinner fa-spin fa-2x"/>
+                                <div style="margin-top:8px; font-size:13px;">Loading images...</div>
+                            </div>
+                        </t>
+                        <t t-elif="state.images.length === 0">
+                            <div style="text-align:center; padding:40px; color:#6b7280; font-size:13px;">
+                                No product images found. Please select an approved product and enable image toggles first.
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; overflow-y:auto; padding:4px;">
+                                <t t-foreach="state.images" t-as="img" t-key="img.id">
+                                    <div t-on-click="() => this.selectImage(img)"
+                                         t-attf-style="border:2px solid #{state.selectedId === img.id ? '#6366f1' : '#e5e7eb'}; border-radius:10px; padding:10px; cursor:pointer; background:#fff; display:flex; flex-direction:column; align-items:center;">
+                                        <div style="width:100%; height:110px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:6px; background:#f8f9ff;">
+                                            <img t-att-src="img.url" t-att-alt="img.name" style="max-width:90%; max-height:90%; object-fit:contain;"/>
+                                        </div>
+                                        <div style="margin-top:8px; width:100%; text-align:center;">
+                                            <span t-out="img.name" style="font-size:11px; font-weight:600; color:#374151; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"/>
+                                            <span t-out="img.image_type" style="font-size:10px; color:#6b7280; text-transform:uppercase;"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px; padding-top:12px; border-top:1px solid #f3f4f6;">
+                            <button type="button" class="btn btn-secondary btn-sm" t-on-click="closePicker">Cancel</button>
+                            <button type="button" class="btn btn-primary btn-sm" t-att-disabled="!state.selectedId" t-on-click="confirmSelection">Use this image</button>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

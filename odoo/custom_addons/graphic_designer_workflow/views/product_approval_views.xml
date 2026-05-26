@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- 1. RESTRICT standard Inventory menus to Stock Users/Managers ONLY -->
+    <!-- This hides them from Graphic Designers -->
+
+    <!-- 1. RESTRICT standard Inventory menus to Stock Users/Managers ONLY -->
+    <!-- This hides them from Graphic Designers while keeping them in the correct parent menu -->
+
+    <!-- 1. RESTRICT standard Inventory menus to Stock Users/Managers ONLY -->
+    <!-- We use <record> tags with (6, 0, ...) to REPLACE the group list and ensure they are hidden from GDs -->
+
+    <!-- Overview: Restored visibility for GDs as requested -->
+    <record id="stock.stock_picking_type_menu" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('stock.group_stock_user'), 
+            ref('stock.group_stock_manager'),
+            ref('graphic_designer_workflow.group_graphic_designer')
+        ])]"/>
+    </record>
+
+    <!-- Operations -->
+    <record id="stock.menu_stock_warehouse_mgmt" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [ref('stock.group_stock_user'), ref('stock.group_stock_manager')])]"/>
+    </record>
+
+    <!-- Reporting -->
+    <record id="stock.menu_warehouse_report" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [ref('stock.group_stock_user'), ref('stock.group_stock_manager')])]"/>
+    </record>
+
+    <!-- Configuration -->
+    <record id="stock.menu_stock_config_settings" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [ref('stock.group_stock_manager')])]"/>
+    </record>
+
+    <!-- Products Parent Menu -->
+    <record id="stock.menu_stock_inventory_control" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('stock.group_stock_user'), 
+            ref('stock.group_stock_manager'),
+            ref('graphic_designer_workflow.group_graphic_designer')
+        ])]"/>
+    </record>
+
+    <!-- Hide standard Products/Variants and Lots sub-menus from GD -->
+    <record id="stock.menu_product_variant_config_stock" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('stock.group_stock_user'), 
+            ref('stock.group_stock_manager'),
+            ref('graphic_designer_workflow.group_graphic_designer')
+        ])]"/>
+    </record>
+
+    <record id="stock.product_product_menu" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [ref('stock.group_stock_user'), ref('stock.group_stock_manager')])]"/>
+    </record>
+
+    <record id="stock.menu_action_production_lot_form" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [ref('stock.group_stock_user'), ref('stock.group_stock_manager')])]"/>
+    </record>
+
+    <!-- 2. Allow Graphic Designers to see the Inventory Root and the Products section -->
+    <record id="stock.menu_stock_root" model="ir.ui.menu">
+        <field name="group_ids" eval="[(4, ref('graphic_designer_workflow.group_graphic_designer'))]"/>
+    </record>
+
+    <!-- 3. Base Product Template View Extension for Workflow -->
+    <record id="view_product_template_form_workflow_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.workflow.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Add Approval Header for Everyone -->
+            <!-- We place it BEFORE the sheet to ensure it appears at the top of the form -->
+            <xpath expr="//sheet" position="before">
+                <field name="is_design_manager" invisible="1"/>
+                <field name="is_ecommerce_head" invisible="1"/>
+                <header>
+                    <button name="action_submit_for_approval" string="Submit for Approval" type="object" class="oe_highlight"
+                            invisible="approval_state not in ['draft', 'rejected'] or is_design_manager or is_ecommerce_head"
+                            groups="graphic_designer_workflow.group_graphic_designer"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object"
+                            invisible="approval_state != 'rejected' or is_design_manager or is_ecommerce_head"
+                            groups="graphic_designer_workflow.group_graphic_designer"/>
+                    
+                    <!-- Buttons for Managers ONLY -->
+                    <button name="action_approve_first" string="First Approval" type="object" class="oe_highlight"
+                            invisible="approval_state != 'first_approval' or not is_design_manager"
+                            groups="graphic_designer_workflow.group_design_manager"/>
+                    
+                    <!-- Design Manager can only reject at the first stage -->
+                    <button name="action_reject" string="Reject" type="object" class="btn-danger"
+                            invisible="approval_state != 'first_approval' or not is_design_manager"
+                            groups="graphic_designer_workflow.group_design_manager"/>
+
+                    <button name="action_approve_second" string="Second Approval" type="object" class="oe_highlight"
+                            invisible="approval_state != 'second_approval' or not is_ecommerce_head"
+                            groups="graphic_designer_workflow.group_ecommerce_head"/>
+                    
+                    <!-- E-Commerce Head can reject at the second stage -->
+                    <button name="action_reject" string="Reject" type="object" class="btn-danger"
+                            invisible="approval_state != 'second_approval' or not is_ecommerce_head"
+                            groups="graphic_designer_workflow.group_ecommerce_head"/>
+
+                    <button name="action_archive_custom" string="Archive" type="object"
+                            invisible="approval_state not in ['approved', 'rejected'] or not is_ecommerce_head"
+                            groups="graphic_designer_workflow.group_ecommerce_head"/>
+                    
+                    <field name="approval_state" widget="statusbar" statusbar_visible="draft,first_approval,second_approval,approved"/>
+                </header>
+                
+                <!-- Alert for Designers when waiting for FIRST approval -->
+                <div class="alert alert-info text-center mb-0" role="alert" 
+                     invisible="approval_state != 'first_approval' or is_design_manager or is_ecommerce_head">
+                    <strong>Pending Approval:</strong> This product is currently being reviewed by the Design Manager.
+                </div>
+
+                <!-- Alert for Designers when waiting for FINAL approval -->
+                <div class="alert alert-info text-center mb-0" role="alert" 
+                     invisible="approval_state != 'second_approval' or is_design_manager or is_ecommerce_head">
+                    <strong>First approval is completed:</strong> Waiting for final approval from E-Commerce Head.
+                </div>
+
+                <!-- Alert for Designers when final approval is COMPLETED -->
+                <div class="alert alert-success text-center mb-0" role="alert" 
+                     invisible="approval_state != 'approved' or is_design_manager or is_ecommerce_head">
+                    <strong>Final approval completed:</strong> Your design is now fully approved!
+                </div>
+
+                <!-- Alert for Designers when product is rejected -->
+                <div class="alert alert-danger text-center mb-0" role="alert" 
+                     invisible="approval_state != 'rejected' or is_design_manager or is_ecommerce_head">
+                    <strong>Design Rejected:</strong> 
+                    <field name="rejection_reason" readonly="1" nolabel="1" class="d-inline"/>
+                    <br/>
+                    <em>Please correct the design and submit again.</em>
+                </div>
+            </xpath>
+
+            <!-- HIDE TABS for Graphic Designers ONLY -->
+            <!-- We list all groups that SHOULD see these tabs. Designers are excluded. -->
+            <xpath expr="//page[@name='sales']" position="attributes">
+                <attribute name="groups">stock.group_stock_user,stock.group_stock_manager,graphic_designer_workflow.group_design_manager,graphic_designer_workflow.group_ecommerce_head,base.group_system</attribute>
+            </xpath>
+            <xpath expr="//page[@name='purchase']" position="attributes">
+                <attribute name="groups">stock.group_stock_user,stock.group_stock_manager,graphic_designer_workflow.group_design_manager,graphic_designer_workflow.group_ecommerce_head,base.group_system</attribute>
+            </xpath>
+            <xpath expr="//page[@name='inventory']" position="attributes">
+                <attribute name="groups">stock.group_stock_user,stock.group_stock_manager,graphic_designer_workflow.group_design_manager,graphic_designer_workflow.group_ecommerce_head,base.group_system</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

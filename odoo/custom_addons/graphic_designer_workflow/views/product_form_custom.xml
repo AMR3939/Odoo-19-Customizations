@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 1. BASE VIEW: Tabs and Ecommerce Focus -->
+    <record id="product_template_form_designer_view" model="ir.ui.view">
+        <field name="name">product.template.designer.base.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Hide Standard Tabs -->
+            <xpath expr="//page[@name='general_information']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//page[@name='sales']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//page[@name='purchase']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//page[@name='inventory']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//page[@name='sales_price']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+
+            <!-- Add Ecommerce Tab -->
+            <xpath expr="//page[@name='variants']" position="after">
+                <page name="ecommerce_focus" string="Ecommerce Content">
+                    <group string="Ecommerce Media">
+                        <field name="product_template_image_ids" class="o_website_sale_image_list" context="{'default_name': name}" mode="kanban" add-label="Add Media" nolabel="1" widget="x2_many_media_viewer"/>
+                    </group>
+                    <group string="Ecommerce Description">
+                        <field name="description_ecommerce" nolabel="1" placeholder="A detailed description for the website..."/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 2. STOCK EXTENSION: Hide Inventory Smart Buttons -->
+    <record id="product_template_form_designer_stock_inherit" model="ir.ui.view">
+        <field name="name">product.template.designer.stock.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_product_tmpl_forecast_report']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_orderpoints']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_stock_move_lines']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 3. MRP EXTENSION: Hide Manufacturing Smart Buttons -->
+    <record id="product_template_form_designer_mrp_inherit" model="ir.ui.view">
+        <field name="name">product.template.designer.mrp.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="mrp.product_template_form_view_bom_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='%(mrp.template_open_bom)d']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_mos']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 4. DOCUMENTS EXTENSION: Hide Documents Smart Button -->
+    <record id="product_template_form_designer_docs_inherit" model="ir.ui.view">
+        <field name="name">product.template.designer.docs.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_documents']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 5. PURCHASE EXTENSION: Hide Purchase Smart Button -->
+    <record id="product_template_form_designer_purchase_inherit" model="ir.ui.view">
+        <field name="name">product.template.designer.purchase.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="purchase.view_product_template_purchase_buttons_from"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_po']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ========================================== -->
+    <!-- PRODUCT VARIANT (product.product) VIEWS     -->
+    <!-- ========================================== -->
+
+    <!-- 6. BASE VARIANT VIEW: Tabs and Ecommerce Focus -->
+    <record id="product_variant_form_designer_view" model="ir.ui.view">
+        <field name="name">product.product.designer.base.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Hide Standard Tabs -->
+            <xpath expr="//page[@name='general_information']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//page[@name='sales']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//page[@name='purchase']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//page[@name='inventory']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//page[@name='sales_price']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+
+            <!-- Hide Base Documents Smart Button -->
+            <xpath expr="//button[@name='action_open_documents']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+
+            <!-- Add Ecommerce Tab to Variant View -->
+            <xpath expr="//notebook" position="inside">
+                <page name="ecommerce_focus" string="Ecommerce Content">
+                    <group string="Ecommerce Media">
+                        <field name="product_template_image_ids" class="o_website_sale_image_list" context="{'default_name': name}" mode="kanban" add-label="Add Media" nolabel="1" widget="x2_many_media_viewer"/>
+                    </group>
+                    <group string="Ecommerce Description">
+                        <field name="description_ecommerce" nolabel="1" placeholder="A detailed description for the website..."/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 7. EASY EDIT VARIANT VIEW: Modal Popups -->
+    <record id="product_variant_easy_edit_designer_view" model="ir.ui.view">
+        <field name="name">product.product.easy.edit.designer.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <!-- Hide Pricing Group (Sales Price, Standard Price) -->
+            <xpath expr="//group[@name='pricing']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <!-- Hide Logistics Group (Weight, Volume) -->
+            <xpath expr="//group[@name='weight']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <!-- Hide Codes Group (Internal Reference, Barcode) -->
+            <xpath expr="//group[@name='codes']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 8. STOCK VARIANT EXTENSION: Hide Inventory Smart Buttons -->
+    <record id="product_variant_designer_stock_inherit" model="ir.ui.view">
+        <field name="name">product.product.designer.stock.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_product_forecast_report']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_stock_move_lines']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_orderpoints'][1]" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_orderpoints'][2]" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_open_product_lot']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_related_putaway_rules']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_storage_category_capacity']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 9. MRP VARIANT EXTENSION: Hide Manufacturing Smart Buttons -->
+    <record id="product_variant_designer_mrp_inherit" model="ir.ui.view">
+        <field name="name">product.product.designer.mrp.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="mrp.product_product_form_view_bom_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_bom']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_used_in_bom']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_view_mos']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- 10. PURCHASE VARIANT EXTENSION: Hide Purchase Smart Button -->
+    <record id="product_variant_designer_purchase_inherit" model="ir.ui.view">
+        <field name="name">product.product.designer.purchase.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="purchase.product_normal_form_view_inherit_purchase"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_po']" position="attributes">
+                <attribute name="groups">graphic_designer_workflow.group_inventory_operations_access</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
