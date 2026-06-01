@@ -1,244 +1,145 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Backend Form view inheritance -->
-    <record id="survey_question_form_inherit" model="ir.ui.view">
-        <field name="name">survey.question.form.inherit</field>
-        <field name="model">survey.question</field>
-        <field name="inherit_id" ref="survey.survey_question_form"/>
-        <field name="arch" type="xml">
-            <!-- Add product options under the "Conditional display" group in the "Options" tab -->
-            <xpath expr="//field[@name='triggering_answer_ids']" position="after">
-                <field name="show_product_images"/>
-                <field name="show_variant_images"/>
-                <field name="show_ecommerce_media"/>
-            </xpath>
-
-            <!-- Display the product selector and image list inside the Description tab -->
-            <xpath expr="//page[@name='survey_description']" position="inside">
-                <group invisible="not show_product_images and not show_variant_images and not show_ecommerce_media" style="margin-top: 15px;">
-                    <field name="selected_product_id" placeholder="Choose Approved Product..."/>
-                </group>
-                <div class="mt-3 mb-3" invisible="not show_product_images and not show_variant_images and not show_ecommerce_media or not selected_product_id">
-                    <label for="selected_image_ids" style="font-weight: 600; color: #495057; display: block; margin-bottom: 8px;"/>
-                    <field name="selected_image_ids" nolabel="1">
-                        <list editable="bottom" create="false" delete="false">
-                            <field name="selected" string="Include?" widget="boolean"/>
-                            <field name="image_url" string="Image URL" readonly="1"/>
-                            <field name="image" string="Image" widget="image" options="{'size': [60, 60]}" readonly="1"/>
-                            <field name="image_type" string="Image Type" readonly="1"/>
-                            <field name="name" string="Label / Variant Name" readonly="1"/>
-                        </list>
-                    </field>
-                    <field name="description_with_images" widget="html" nolabel="1" readonly="1"
-                           invisible="not description_with_images"/>
-                </div>
-            </xpath>
-            <!-- Override value_image widget on answer choices to use product image picker -->
-            <xpath expr="//field[@name='suggested_answer_ids']//field[@name='value_image']" position="attributes">
-                <attribute name="widget">product_image_picker</attribute>
-                <attribute name="string">Image</attribute>
-            </xpath>
-        </field>
-    </record>
-
-    <!-- Frontend Survey-Taking Page: render images directly from selected_image_ids -->
-    <template id="question_container_inherit" inherit_id="survey.question_container">
-        <xpath expr="//div[@t-att-id='question.id']" position="inside">
-            <t t-set="survey_images" t-value="question.selected_image_ids.filtered(lambda i: i.selected and i.image)"/>
-            <t t-if="survey_images">
-                <div class="mt-4 mb-2">
-                    <p style="font-size:11px; font-weight:600; color:#000000; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">Lifestyle Images</p>
-                    <style>
-                        .o_survey_product_card {
-                            flex: 0 0 160px;
-                            width: 160px;
-                            background: #ffffff;
-                            border: 1.5px solid #e5e7eb;
-                            border-radius: 14px;
-                            padding: 12px;
-                            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
-                            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-                            cursor: default;
-                        }
-                        .o_survey_product_card:hover {
-                            transform: translateY(-4px);
-                            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
-                            border-color: #a5b4fc;
-                        }
-                        .o_survey_product_badge {
-                            display: inline-block;
-                            font-size: 9px;
-                            font-weight: 700;
-                            letter-spacing: 0.6px;
-                            text-transform: uppercase;
-                            padding: 2px 8px;
-                            border-radius: 20px;
-                            margin-top: 6px;
-                        }
-                    </style>
-                    <div style="display:flex; flex-direction:row; gap:14px; overflow-x:auto; padding:6px 4px 12px 4px; scrollbar-width:thin;">
-                        <t t-foreach="survey_images" t-as="img_rec">
-                            <div class="o_survey_product_card">
-                                <div style="height:130px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:10px; background:linear-gradient(145deg, #f8f9ff 0%, #f1f3f9 100%);">
-                                    <img t-attf-src="/web/image/survey.question.selected.image/#{img_rec.id}/image"
-                                         t-att-alt="img_rec.name"
-                                         style="max-width:90%; max-height:90%; object-fit:contain;"/>
-                                </div>
-                                <div style="margin-top:10px; text-align:center;">
-                                    <span t-out="img_rec.name" style="display:block; font-size:12px; font-weight:600; color:#1f2937; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.4;"/>
-                                    <t t-if="img_rec.image_type == 'product'">
-                                        <span class="o_survey_product_badge" style="background:#eff6ff; color:#2563eb;">Product</span>
-                                    </t>
-                                    <t t-elif="img_rec.image_type == 'variant'">
-                                        <span class="o_survey_product_badge" style="background:#f5f3ff; color:#7c3aed;">Variant</span>
-                                    </t>
-                                    <t t-elif="img_rec.image_type == 'ecommerce'">
-                                        <span class="o_survey_product_badge" style="background:#ecfdf5; color:#059669;">E-com Media</span>
-                                    </t>
-                                </div>
-                            </div>
-                        </t>
-                    </div>
-                </div>
-            </t>
-        </xpath>
-    </template>
-
-    <!-- Print/Review Page: render images directly from selected_image_ids -->
-    <template id="survey_page_print_inherit" inherit_id="survey.survey_page_print">
-        <xpath expr="//div[hasclass('js_question-wrapper')]/div[@t-if='not is_html_empty(question.description)']" position="after">
-            <t t-set="survey_images" t-value="question.selected_image_ids.filtered(lambda i: i.selected and i.image)"/>
-            <t t-if="survey_images">
-                <div class="mt-3 mb-2">
-                    <div style="display:flex; flex-direction:row; gap:12px; overflow-x:auto; padding:8px 4px;">
-                        <t t-foreach="survey_images" t-as="img_rec">
-                            <div style="flex:0 0 160px; width:160px; border:1px solid #e5e7eb; border-radius:10px; padding:10px; background:#ffffff; box-shadow:0 2px 6px rgba(0,0,0,0.06);">
-                                <div style="height:130px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:6px; background:#f9fafb;">
-                                    <img t-attf-src="/web/image/survey.question.selected.image/#{img_rec.id}/image"
-                                         t-att-alt="img_rec.name"
-                                         style="max-width:90%; max-height:90%; object-fit:contain;"/>
-                                </div>
-                                <div style="margin-top:8px; text-align:center;">
-                                    <span t-out="img_rec.name" style="font-size:11px; font-weight:600; color:#374151; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"/>
-                                    <t t-if="img_rec.image_type == 'product'"><span style="font-size:10px; color:#2563eb;">Product</span></t>
-                                    <t t-elif="img_rec.image_type == 'variant'"><span style="font-size:10px; color:#7c3aed;">Variant</span></t>
-                                    <t t-elif="img_rec.image_type == 'ecommerce'"><span style="font-size:10px; color:#059669;">E-com Media</span></t>
-                                </div>
-                            </div>
-                        </t>
-                    </div>
-                </div>
-            </t>
-        </xpath>
-    </template>
-
-    <!-- Statistics/Results Page: render images directly from selected_image_ids -->
-    <template id="survey_page_statistics_question_inherit" inherit_id="survey.survey_page_statistics_question">
-        <xpath expr="//div[hasclass('o_survey_question_description')]" position="after">
-            <t t-set="survey_images" t-value="question.selected_image_ids.filtered(lambda i: i.selected and i.image)"/>
-            <t t-if="survey_images">
-                <div class="ms-3 mt-2 mb-3">
-                    <div style="display:flex; flex-direction:row; gap:12px; overflow-x:auto; padding:8px 4px;">
-                        <t t-foreach="survey_images" t-as="img_rec">
-                            <div style="flex:0 0 160px; width:160px; border:1px solid #e5e7eb; border-radius:10px; padding:10px; background:#ffffff; box-shadow:0 2px 6px rgba(0,0,0,0.06);">
-                                <div style="height:130px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:6px; background:#f9fafb;">
-                                    <img t-attf-src="/web/image/survey.question.selected.image/#{img_rec.id}/image"
-                                         t-att-alt="img_rec.name"
-                                         style="max-width:90%; max-height:90%; object-fit:contain;"/>
-                                </div>
-                                <div style="margin-top:8px; text-align:center;">
-                                    <span t-out="img_rec.name" style="font-size:11px; font-weight:600; color:#374151; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"/>
-                                    <t t-if="img_rec.image_type == 'product'"><span style="font-size:10px; color:#2563eb;">Product</span></t>
-                                    <t t-elif="img_rec.image_type == 'variant'"><span style="font-size:10px; color:#7c3aed;">Variant</span></t>
-                                    <t t-elif="img_rec.image_type == 'ecommerce'"><span style="font-size:10px; color:#059669;">E-com Media</span></t>
-                                </div>
-                            </div>
-                        </t>
-                    </div>
-                </div>
-            </t>
-        </xpath>
-    </template>
-
-
-    <!-- Survey Start Page: convert description images into a horizontal slider -->
-    <template id="survey_fill_form_start_inherit" inherit_id="survey.survey_fill_form_start">
-        <xpath expr="//div[@t-field='survey.description']" position="after">
-            <script type="text/javascript">
-                document.addEventListener("DOMContentLoaded", function () {
-                    var descDiv = document.querySelector(".oe_no_empty.pb-2.text-break");
-                    if (!descDiv) return;
-
-                    var imgs = descDiv.querySelectorAll("img");
-                    if (imgs.length &lt; 2) return;
-
-                    /* Build slider only when there are 2+ images */
-                    var sliderWrap = document.createElement("div");
-                    sliderWrap.style.cssText = "position:relative; width:100%; overflow:hidden; border-radius:12px; margin-top:12px;";
-
-                    var track = document.createElement("div");
-                    track.style.cssText = "display:flex; transition:transform 0.4s ease; will-change:transform;";
-
-                    imgs.forEach(function (img) {
-                        var slide = document.createElement("div");
-                        slide.style.cssText = "flex:0 0 100%; display:flex; align-items:center; justify-content:center; background:#f8f9ff; border-radius:12px; overflow:hidden; max-height:340px;";
-                        var cloned = img.cloneNode(true);
-                        cloned.style.cssText = "max-width:100%; max-height:340px; object-fit:contain;";
-                        slide.appendChild(cloned);
-                        track.appendChild(slide);
-                        img.parentNode.removeChild(img);
-                    });
-
-                    sliderWrap.appendChild(track);
-
-                    /* Dots */
-                    var dotsWrap = document.createElement("div");
-                    dotsWrap.style.cssText = "display:flex; justify-content:center; gap:6px; margin-top:10px;";
-                    var dots = [];
-                    var current = 0;
-
-                    function goTo(n) {
-                        current = (n + imgs.length) % imgs.length;
-                        track.style.transform = "translateX(-" + (current * 100) + "%)";
-                        dots.forEach(function(d, i) {
-                            d.style.background = i === current ? "#4f46e5" : "#d1d5db";
-                            d.style.transform = i === current ? "scale(1.2)" : "scale(1)";
-                        });
-                    }
-
-                    imgs.forEach(function(_, i) {
-                        var dot = document.createElement("span");
-                        dot.style.cssText = "width:8px; height:8px; border-radius:50%; background:#d1d5db; cursor:pointer; transition:all 0.2s ease; display:inline-block;";
-                        dot.addEventListener("click", function() { goTo(i); });
-                        dots.push(dot);
-                        dotsWrap.appendChild(dot);
-                    });
-
-                    /* Prev / Next arrows */
-                    function makeArrow(label, dir) {
-                        var btn = document.createElement("button");
-                        btn.type = "button";
-                        btn.innerHTML = dir === -1 ? "&#8592;" : "&#8594;";
-                        btn.style.cssText = "position:absolute; top:50%; transform:translateY(-50%); " +
-                            (dir === -1 ? "left:10px;" : "right:10px;") +
-                            "background:rgba(255,255,255,0.85); border:none; border-radius:50%; width:32px; height:32px; font-size:16px; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.15); z-index:2; display:flex; align-items:center; justify-content:center; transition:background 0.2s;";
-                        btn.addEventListener("click", function() { goTo(current + dir); });
-                        btn.addEventListener("mouseenter", function() { btn.style.background = "#ffffff"; });
-                        btn.addEventListener("mouseleave", function() { btn.style.background = "rgba(255,255,255,0.85)"; });
-                        return btn;
-                    }
-
-                    sliderWrap.appendChild(makeArrow("prev", -1));
-                    sliderWrap.appendChild(makeArrow("next", 1));
-
-                    descDiv.appendChild(sliderWrap);
-                    descDiv.appendChild(dotsWrap);
-                    goTo(0);
-
-                    /* Auto-advance every 4s */
-                    setInterval(function() { goTo(current + 1); }, 4000);
-                });
-            </script>
-        </xpath>
-    </template>
+<!--  Backend Form view inheritance  -->
+<record id="survey_question_form_inherit" model="ir.ui.view">
+<field name="name">survey.question.form.inherit</field>
+<field name="model">survey.question</field>
+<field name="inherit_id" ref="survey.survey_question_form"/>
+<field name="arch" type="xml">
+<!--  Add product options under the "Conditional display" group in the "Options" tab  -->
+<xpath expr="//field[@name='triggering_answer_ids']" position="after">
+<field name="show_product_images"/>
+<field name="show_variant_images"/>
+<field name="show_ecommerce_media"/>
+</xpath>
+<!--  Display the product selector and image list inside the Description tab  -->
+<xpath expr="//page[@name='survey_description']" position="inside">
+<group invisible="not show_product_images and not show_variant_images and not show_ecommerce_media" style="margin-top: 15px;">
+<field name="selected_product_id" placeholder="Choose Approved Product..."/>
+</group>
+<div class="mt-3 mb-3" invisible="not show_product_images and not show_variant_images and not show_ecommerce_media or not selected_product_id">
+<label for="selected_image_ids" style="font-weight: 600; color: #495057; display: block; margin-bottom: 8px;"/>
+<field name="selected_image_ids" nolabel="1">
+<list editable="bottom" create="false" delete="false">
+<field name="selected" string="Include?" widget="boolean"/>
+<field name="image_url" string="Image URL" readonly="1"/>
+<field name="image" string="Image" widget="image" options="{'size': [60, 60]}" readonly="1"/>
+<field name="image_type" string="Image Type" readonly="1"/>
+<field name="name" string="Label / Variant Name" readonly="1"/>
+</list>
+</field>
+<field name="description_with_images" widget="html" nolabel="1" readonly="1" invisible="not description_with_images"/>
+</div>
+</xpath>
+<!--  Override value_image widget on answer choices to use product image picker  -->
+<xpath expr="//field[@name='suggested_answer_ids']//field[@name='value_image']" position="attributes">
+<attribute name="widget">product_image_picker</attribute>
+<attribute name="string">Image</attribute>
+</xpath>
+</field>
+</record>
+<!--  Frontend Survey-Taking Page: render images directly from selected_image_ids  -->
+<template id="question_container_inherit" inherit_id="survey.question_container">
+<xpath expr="//div[@t-att-id='question.id']" position="inside">
+<t t-set="survey_images" t-value="question.selected_image_ids.filtered(lambda i: i.selected and i.image)"/>
+<t t-if="survey_images">
+<div class="mt-4 mb-2">
+<p style="font-size:11px; font-weight:600; color:#000000; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">Lifestyle Images</p>
+<style> .o_survey_product_card { flex: 0 0 160px; width: 160px; background: #ffffff; border: 1.5px solid #e5e7eb; border-radius: 14px; padding: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.07); transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; cursor: default; } .o_survey_product_card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.12); border-color: #a5b4fc; } .o_survey_product_badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; margin-top: 6px; } </style>
+<div style="display:flex; flex-direction:row; gap:14px; overflow-x:auto; padding:6px 4px 12px 4px; scrollbar-width:thin;">
+<t t-foreach="survey_images" t-as="img_rec">
+<div class="o_survey_product_card">
+<div style="height:130px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:10px; background:linear-gradient(145deg, #f8f9ff 0%, #f1f3f9 100%);">
+<img t-attf-src="/web/image/survey.question.selected.image/#{img_rec.id}/image" t-att-alt="img_rec.name" style="max-width:90%; max-height:90%; object-fit:contain;"/>
+</div>
+<div style="margin-top:10px; text-align:center;">
+<span t-out="img_rec.name" style="display:block; font-size:12px; font-weight:600; color:#1f2937; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.4;"/>
+<t t-if="img_rec.image_type == 'product'">
+<span class="o_survey_product_badge" style="background:#eff6ff; color:#2563eb;">Product</span>
+</t>
+<t t-elif="img_rec.image_type == 'variant'">
+<span class="o_survey_product_badge" style="background:#f5f3ff; color:#7c3aed;">Variant</span>
+</t>
+<t t-elif="img_rec.image_type == 'ecommerce'">
+<span class="o_survey_product_badge" style="background:#ecfdf5; color:#059669;">E-com Media</span>
+</t>
+</div>
+</div>
+</t>
+</div>
+</div>
+</t>
+</xpath>
+</template>
+<!--  Print/Review Page: render images directly from selected_image_ids  -->
+<template id="survey_page_print_inherit" inherit_id="survey.survey_page_print">
+<xpath expr="//div[hasclass('js_question-wrapper')]/div[@t-if='not is_html_empty(question.description)']" position="after">
+<t t-set="survey_images" t-value="question.selected_image_ids.filtered(lambda i: i.selected and i.image)"/>
+<t t-if="survey_images">
+<div class="mt-3 mb-2">
+<div style="display:flex; flex-direction:row; gap:12px; overflow-x:auto; padding:8px 4px;">
+<t t-foreach="survey_images" t-as="img_rec">
+<div style="flex:0 0 160px; width:160px; border:1px solid #e5e7eb; border-radius:10px; padding:10px; background:#ffffff; box-shadow:0 2px 6px rgba(0,0,0,0.06);">
+<div style="height:130px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:6px; background:#f9fafb;">
+<img t-attf-src="/web/image/survey.question.selected.image/#{img_rec.id}/image" t-att-alt="img_rec.name" style="max-width:90%; max-height:90%; object-fit:contain;"/>
+</div>
+<div style="margin-top:8px; text-align:center;">
+<span t-out="img_rec.name" style="font-size:11px; font-weight:600; color:#374151; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"/>
+<t t-if="img_rec.image_type == 'product'">
+<span style="font-size:10px; color:#2563eb;">Product</span>
+</t>
+<t t-elif="img_rec.image_type == 'variant'">
+<span style="font-size:10px; color:#7c3aed;">Variant</span>
+</t>
+<t t-elif="img_rec.image_type == 'ecommerce'">
+<span style="font-size:10px; color:#059669;">E-com Media</span>
+</t>
+</div>
+</div>
+</t>
+</div>
+</div>
+</t>
+</xpath>
+</template>
+<!--  Statistics/Results Page: render images directly from selected_image_ids  -->
+<template id="survey_page_statistics_question_inherit" inherit_id="survey.survey_page_statistics_question">
+<xpath expr="//div[hasclass('o_survey_question_description')]" position="after">
+<t t-set="survey_images" t-value="question.selected_image_ids.filtered(lambda i: i.selected and i.image)"/>
+<t t-if="survey_images">
+<div class="ms-3 mt-2 mb-3">
+<div style="display:flex; flex-direction:row; gap:12px; overflow-x:auto; padding:8px 4px;">
+<t t-foreach="survey_images" t-as="img_rec">
+<div style="flex:0 0 160px; width:160px; border:1px solid #e5e7eb; border-radius:10px; padding:10px; background:#ffffff; box-shadow:0 2px 6px rgba(0,0,0,0.06);">
+<div style="height:130px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:6px; background:#f9fafb;">
+<img t-attf-src="/web/image/survey.question.selected.image/#{img_rec.id}/image" t-att-alt="img_rec.name" style="max-width:90%; max-height:90%; object-fit:contain;"/>
+</div>
+<div style="margin-top:8px; text-align:center;">
+<span t-out="img_rec.name" style="font-size:11px; font-weight:600; color:#374151; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"/>
+<t t-if="img_rec.image_type == 'product'">
+<span style="font-size:10px; color:#2563eb;">Product</span>
+</t>
+<t t-elif="img_rec.image_type == 'variant'">
+<span style="font-size:10px; color:#7c3aed;">Variant</span>
+</t>
+<t t-elif="img_rec.image_type == 'ecommerce'">
+<span style="font-size:10px; color:#059669;">E-com Media</span>
+</t>
+</div>
+</div>
+</t>
+</div>
+</div>
+</t>
+</xpath>
+</template>
+<!--  Survey Start Page: convert description images into a horizontal slider  -->
+<template id="survey_fill_form_start_inherit" inherit_id="survey.survey_fill_form_start">
+<xpath expr="//div[@t-field='survey.description']" position="after">
+<script type="text/javascript">
+//<![CDATA[
+document.addEventListener("DOMContentLoaded", function () { var descDiv = document.querySelector(".oe_no_empty.pb-2.text-break"); if (!descDiv) return; var imgs = descDiv.querySelectorAll("img"); if (imgs.length < 2) return; /* Build slider only when there are 2+ images */ var sliderWrap = document.createElement("div"); sliderWrap.style.cssText = "position:relative; width:100%; overflow:hidden; border-radius:12px; margin-top:12px;"; var track = document.createElement("div"); track.style.cssText = "display:flex; transition:transform 0.4s ease; will-change:transform;"; imgs.forEach(function (img) { var slide = document.createElement("div"); slide.style.cssText = "flex:0 0 100%; display:flex; align-items:center; justify-content:center; background:#f8f9ff; border-radius:12px; overflow:hidden; max-height:340px;"; var cloned = img.cloneNode(true); cloned.style.cssText = "max-width:100%; max-height:340px; object-fit:contain;"; slide.appendChild(cloned); track.appendChild(slide); img.parentNode.removeChild(img); }); sliderWrap.appendChild(track); /* Dots */ var dotsWrap = document.createElement("div"); dotsWrap.style.cssText = "display:flex; justify-content:center; gap:6px; margin-top:10px;"; var dots = []; var current = 0; function goTo(n) { current = (n + imgs.length) % imgs.length; track.style.transform = "translateX(-" + (current * 100) + "%)"; dots.forEach(function(d, i) { d.style.background = i === current ? "#4f46e5" : "#d1d5db"; d.style.transform = i === current ? "scale(1.2)" : "scale(1)"; }); } imgs.forEach(function(_, i) { var dot = document.createElement("span"); dot.style.cssText = "width:8px; height:8px; border-radius:50%; background:#d1d5db; cursor:pointer; transition:all 0.2s ease; display:inline-block;"; dot.addEventListener("click", function() { goTo(i); }); dots.push(dot); dotsWrap.appendChild(dot); }); /* Prev / Next arrows */ function makeArrow(label, dir) { var btn = document.createElement("button"); btn.type = "button"; btn.innerHTML = dir === -1 ? "←" : "→"; btn.style.cssText = "position:absolute; top:50%; transform:translateY(-50%); " + (dir === -1 ? "left:10px;" : "right:10px;") + "background:rgba(255,255,255,0.85); border:none; border-radius:50%; width:32px; height:32px; font-size:16px; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.15); z-index:2; display:flex; align-items:center; justify-content:center; transition:background 0.2s;"; btn.addEventListener("click", function() { goTo(current + dir); }); btn.addEventListener("mouseenter", function() { btn.style.background = "#ffffff"; }); btn.addEventListener("mouseleave", function() { btn.style.background = "rgba(255,255,255,0.85)"; }); return btn; } sliderWrap.appendChild(makeArrow("prev", -1)); sliderWrap.appendChild(makeArrow("next", 1)); descDiv.appendChild(sliderWrap); descDiv.appendChild(dotsWrap); goTo(0); /* Auto-advance every 4s */ setInterval(function() { goTo(current + 1); }, 4000); });
+//]]>
+</script>
+</xpath>
+</template>
 </odoo>

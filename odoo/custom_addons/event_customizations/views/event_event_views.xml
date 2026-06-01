@@ -45,6 +45,52 @@
 
                 </xpath>
 
+                <!-- =============================================
+                     Insert Is Online Checkbox
+                ============================================== -->
+                <xpath expr="//field[@name='address_id']"
+                       position="before">
+                    <field name="is_online"/>
+                </xpath>
+
+                <!-- =============================================
+                     Insert Online Meeting Tab in Notebook
+                ============================================== -->
+                <xpath expr="//notebook"
+                       position="inside">
+                    <page string="Online Meeting"
+                          name="online_meeting"
+                          invisible="not is_online">
+                        <group>
+                            <group string="Configuration">
+                                <field name="videoconference_provider"
+                                       required="is_online"/>
+                                <field name="jitsi_room_name"
+                                       invisible="videoconference_provider != 'jitsi'"
+                                       readonly="1"
+                                       style="color: black;"/>
+                                <field name="meeting_password"
+                                       placeholder="Passcode (Optional)"/>
+                            </group>
+                            <group string="Meeting Connection">
+                                <field name="meeting_url"
+                                       widget="url"
+                                       readonly="videoconference_provider == 'jitsi'"
+                                       string="Meeting URL"
+                                       required="is_online"
+                                       style="color: black;"/>
+                                <div colspan="2" class="mt-2">
+                                    <button name="action_generate_meeting_link"
+                                            type="object"
+                                            string="Generate / Refresh Link"
+                                            class="btn btn-secondary"
+                                            invisible="videoconference_provider == 'jitsi'"/>
+                                </div>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
             </field>
 
         </record>

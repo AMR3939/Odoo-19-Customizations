@@ -21,7 +21,12 @@
     },
 
     'data': [
+        'security/ir.model.access.csv',
+        'data/email_templates.xml',
         'views/event_event_views.xml',
+        'views/res_config_settings_views.xml',
+        'views/event_templates.xml',
+        'views/event_registration_views.xml'
     ],
 
     'installable': True,

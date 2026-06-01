@@ -77,3 +77,13 @@
     background-color: #EAC800 !important;
     border-color: #EAC800 !important;
 }
+/* =====================================================
+   Fix readonly field text color to black
+====================================================== */
+.o_field_widget.o_readonly .o_field_char,
+.o_field_widget.o_readonly span,
+.o_field_widget.o_readonly input,
+.o_field_widget.o_readonly a {
+    color: #000000 !important;
+    opacity: 1 !important;
+}

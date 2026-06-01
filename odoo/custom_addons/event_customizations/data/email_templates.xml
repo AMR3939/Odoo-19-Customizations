@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- =====================================================
+             Email Template: Online Event Meeting Link
+             Sent to confirmed + paid attendees of online events
+        ====================================================== -->
+        <record id="email_template_online_meeting_link" model="mail.template">
+            <field name="name">Online Event: Meeting Link for Attendee</field>
+            <field name="model_id" ref="event.model_event_registration"/>
+            <field name="subject">Your Meeting Link for {{ object.event_id.name }}</field>
+            <field name="email_from">{{ (object.event_id.organizer_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 20px; border-radius: 8px;">
+
+                    <div style="background: #4a90d9; color: white; padding: 24px; border-radius: 8px 8px 0 0; text-align: center;">
+                        <h1 style="margin: 0; font-size: 22px;">You're All Set! 🎉</h1>
+                        <p style="margin: 8px 0 0 0; opacity: 0.9; font-size: 15px;">Your secure meeting link is ready</p>
+                    </div>
+
+                    <div style="background: white; padding: 28px; border-radius: 0 0 8px 8px; border: 1px solid #e0e0e0; border-top: none;">
+
+                        <p style="color: #333; font-size: 16px;">Dear <strong><t t-out="object.name or 'Attendee'"/></strong>,</p>
+
+                        <p style="color: #555;">Your registration for <strong><t t-out="object.event_id.name"/></strong> has been confirmed. Please use the secure link below to join the online session.</p>
+
+                        <div style="background: #f0f4f8; border-left: 4px solid #4a90d9; padding: 16px; border-radius: 4px; margin: 20px 0;">
+                            <p style="margin: 0 0 8px 0; font-weight: bold; color: #333;">Event Details</p>
+                            <p style="margin: 0; color: #555;">📅 <t t-out="object.event_id.date_begin"/></p>
+                            <p style="margin: 4px 0 0 0; color: #555;">🎤 <t t-out="object.event_id.name"/></p>
+                            <t t-if="object.event_id.videoconference_provider">
+                                <p style="margin: 4px 0 0 0; color: #555;">📹 Platform: <t t-out="dict(object.event_id._fields['videoconference_provider'].selection).get(object.event_id.videoconference_provider, '')"/></p>
+                            </t>
+                        </div>
+
+                        <div style="text-align: center; margin: 28px 0;">
+                            <a t-att-href="object.get_secure_join_url()"
+                               style="background: #4a90d9; color: white; padding: 14px 32px; text-decoration: none; border-radius: 6px; font-size: 16px; font-weight: bold; display: inline-block;">
+                                🔗 Join Meeting
+                            </a>
+                        </div>
+
+                        <t t-if="object.event_id.meeting_password">
+                            <div style="background: #fff8e1; border: 1px solid #ffe082; padding: 12px 16px; border-radius: 4px; margin: 16px 0;">
+                                <p style="margin: 0; color: #333;"><strong>🔑 Meeting Passcode:</strong> <t t-out="object.event_id.meeting_password"/></p>
+                            </div>
+                        </t>
+
+                        <p style="color: #777; font-size: 13px; margin-top: 24px;">
+                            ⚠️ <strong>Important:</strong> This link is personal and unique to your registration. Please do not share it with others. Access is restricted to confirmed, registered attendees only.
+                        </p>
+
+                        <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;"/>
+                        <p style="color: #999; font-size: 12px; text-align: center; margin: 0;">
+                            This email was sent by <t t-out="object.event_id.organizer_id.name or 'the Event Team'"/>.
+                            If you have questions, reply to this email.
+                        </p>
+                    </div>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+    </data>
+</odoo>
