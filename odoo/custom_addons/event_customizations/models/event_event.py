@@ -4,7 +4,8 @@ from io import BytesIO
 import base64
 import qrcode
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 from odoo.fields import Datetime
 
 
@@ -12,7 +13,7 @@ class EventEvent(models.Model):
     _inherit = 'event.event'
 
     # =====================================================
-    # Fields
+    # QR Code Fields
     # =====================================================
 
     qr_code = fields.Binary(
@@ -26,6 +27,125 @@ class EventEvent(models.Model):
     )
 
     # =====================================================
+    # Online Meeting Fields
+    # =====================================================
+
+    is_online = fields.Boolean(
+        string="Is Online Event",
+        default=False
+    )
+
+    videoconference_provider = fields.Selection([
+        ('jitsi', 'Jitsi Meet'),
+        ('zoom', 'Zoom'),
+        ('meet', 'Google Meet'),
+        ('teams', 'Microsoft Teams')
+    ], string="Video Conferencing Provider", default='jitsi')
+
+    jitsi_room_name = fields.Char(
+        string="Jitsi Room Name",
+        compute="_compute_jitsi_room_name",
+        store=True,
+        readonly=False
+    )
+
+    meeting_url = fields.Char(
+        string="Meeting URL",
+        compute="_compute_meeting_url",
+        store=True,
+        readonly=False,
+        help="The actual URL to join the meeting. Can be auto-generated or manually pasted."
+    )
+
+    meeting_password = fields.Char(
+        string="Meeting Password / Passcode"
+    )
+
+    # =====================================================
+    # Compute Meeting Details
+    # =====================================================
+
+    @api.depends('name', 'is_online')
+    def _compute_jitsi_room_name(self):
+        import uuid
+        for event in self:
+            if event.is_online and not event.jitsi_room_name:
+                clean_name = "".join(c for c in (event.name or "") if c.isalnum()).lower()
+                unique_suffix = uuid.uuid4().hex[:8]
+                event.jitsi_room_name = f"odoo-{clean_name or 'event'}-{unique_suffix}"
+            elif not event.is_online:
+                event.jitsi_room_name = False
+
+    @api.depends('is_online', 'videoconference_provider', 'jitsi_room_name')
+    def _compute_meeting_url(self):
+        for event in self:
+            if not event.is_online:
+                event.meeting_url = False
+                continue
+
+            if event.videoconference_provider == 'jitsi':
+                jitsi_server = self.env['ir.config_parameter'].sudo().get_param(
+                    'event_customizations.jitsi_server_url', 'https://meet.jit.si'
+                )
+                jitsi_server = jitsi_server.rstrip('/')
+                if event.jitsi_room_name:
+                    event.meeting_url = f"{jitsi_server}/{event.jitsi_room_name}"
+                else:
+                    event.meeting_url = False
+            elif not event.meeting_url:
+                event.meeting_url = False
+
+    # =====================================================
+    # API Meeting Generator
+    # =====================================================
+
+    def action_generate_meeting_link(self):
+        self.ensure_one()
+        if not self.is_online:
+            return
+
+        if self.videoconference_provider == 'jitsi':
+            self._compute_jitsi_room_name()
+            self._compute_meeting_url()
+
+        elif self.videoconference_provider == 'zoom':
+            client_id = self.env['ir.config_parameter'].sudo().get_param(
+                'event_customizations.zoom_client_id'
+            )
+            if not client_id:
+                raise UserError(_(
+                    "Zoom API credentials are not configured. "
+                    "Please set them up in Event settings or enter a manual meeting URL."
+                ))
+            import uuid
+            self.meeting_url = f"https://zoom.us/j/{uuid.uuid4().int % (10**9)}?pwd={uuid.uuid4().hex[:10]}"
+
+        elif self.videoconference_provider == 'meet':
+            client_id = self.env['ir.config_parameter'].sudo().get_param(
+                'event_customizations.google_meet_client_id'
+            )
+            if not client_id:
+                raise UserError(_(
+                    "Google Meet API credentials are not configured. "
+                    "Please set them up in Event settings or enter a manual meeting URL."
+                ))
+            import uuid
+            meet_code = f"{uuid.uuid4().hex[:3]}-{uuid.uuid4().hex[:4]}-{uuid.uuid4().hex[:3]}"
+            self.meeting_url = f"https://meet.google.com/{meet_code}"
+
+        elif self.videoconference_provider == 'teams':
+            client_id = self.env['ir.config_parameter'].sudo().get_param(
+                'event_customizations.teams_client_id'
+            )
+            if not client_id:
+                raise UserError(_(
+                    "Microsoft Teams credentials are not configured. "
+                    "Please set them up in Event settings or enter a manual meeting URL."
+                ))
+            import uuid
+            self.meeting_url = f"https://teams.microsoft.com/l/meetup-join/odoo-event-{self.id}-{uuid.uuid4().hex[:8]}"
+
+    # =====================================================
     # Generate QR Code
     # =====================================================
 
@@ -36,10 +156,7 @@ class EventEvent(models.Model):
             if not event.id:
                 continue
 
-            # Odoo 19 compatible URL
-            event_url = (
-                f"/event/{event.id}"
-            )
+            event_url = f"/event/{event.id}"
 
             start_time = Datetime.context_timestamp(
                 event,

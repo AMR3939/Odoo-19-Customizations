@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- =====================================================
+             Template: Access Denied Page (Payment/Registration Pending)
+        ====================================================== -->
+        <template id="meeting_access_denied" name="Meeting Access Denied">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty bg-light py-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6 col-md-8 text-center bg-white p-5 rounded shadow">
+                                <div class="text-danger mb-4">
+                                    <i class="fa fa-exclamation-triangle fa-5x"></i>
+                                </div>
+                                <h2 class="mb-3 text-dark">Access Denied</h2>
+                                <p class="lead text-muted mb-4">
+                                    This meeting link is only accessible to attendees who have completed their registration and payment for 
+                                    <strong><t t-esc="event.name"/></strong>.
+                                </p>
+                                <div class="card mb-4 text-start">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Registration Details:</h5>
+                                        <p class="mb-1"><strong>Attendee:</strong> <t t-esc="registration.name"/></p>
+                                        <p class="mb-1"><strong>Email:</strong> <t t-esc="registration.email"/></p>
+                                        <p class="mb-1"><strong>Registration Status:</strong> <span class="badge bg-warning"><t t-esc="registration.state"/></span></p>
+                                        <t t-if="sale_status">
+                                            <p class="mb-1"><strong>Payment Status:</strong> <span class="badge bg-danger"><t t-esc="sale_status"/></span></p>
+                                        </t>
+                                    </div>
+                                </div>
+                                <p class="text-muted small mb-4">
+                                    If you recently made a payment, please wait a few minutes for the system to process or contact support.
+                                </p>
+                                <a href="/my/home" class="btn btn-primary btn-lg px-4">Back to Portal</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- =====================================================
+             Template: Meeting Not Ready Page
+        ====================================================== -->
+        <template id="meeting_not_ready" name="Meeting Not Ready">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty bg-light py-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6 col-md-8 text-center bg-white p-5 rounded shadow">
+                                <div class="text-warning mb-4">
+                                    <i class="fa fa-clock-o fa-5x"></i>
+                                </div>
+                                <h2 class="mb-3 text-dark">Meeting Not Ready</h2>
+                                <p class="lead text-muted mb-4">
+                                    The meeting room has not been opened or the link has not been generated yet for
+                                    <strong><t t-esc="event.name"/></strong>.
+                                </p>
+                                <p class="text-muted mb-4">
+                                    Please try refreshing this page closer to the event start time.
+                                </p>
+                                <a href="/my/home" class="btn btn-secondary btn-lg px-4 me-2">Back to Portal</a>
+                                <button onclick="window.location.reload();" class="btn btn-primary btn-lg px-4">Refresh Page</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- =====================================================
+             Template: Embedded Jitsi Video Portal (Premium UX)
+        ====================================================== -->
+        <template id="portal_meeting_jitsi" name="Portal Jitsi Meeting">
+            <t t-call="website.layout">
+                <div id="wrap" class="bg-dark py-4" style="min-height: 85vh;">
+                    <div class="container-fluid px-md-5">
+                        <div class="row align-items-center mb-3">
+                            <div class="col-md-8 text-white">
+                                <h3 class="mb-0"><t t-esc="event.name"/></h3>
+                                <p class="text-muted mb-0 small">Secure Virtual Classroom / Meeting Space</p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-2 mt-md-0">
+                                <span class="badge bg-success me-2">Connected</span>
+                                <a href="/my/home" class="btn btn-outline-light btn-sm">Leave Room</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="bg-secondary rounded shadow-lg overflow-hidden position-relative" style="height: 70vh; min-height: 500px;">
+                                    <div id="jitsi-container" style="width: 100%; height: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Load Jitsi External API Script -->
+                <script t-att-src="'https://' + jitsi_server_domain + '/external_api.js'"></script>
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const domain = "<t t-esc='jitsi_server_domain'/>";
+                        const options = {
+                            roomName: "<t t-esc='jitsi_room_name'/>",
+                            width: '100%',
+                            height: '100%',
+                            parentNode: document.querySelector('#jitsi-container'),
+                            userInfo: {
+                                displayName: "<t t-esc='registration.name'/>",
+                                email: "<t t-esc='registration.email'/>"
+                            },
+                            configOverwrite: {
+                                startWithAudioMuted: true,
+                                startWithVideoMuted: true
+                            },
+                            interfaceConfigOverwrite: {
+                                filmStripOnly: false,
+                                SHOW_JITSI_WATERMARK: false
+                            }
+                        };
+                        const api = new JitsiMeetExternalAPI(domain, options);
+
+                        // Pass password if configured
+                        const password = "<t t-esc='meeting_password'/>";
+                        if (password) {
+                            api.addEventListener('participantRoleChanged', function(event) {
+                                if (event.role === 'moderator') {
+                                    api.executeCommand('password', password);
+                                }
+                            });
+                            api.on('passwordRequired', function() {
+                                api.executeCommand('password', password);
+                            });
+                        }
+                    });
+                </script>
+            </t>
+        </template>
+
+        <!-- =====================================================
+             Inherit Website Event Page to Show Join Meeting
+             Button for Registered & Paid Online Attendees
+        ====================================================== -->
+        <template id="website_event_online_join_button"
+                name="Website Event Online Join Button"
+                inherit_id="website_event.event_description_full">
+            <xpath expr="//div[@id='o_wevent_event_main_col']" position="before">
+                <t t-if="event.is_online">
+                    <t t-set="current_partner" t-value="request.env.user.partner_id"/>
+                    <t t-set="my_registration" t-value="request.env['event.registration'].sudo().search([('event_id','=',event.id),('partner_id','=',current_partner.id)], limit=1)"/>
+                    <t t-if="my_registration">
+                        <div class="container mt-4 mb-2">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="card border-primary shadow-sm">
+                                        <div class="card-body text-center py-3">
+                                            <t t-if="my_registration.state in ('open', 'done')">
+                                                <h5 class="card-title text-primary mb-2">
+                                                    <i class="fa fa-video-camera me-2"/>
+                                                    Your Online Meeting Is Ready
+                                                </h5>
+                                                <p class="text-muted mb-2 small">
+                                                    You are registered for this online event.
+                                                    Click below to join the meeting.
+                                                </p>
+                                                <a t-att-href="my_registration.secure_join_url"
+                                                   class="btn btn-primary px-4"
+                                                   target="_blank" 
+                                                   rel="noopener noreferrer">
+                                                    <i class="fa fa-video-camera me-2"/>
+                                                    Join Meeting
+                                                </a>
+                                                <t t-if="event.meeting_password">
+                                                    <p class="text-muted small mt-2 mb-0">
+                                                        <i class="fa fa-lock me-1"/>
+                                                        Meeting Password:
+                                                        <strong>
+                                                            <t t-esc="event.meeting_password"/>
+                                                        </strong>
+                                                    </p>
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                                <h5 class="card-title text-warning mb-2">
+                                                    <i class="fa fa-clock-o me-2"/>
+                                                    Payment Pending
+                                                </h5>
+                                                <p class="text-muted mb-0 small">
+                                                    Complete your payment to access
+                                                    the meeting link for this event.
+                                                </p>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

@@ -207,7 +207,7 @@ class SurveyQuestion(models.Model):
                     except Exception:
                         continue
 
-                label = "Lifestyle Images"
+                label = "Product Image"
                 if img.image_type == 'variant':
                     label = "Variant"
                 elif img.image_type == 'ecommerce':
