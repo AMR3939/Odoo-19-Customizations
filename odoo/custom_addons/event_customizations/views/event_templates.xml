@@ -200,6 +200,30 @@
                 </t>
             </xpath>
         </template>
+        
+        <!-- =====================================================
+             Template: Show QR Code in Website Sidebar above Share
+         ====================================================== -->
+        <template id="event_details_qr_sidebar"
+                  name="Website Event Sidebar QR Code"
+                  inherit_id="website_event.event_description_full">
+            <xpath expr="//aside[@id='o_wevent_event_main_sidebar']//div[@t-if='opt_event_share_block']" position="before">
+                <div t-if="event.qr_code" 
+                     class="o_wevent_sidebar_block o_wevent_bordered_block pb-4 mb-5 s_event_qr_block"
+                     data-snippet="s_event_qr_sidebar"
+                     t-att-data-event-id="event.id">
+                    <h6 class="o_wevent_sidebar_title mb-2">Event QR Code</h6>
+                    <div class="d-inline-block rounded s_event_qr_inner mb-2 overflow-hidden"
+                         t-attf-style="background-color: {{event.qr_bg_color or '#ffffff'}}; border: 1px solid #dee2e6;">
+                        <img t-attf-src="/event_qr/generate?event_id={{event.id}}&amp;fg_color={{(event.qr_fg_color or '000000').replace('#', '')}}&amp;bg_color={{(event.qr_bg_color or 'ffffff').replace('#', '')}}&amp;eye_color={{(event.qr_eye_color or '000000').replace('#', '')}}&amp;eye_outer_color={{(event.qr_eye_outer_color or '000000').replace('#', '')}}" 
+                             class="img-fluid s_event_qr_image" 
+                             alt="Event QR Code" 
+                             style="max-width: 150px; display: block;"/>
+                    </div>
+                    <p class="text-muted small mt-2 mb-0">Scan this QR code to view event details or share it.</p>
+                </div>
+            </xpath>
+        </template>
 
     </data>
 </odoo>

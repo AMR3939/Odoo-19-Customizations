@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <!-- Single panel shown when clicking anywhere inside the Event QR snippet & Sidebar QR -->
+    <t t-name="website_event_qr_theming.WebsiteEventQrOption">
+
+        <!-- ══ SECTION THEMING ════════════════════════════════════════════════ -->
+        <t t-if="state.hasSection">
+            <we-title>🎨 Section</we-title>
+            <BuilderRow label="'Section BG'">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.sectionBg"
+                       t-on-input="(ev) => this.updateSectionBg(ev.target.value)"/>
+            </BuilderRow>
+            <t t-if="state.hasTextCol">
+                <BuilderRow label="'Text Area BG'">
+                    <input type="color" class="o_input form-control form-control-color w-100"
+                           t-att-value="state.textColBg || '#ffffff'"
+                           t-on-input="(ev) => this.updateTextColBg(ev.target.value)"/>
+                </BuilderRow>
+            </t>
+            <t t-if="state.hasQrWrapper">
+                <BuilderRow label="'QR Area BG'">
+                    <input type="color" class="o_input form-control form-control-color w-100"
+                           t-att-value="state.qrWrapperBg || '#ffffff'"
+                           t-on-input="(ev) => this.updateQrWrapperBg(ev.target.value)"/>
+                </BuilderRow>
+            </t>
+            <BuilderRow label="'Heading Color'">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.headingColor"
+                       t-on-input="(ev) => this.updateHeadingColor(ev.target.value)"/>
+            </BuilderRow>
+            <BuilderRow label="'Text Color'">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.textColor"
+                       t-on-input="(ev) => this.updateTextColor(ev.target.value)"/>
+            </BuilderRow>
+        </t>
+
+        <!-- ══ QR CODE ════════════════════════════════════════════════════════ -->
+        <we-title>📱 QR Code</we-title>
+
+        <BuilderRow label="'Event URL'">
+            <input type="url" class="o_input form-control"
+                   style="color:#212529;background:#fff;font-size:12px;"
+                   t-att-value="state.qrText"
+                   t-on-change="(ev) => this.updateText(ev.target.value)"
+                   placeholder="https://your-event.odoo.com/..."/>
+        </BuilderRow>
+        <BuilderRow label="'QR Dot Color'">
+            <input type="color" class="o_input form-control form-control-color w-100"
+                   t-att-value="state.fgColor"
+                   t-on-input="(ev) => this.updateFgColor(ev.target.value)"/>
+        </BuilderRow>
+        <BuilderRow label="'Eye Border Color'">
+            <input type="color" class="o_input form-control form-control-color w-100"
+                   t-att-value="state.eyeOuterColor"
+                   t-on-input="(ev) => this.updateEyeColor('outer', ev.target.value)"/>
+        </BuilderRow>
+        <BuilderRow label="'Eye Center Color'">
+            <input type="color" class="o_input form-control form-control-color w-100"
+                   t-att-value="state.eyeInnerColor"
+                   t-on-input="(ev) => this.updateEyeColor('inner', ev.target.value)"/>
+        </BuilderRow>
+        <BuilderRow label="'QR BG Color'">
+            <input type="color" class="o_input form-control form-control-color w-100"
+                   t-att-value="state.bgColor"
+                   t-on-input="(ev) => this.updateBgColor(ev.target.value)"/>
+        </BuilderRow>
+
+        <!-- ══ QR BOX ══════════════════════════════════════════════════════════ -->
+        <we-title>📦 QR Box</we-title>
+
+        <BuilderRow label="'Box Fill'">
+            <input type="color" class="o_input form-control form-control-color w-100"
+                   t-att-value="state.boxBg"
+                   t-on-input="(ev) => this.updateBoxBg(ev.target.value)"/>
+        </BuilderRow>
+        <BuilderRow label="'Border Color'">
+            <input type="color" class="o_input form-control form-control-color w-100"
+                   t-att-value="state.boxBorderColor"
+                   t-on-input="(ev) => this.updateBoxBorderColor(ev.target.value)"/>
+        </BuilderRow>
+        <BuilderRow label="'Border Width'">
+            <input type="range" class="form-range"
+                   min="0" max="10" step="1"
+                   t-att-value="state.boxBorderWidth"
+                   t-on-input="(ev) => this.updateBoxBorderWidth(ev.target.value)"/>
+        </BuilderRow>
+        <BuilderRow label="'Corner Radius'">
+            <input type="range" class="form-range"
+                   min="0" max="32" step="2"
+                   t-att-value="state.boxRadius"
+                   t-on-input="(ev) => this.updateBoxRadius(ev.target.value)"/>
+        </BuilderRow>
+
+        <!-- ══ BUTTON ══════════════════════════════════════════════════════════ -->
+        <t t-if="state.hasButton">
+            <we-title>🔘 Button</we-title>
+            <BuilderRow label="'Button BG'">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.btnBg"
+                       t-on-input="(ev) => this.updateBtnBg(ev.target.value)"/>
+            </BuilderRow>
+            <BuilderRow label="'Button Text'">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.btnColor"
+                       t-on-input="(ev) => this.updateBtnColor(ev.target.value)"/>
+            </BuilderRow>
+            <BuilderRow label="'Button Border'">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.btnBorderColor"
+                       t-on-input="(ev) => this.updateBtnBorderColor(ev.target.value)"/>
+            </BuilderRow>
+        </t>
+
+    </t>
+
+</templates>

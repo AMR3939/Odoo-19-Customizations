@@ -51,3 +51,28 @@ class EventMeetingController(http.Controller):
             })
 
         return request.redirect(event.meeting_url, local=False)
+
+
+class EventQRUpdateController(http.Controller):
+
+    @http.route('/event/update_qr_colors', type='json', auth='user', website=True)
+    def update_qr_colors(self, event_id, fg_color=None, bg_color=None, qr_text=None, eye_color=None, eye_outer_color=None):
+        """Endpoint to update event QR code colors and link from frontend editor."""
+        event = request.env['event.event'].browse(int(event_id))
+        if not event.exists():
+            return {'success': False, 'error': 'Event not found'}
+        vals = {}
+        if fg_color is not None:
+            vals['qr_fg_color'] = fg_color
+        if bg_color is not None:
+            vals['qr_bg_color'] = bg_color
+        if qr_text is not None:
+            vals['qr_text'] = qr_text or False
+        if eye_color is not None:
+            vals['qr_eye_color'] = eye_color
+        if eye_outer_color is not None:
+            vals['qr_eye_outer_color'] = eye_outer_color
+        if vals:
+            event.write(vals)
+            event.generate_qr_code()
+        return {'success': True}

@@ -1,0 +1,26 @@
+// Styles for Event QR code block
+.s_event_qr {
+    .s_event_qr_card {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        
+        &:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+            transform: translateY(-2px);
+        }
+    }
+    
+    .s_event_qr_wrapper {
+        display: inline-block;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        border-radius: 8px;
+    }
+    
+    .s_event_qr_image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+}

@@ -1,0 +1,15 @@
+.s_event_qr_block {
+    .s_event_qr_inner {
+        display: inline-block;
+        padding: 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+    }
+}
