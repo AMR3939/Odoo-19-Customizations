@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- ─────────────────────────────────────────────────────────────────── -->
+    <!-- TEMPLATE 0: Section-level background options                        -->
+    <!-- Shown when the section block itself is selected                     -->
+    <!-- ─────────────────────────────────────────────────────────────────── -->
+    <t t-name="emailmarketing_event_qr_theming.EventQrSectionOption">
+
+        <!-- Section outer background -->
+        <we-title>🎨 Section</we-title>
+        <BuilderRow label.translate="Section BG">
+            <input type="color"
+                   t-att-value="state.sectionBg"
+                   t-on-change="(ev) => this.updateSectionBg(ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+        <!-- Text area layer background — only shown when template has a text col layer -->
+        <t t-if="state.hasTextCol">
+            <BuilderRow label.translate="Text Area BG">
+                <input type="color"
+                       t-att-value="state.textColBg || '#ffffff'"
+                       t-on-change="(ev) => this.updateTextColBg(ev.target.value)"
+                       style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+            </BuilderRow>
+        </t>
+
+        <!-- QR area background — only shown when template has a QR wrapper -->
+        <t t-if="state.hasQrWrapper">
+            <BuilderRow label.translate="QR Area BG">
+                <input type="color"
+                       t-att-value="state.qrWrapperBg || '#ffffff'"
+                       t-on-change="(ev) => this.updateQrWrapperBg(ev.target.value)"
+                       style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+            </BuilderRow>
+        </t>
+
+        <!-- Heading color -->
+        <BuilderRow label.translate="Heading Color">
+            <input type="color"
+                   t-att-value="state.headingColor"
+                   t-on-change="(ev) => this.updateHeadingColor(ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+        <!-- Text/paragraph color -->
+        <BuilderRow label.translate="Text Color">
+            <input type="color"
+                   t-att-value="state.textColor"
+                   t-on-change="(ev) => this.updateTextColor(ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+    </t>
+
+    <!-- ─────────────────────────────────────────────────────────────────── -->
+    <!-- TEMPLATE 1: QR code options                                         -->
+    <!-- Rendered in sidebar ONLY when the QR wrapper column is selected     -->
+    <!-- ─────────────────────────────────────────────────────────────────── -->
+    <t t-name="emailmarketing_event_qr_theming.EventQrOption">
+
+        <!-- QR redirect URL / text to encode -->
+        <BuilderRow label.translate="QR Link / Text">
+            <input type="text"
+                   t-att-value="state.qrText"
+                   t-on-change="(ev) => this.updateText(ev.target.value)"
+                   placeholder="e.g. https://your-event-url.com"
+                   style="border:1px solid #6c757d; width:100%; height:32px; padding:4px 8px; border-radius:4px; font-size:13px; color:#212529; background-color:#f8f9fa;"/>
+        </BuilderRow>
+
+        <!-- QR pixel / foreground color -->
+        <BuilderRow label.translate="QR Pixel Color">
+            <input type="color"
+                   t-att-value="state.fgColor"
+                   t-on-change="(ev) => this.updateColor('fg', ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+        <!-- Eye Border Color -->
+        <BuilderRow label.translate="Eye Border Color">
+            <input type="color"
+                   t-att-value="state.eyeOuterColor"
+                   t-on-change="(ev) => this.updateEyeColor('outer', ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+        <!-- Eye Center Color -->
+        <BuilderRow label.translate="Eye Center Color">
+            <input type="color"
+                   t-att-value="state.eyeInnerColor"
+                   t-on-change="(ev) => this.updateEyeColor('inner', ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+        <!-- QR background color -->
+        <BuilderRow label.translate="QR Background">
+            <input type="color"
+                   t-att-value="state.bgColor"
+                   t-on-change="(ev) => this.updateColor('bg', ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+        <!-- Border Color -->
+        <BuilderRow label.translate="Border Color">
+            <input type="color"
+                   t-att-value="state.boxBorderColor"
+                   t-on-change="(ev) => this.updateBoxBorderColor(ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+        <!-- Border Width -->
+        <BuilderRow label.translate="Border Width">
+            <input type="range" class="form-range"
+                   min="0" max="10" step="1"
+                   t-att-value="state.boxBorderWidth"
+                   t-on-input="(ev) => this.updateBoxBorderWidth(ev.target.value)"/>
+        </BuilderRow>
+
+        <!-- Corner Radius -->
+        <BuilderRow label.translate="Corner Radius">
+            <input type="range" class="form-range"
+                   min="0" max="32" step="2"
+                   t-att-value="state.boxRadius"
+                   t-on-input="(ev) => this.updateBoxRadius(ev.target.value)"/>
+        </BuilderRow>
+
+    </t>
+
+    <!-- ─────────────────────────────────────────────────────────────────── -->
+    <!-- TEMPLATE 2: Button options                                           -->
+    <!-- Rendered in sidebar ONLY when the Register Now button is selected   -->
+    <!-- Uses Odoo's built-in BuilderColorPicker for consistent UX           -->
+    <!-- ─────────────────────────────────────────────────────────────────── -->
+    <t t-name="emailmarketing_event_qr_theming.EventQrButtonOption">
+
+        <!-- Button Background Color -->
+        <BuilderRow label.translate="Button Color">
+            <input type="color"
+                   t-att-value="state.buttonColor"
+                   t-on-change="(ev) => this.updateButtonColor(ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+        <!-- Button Text Color -->
+        <BuilderRow label.translate="Button Text Color">
+            <input type="color"
+                   t-att-value="state.textColor"
+                   t-on-change="(ev) => this.updateTextColor(ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+        <!-- Button Border Color -->
+        <BuilderRow label.translate="Button Border Color">
+            <input type="color"
+                   t-att-value="state.borderColor"
+                   t-on-change="(ev) => this.updateBorderColor(ev.target.value)"
+                   style="border:1px solid #ccc; width:100%; height:30px; cursor:pointer; padding:0; border-radius:4px;"/>
+        </BuilderRow>
+
+    </t>
+
+</templates>

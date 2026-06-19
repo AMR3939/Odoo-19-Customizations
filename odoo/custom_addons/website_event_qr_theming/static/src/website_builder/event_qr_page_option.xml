@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Extends the Event Page style panel to add QR code color + link options -->
+    <!-- Only shown when Fixed Sidebar is enabled -->
+    <t t-name="website_event_qr_theming.EventQrPageOption">
+        <t t-if="state.sidebarFixed">
+            <we-title>🎨 Event QR Code</we-title>
+            <BuilderRow label.translate="QR Dot Color">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.fgColor"
+                       t-on-change="(ev) => this.saveFgColor(ev.target.value)"/>
+            </BuilderRow>
+            <BuilderRow label.translate="Eye Border Color">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.eyeOuterColor"
+                       t-on-change="(ev) => this.saveEyeColor('outer', ev.target.value)"/>
+            </BuilderRow>
+            <BuilderRow label.translate="Eye Center Color">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.eyeInnerColor"
+                       t-on-change="(ev) => this.saveEyeColor('inner', ev.target.value)"/>
+            </BuilderRow>
+            <BuilderRow label.translate="QR Background">
+                <input type="color" class="o_input form-control form-control-color w-100"
+                       t-att-value="state.bgColor"
+                       t-on-change="(ev) => this.saveBgColor(ev.target.value)"/>
+            </BuilderRow>
+            <BuilderRow label.translate="QR Link">
+                <input type="url" class="o_input form-control"
+                       style="color:#000000 !important;background:#fff;font-size:12px;"
+                       t-att-value="state.qrText"
+                       placeholder="https://your-event-link.com"
+                       t-on-change="(ev) => this.saveQrText(ev.target.value)"/>
+            </BuilderRow>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================== -->
+    <!-- TEMPLATE 1: Side-by-Side (QR left, Text right) — original layout   -->
+    <!-- ================================================================== -->
+    <template id="s_event_qr" name="Event QR Code">
+        <section class="s_event_qr s_event_qr_block o_mail_snippet_general pt16 pb16" data-vxml="001">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-12 pt16 pb16">
+                        <div class="row s_col_no_resize o_mail_no_colorpicker align-items-center s_event_qr_text_col" data-name="Inner Block">
+                            <!-- QR image column -->
+                            <div class="col-md-5 col-12 pb16 o_not_editable text-center s_event_qr_wrapper"
+                                 contenteditable="false" data-name="QR Code Block">
+                                <div class="d-inline-block p-3 rounded s_event_qr_inner"
+                                     style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                                    <img src="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"
+                                         data-original-src="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"
+                                         class="img-fluid s_event_qr_image o_editable_media"
+                                         alt="Event QR Code"
+                                         style="width: 150px; height: 150px; display: block;"/>
+                                </div>
+                            </div>
+                            <!-- Text column -->
+                            <div class="col-md-7 col-12 o_cc">
+                                <h3><font class="h4-fs">Join Our Event</font></h3>
+                                <p class="text-muted mb-3">Scan the QR code to access event details and register instantly.</p>
+                                <p><a href="#" target="_blank" class="btn btn-primary s_event_qr_btn">Register Now</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- ================================================================== -->
+    <!-- TEMPLATE 2: Centered (QR top center, Text below)                   -->
+    <!-- ================================================================== -->
+    <template id="s_event_qr_centered" name="Event QR Code Centered">
+        <section class="s_event_qr_centered s_event_qr_block o_mail_snippet_general pt32 pb32" data-vxml="001">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-12 text-center s_event_qr_text_col" data-name="Inner Block">
+                        <!-- QR image: centered at top -->
+                        <div class="o_not_editable mb-4 d-inline-block s_event_qr_wrapper"
+                             contenteditable="false" data-name="QR Code Block">
+                            <div class="d-inline-block p-3 rounded s_event_qr_inner"
+                                 style="background-color: #f0f4ff; border: 2px solid #d0d9f5;">
+                                <img src="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"
+                                     data-original-src="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"
+                                     class="img-fluid s_event_qr_image o_editable_media"
+                                     alt="Event QR Code"
+                                     style="width: 160px; height: 160px; display: block;"/>
+                            </div>
+                        </div>
+                        <!-- Text below: individually selectable via o_cc -->
+                        <div class="o_cc pt8 pb8">
+                            <h3 style="text-align: center;"><font class="h4-fs">You're Invited!</font></h3>
+                            <p class="text-muted" style="text-align: center;">Scan to register for our upcoming event and secure your spot today.</p>
+                            <p style="text-align: center;">
+                                <a href="#" target="_blank" class="btn btn-primary s_event_qr_btn">RSVP Now</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- ================================================================== -->
+    <!-- TEMPLATE 3: Dark Theme (Text left, QR right, dark background)      -->
+    <!-- ================================================================== -->
+    <template id="s_event_qr_dark" name="Event QR Code Dark">
+        <section class="s_event_qr_dark s_event_qr_block o_mail_snippet_general o_cc pt32 pb32"
+                 data-vxml="001" style="background-color: #1a1a2e;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-9 col-12">
+                        <div class="row s_col_no_resize o_mail_no_colorpicker align-items-center s_event_qr_text_col" data-name="Inner Block">
+                            <!-- Text column: left side -->
+                            <div class="col-md-7 col-12 o_cc pt16 pb16">
+                                <h3 style="color: #ffffff;"><font class="h4-fs">Don't Miss Out!</font></h3>
+                                <p style="color: #adb5bd; font-size: 14px;" class="mb-3">
+                                    Join us for an exclusive event. Scan the QR code to reserve your place before it's too late.
+                                </p>
+                                <p>
+                                    <a href="#" target="_blank" class="btn btn-light s_event_qr_btn">Register Now</a>
+                                </p>
+                            </div>
+                            <!-- QR image: right side -->
+                            <div class="col-md-5 col-12 pb16 o_not_editable text-center s_event_qr_wrapper"
+                                 contenteditable="false" data-name="QR Code Block">
+                                <div class="d-inline-block p-3 rounded s_event_qr_inner"
+                                     style="background-color: #ffffff; border: 3px solid #4a6cf7;">
+                                    <img src="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"
+                                         data-original-src="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"
+                                         class="img-fluid s_event_qr_image o_editable_media"
+                                         alt="Event QR Code"
+                                         style="width: 140px; height: 140px; display: block;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- ================================================================== -->
+    <!-- TEMPLATE 4: Minimal (compact single row, small QR + title only)    -->
+    <!-- ================================================================== -->
+    <template id="s_event_qr_minimal" name="Event QR Code Minimal">
+        <section class="s_event_qr_minimal s_event_qr_block o_mail_snippet_general pt16 pb16" data-vxml="001">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-7 col-12">
+                        <div class="row s_col_no_resize o_mail_no_colorpicker align-items-center s_event_qr_text_col"
+                             data-name="Inner Block"
+                             style="border: 1px solid #e9ecef; border-radius: 8px; padding: 12px; background-color: #fafafa;">
+                            <!-- Small QR image -->
+                            <div class="col-3 o_not_editable text-center s_event_qr_wrapper"
+                                 contenteditable="false" data-name="QR Code Block">
+                                <div class="d-inline-block p-1 s_event_qr_inner rounded"
+                                     style="background-color: #ffffff; border: 1px solid #dee2e6;">
+                                    <img src="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"
+                                         data-original-src="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"
+                                         class="img-fluid s_event_qr_image o_editable_media"
+                                         alt="Event QR Code"
+                                         style="width: 80px; height: 80px; display: block;"/>
+                                </div>
+                            </div>
+                            <!-- Compact text + button -->
+                            <div class="col-9 o_cc ps-3">
+                                <h4 class="mb-1"><font class="h5-fs">Scan to Register</font></h4>
+                                <p class="text-muted mb-2" style="font-size: 12px;">Quick access to event details</p>
+                                <a href="#" target="_blank" class="btn btn-sm btn-primary s_event_qr_btn">
+                                    Register Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- ================================================================== -->
+    <!-- Register all 4 snippets + the new Event QR category before Footers -->
+    <!-- ================================================================== -->
+    <template id="email_designer_snippets_inherit_qr" inherit_id="mass_mailing.email_designer_snippets">
+
+        <!-- 1. New sidebar category placed directly before Footers -->
+        <xpath expr="//t[@snippet-group='footers']" position="before">
+            <t snippet-group="event_qr"
+               t-snippet="mass_mailing.s_snippet_group"
+               string="Event QR"
+               t-thumbnail="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"/>
+        </xpath>
+
+        <!-- 2. Register all 4 snippet templates under the event_qr group -->
+        <xpath expr="//t[@t-snippet='mass_mailing.s_mail_block_footer_social']" position="before">
+            <t t-snippet="emailmarketing_event_qr_theming.s_event_qr"
+               string="QR Side by Side"
+               group="event_qr"
+               t-thumbnail="/emailmarketing_event_qr_theming/static/src/img/qr_placeholder.png"/>
+            <t t-snippet="emailmarketing_event_qr_theming.s_event_qr_centered"
+               string="QR Centered"
+               group="event_qr"
+               t-thumbnail="/emailmarketing_event_qr_theming/static/src/img/qr_centered_thumb.png"/>
+            <t t-snippet="emailmarketing_event_qr_theming.s_event_qr_dark"
+               string="QR Dark Theme"
+               group="event_qr"
+               t-thumbnail="/emailmarketing_event_qr_theming/static/src/img/qr_dark_thumb.png"/>
+            <t t-snippet="emailmarketing_event_qr_theming.s_event_qr_minimal"
+               string="QR Minimal"
+               group="event_qr"
+               t-thumbnail="/emailmarketing_event_qr_theming/static/src/img/qr_minimal_thumb.png"/>
+        </xpath>
+
+    </template>
+
+</odoo>

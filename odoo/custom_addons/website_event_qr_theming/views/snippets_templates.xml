@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================== -->
+    <!-- TEMPLATE 1: Side-by-Side (QR left, Text right)                    -->
+    <!-- ================================================================== -->
+    <template id="s_event_qr" name="Event QR Code">
+        <section class="s_event_qr_block s_event_qr_side pt48 pb48" data-snippet="s_event_qr"
+                 data-drop-in="[data-oe-field='description']"
+                 t-att-data-event-id="event and event.id or False">
+            <div class="container">
+                <div class="row align-items-center justify-content-center g-4 s_event_qr_text_col" data-name="Inner Block">
+                    <!-- QR image column -->
+                    <div class="col-md-4 col-12 text-center s_event_qr_wrapper"
+                         data-name="QR Code">
+                        <div class="d-inline-block p-3 rounded-3 s_event_qr_inner"
+                             t-attf-style="background-color: {{event and event.qr_bg_color or '#f8f9fa'}}; border: 2px solid #dee2e6;">
+                            <img t-att-src="event and ('/web/image/event.event/' + str(event.id) + '/qr_code') or '/website_event_qr_theming/static/src/img/qr_placeholder.png'"
+                                 class="img-fluid s_event_qr_image"
+                                 alt="Event QR Code"
+                                 style="width: 160px; height: 160px; display: block;"/>
+                        </div>
+                    </div>
+                    <!-- Text column -->
+                    <div class="col-md-6 col-12">
+                        <h3>Join Our Event</h3>
+                        <p class="text-muted mb-3">Scan the QR code to access event details and register instantly.</p>
+                        <a href="#" target="_blank" class="btn btn-primary s_event_qr_btn">Register Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- ================================================================== -->
+    <!-- TEMPLATE 2: Centered (QR top center, Text below)                  -->
+    <!-- ================================================================== -->
+    <template id="s_event_qr_centered" name="Event QR Centered">
+        <section class="s_event_qr_block s_event_qr_centered pt48 pb48" data-snippet="s_event_qr_centered"
+                 data-drop-in="[data-oe-field='description']"
+                 t-att-data-event-id="event and event.id or False">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-12 text-center s_event_qr_text_col" data-name="Text Area">
+                        <!-- QR image centered at top -->
+                        <div class="d-inline-block mb-4 s_event_qr_wrapper"
+                             data-name="QR Code">
+                            <div class="d-inline-block p-3 rounded-3 s_event_qr_inner"
+                                 t-attf-style="background-color: {{event and event.qr_bg_color or '#f0f4ff'}}; border: 2px solid #d0d9f5;">
+                                <img t-att-src="event and ('/web/image/event.event/' + str(event.id) + '/qr_code') or '/website_event_qr_theming/static/src/img/qr_placeholder.png'"
+                                     class="img-fluid s_event_qr_image"
+                                     alt="Event QR Code"
+                                     style="width: 160px; height: 160px; display: block;"/>
+                            </div>
+                        </div>
+                        <h3 class="mb-2">You're Invited!</h3>
+                        <p class="text-muted mb-3">Scan to register for our upcoming event and secure your spot today.</p>
+                        <a href="#" target="_blank" class="btn btn-primary s_event_qr_btn">RSVP Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- ================================================================== -->
+    <!-- TEMPLATE 3: Dark Theme (Text left, QR right, dark background)     -->
+    <!-- ================================================================== -->
+    <template id="s_event_qr_dark" name="Event QR Dark">
+        <section class="s_event_qr_block s_event_qr_dark pt48 pb48" data-snippet="s_event_qr_dark"
+                 style="background-color: #1a1a2e;"
+                 data-drop-in="[data-oe-field='description']"
+                 t-att-data-event-id="event and event.id or False">
+            <div class="container">
+                <div class="row align-items-center justify-content-center g-4 s_event_qr_text_col" data-name="Inner Block">
+                    <!-- Text column: left side -->
+                    <div class="col-md-6 col-12">
+                        <h3 style="color: #ffffff;">Don't Miss Out!</h3>
+                        <p style="color: #adb5bd;" class="mb-3">
+                            Join us for an exclusive event. Scan the QR code to reserve your place before it's too late.
+                        </p>
+                        <a href="#" target="_blank" class="btn btn-light s_event_qr_btn">Register Now</a>
+                    </div>
+                    <!-- QR image: right side -->
+                    <div class="col-md-4 col-12 text-center s_event_qr_wrapper"
+                         data-name="QR Code">
+                        <div class="d-inline-block p-3 rounded-3 s_event_qr_inner"
+                             t-attf-style="background-color: {{event and event.qr_bg_color or '#ffffff'}}; border: 3px solid #4a6cf7;">
+                            <img t-att-src="event and ('/web/image/event.event/' + str(event.id) + '/qr_code') or '/website_event_qr_theming/static/src/img/qr_placeholder.png'"
+                                 class="img-fluid s_event_qr_image"
+                                 alt="Event QR Code"
+                                 style="width: 150px; height: 150px; display: block;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- ================================================================== -->
+    <!-- TEMPLATE 4: Minimal (compact single row, small QR + title)        -->
+    <!-- ================================================================== -->
+    <template id="s_event_qr_minimal" name="Event QR Minimal">
+        <section class="s_event_qr_block s_event_qr_minimal pt24 pb24" data-snippet="s_event_qr_minimal"
+                 data-drop-in="[data-oe-field='description']"
+                 t-att-data-event-id="event and event.id or False">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-8 col-12">
+                        <div class="d-flex align-items-center gap-3 p-3 rounded-3 s_event_qr_text_col"
+                             data-name="Text Area"
+                             style="border: 1px solid #e9ecef; background-color: #fafafa;">
+                            <!-- Small QR image -->
+                            <div class="flex-shrink-0 s_event_qr_wrapper"
+                                 data-name="QR Code">
+                                <div class="p-2 rounded s_event_qr_inner"
+                                     t-attf-style="background-color: {{event and event.qr_bg_color or '#ffffff'}}; border: 1px solid #dee2e6;">
+                                    <img t-att-src="event and ('/web/image/event.event/' + str(event.id) + '/qr_code') or '/website_event_qr_theming/static/src/img/qr_placeholder.png'"
+                                         class="img-fluid s_event_qr_image"
+                                         alt="Event QR Code"
+                                         style="width: 80px; height: 80px; display: block;"/>
+                                </div>
+                            </div>
+                            <!-- Compact text + button -->
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Scan to Register</h5>
+                                <p class="text-muted mb-2 small">Quick access to event details</p>
+                                <a href="#" target="_blank" class="btn btn-sm btn-primary s_event_qr_btn">
+                                    Register Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!-- ================================================================== -->
+    <!-- Snippet Registration                                               -->
+    <!-- ================================================================== -->
+    <template id="website_event_qr_snippets" inherit_id="website.snippets" name="Website Event QR Snippets">
+        <!-- 1. Define the snippet group "event_qr" before the "events" group in the snippet_groups section -->
+        <xpath expr="//t[@snippet-group='events']" position="before">
+            <t snippet-group="event_qr" t-snippet="website.s_snippet_group" string="Event QR"
+               t-thumbnail="/website_event_qr_theming/static/src/img/qr_placeholder.png"/>
+        </xpath>
+
+        <!-- 2. Register all 4 snippet templates under the event_qr group -->
+        <xpath expr="//t[@t-snippet='website_event.s_events_single_aside']" position="after">
+            <t t-snippet="website_event_qr_theming.s_event_qr" string="QR Side by Side" group="event_qr"
+               t-thumbnail="/website_event_qr_theming/static/src/img/qr_placeholder.png"/>
+            <t t-snippet="website_event_qr_theming.s_event_qr_centered" string="QR Centered" group="event_qr"
+               t-thumbnail="/website_event_qr_theming/static/src/img/qr_centered_thumb.png"/>
+            <t t-snippet="website_event_qr_theming.s_event_qr_dark" string="QR Dark Theme" group="event_qr"
+               t-thumbnail="/website_event_qr_theming/static/src/img/qr_dark_thumb.png"/>
+            <t t-snippet="website_event_qr_theming.s_event_qr_minimal" string="QR Minimal" group="event_qr"
+               t-thumbnail="/website_event_qr_theming/static/src/img/qr_minimal_thumb.png"/>
+        </xpath>
+    </template>
+
+</odoo>
+

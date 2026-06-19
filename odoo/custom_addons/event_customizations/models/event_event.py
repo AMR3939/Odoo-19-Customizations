@@ -26,6 +26,31 @@ class EventEvent(models.Model):
         default="event_qr_code.png"
     )
 
+    qr_fg_color = fields.Char(
+        string="QR Foreground Color",
+        default="#000000"
+    )
+
+    qr_bg_color = fields.Char(
+        string="QR Background Color",
+        default="#ffffff"
+    )
+
+    qr_eye_color = fields.Char(
+        string="QR Eye Center Color",
+        default="#000000"
+    )
+
+    qr_eye_outer_color = fields.Char(
+        string="QR Eye Border Color",
+        default="#000000"
+    )
+
+    qr_text = fields.Char(
+        string="QR Link / Text",
+        default=False
+    )
+
     # =====================================================
     # Online Meeting Fields
     # =====================================================
@@ -156,26 +181,29 @@ class EventEvent(models.Model):
             if not event.id:
                 continue
 
-            event_url = f"/event/{event.id}"
+            base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url') or 'http://localhost:8069'
+            base_url = base_url.rstrip('/')
+            event_url = f"{base_url}/event/{event.id}"
 
-            start_time = Datetime.context_timestamp(
-                event,
-                event.date_begin
-            )
+            start_str = ""
+            if event.date_begin:
+                start_time = Datetime.context_timestamp(event, event.date_begin)
+                start_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
 
-            end_time = Datetime.context_timestamp(
-                event,
-                event.date_end
-            )
+            end_str = ""
+            if event.date_end:
+                end_time = Datetime.context_timestamp(event, event.date_end)
+                end_str = end_time.strftime('%Y-%m-%d %H:%M:%S')
+
+            # Use the custom link if set, otherwise fallback to standard event_url
+            display_link = event.qr_text or event_url
 
             event_details = (
                 f"Event ID: {event.id}\n"
-                f"Event Name: {event.name}\n"
-                f"Start Date & Time: "
-                f"{start_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-                f"End Date & Time: "
-                f"{end_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-                f"Event Link: {event_url}"
+                f"Event Name: {event.name or ''}\n"
+                f"Start Date & Time: {start_str}\n"
+                f"End Date & Time: {end_str}\n"
+                f"Event Link: {display_link}"
             )
 
             qr = qrcode.QRCode(
@@ -188,10 +216,62 @@ class EventEvent(models.Model):
 
             qr.make(fit=True)
 
-            img = qr.make_image(
-                fill_color="black",
-                back_color="white"
-            )
+            fg_color = "#000000"
+            bg_color = "#ffffff"
+            eye_color = "#000000"
+            eye_outer_color = "#000000"
+
+            import re
+            hex_color_re = re.compile(r'^[0-9a-fA-F]{3,6}$')
+            if not fg_color.startswith('#') and hex_color_re.match(fg_color):
+                fg_color = f"#{fg_color}"
+            if not bg_color.startswith('#') and hex_color_re.match(bg_color):
+                bg_color = f"#{bg_color}"
+            if not eye_color.startswith('#') and hex_color_re.match(eye_color):
+                eye_color = f"#{eye_color}"
+            if not eye_outer_color.startswith('#') and hex_color_re.match(eye_outer_color):
+                eye_outer_color = f"#{eye_outer_color}"
+
+            border = 5
+            # We construct the image block-by-block using PIL to support custom eye colors
+            from PIL import Image, ImageDraw
+            box_size = 10
+            img_width = (qr.modules_count + 2 * border) * box_size
+            img = Image.new("RGBA", (img_width, img_width), bg_color)
+            draw = ImageDraw.Draw(img)
+
+            for r in range(qr.modules_count):
+                for c in range(qr.modules_count):
+                    if qr.modules[r][c]:
+                        # Determine color for this block
+                        color = fg_color
+                        is_eye = False
+                        
+                        # Top-left eye (0..6, 0..6)
+                        if 0 <= r < 7 and 0 <= c < 7:
+                            is_eye = True
+                            dr, dc = r, c
+                        # Top-right eye (0..6, N-7..N-1)
+                        elif 0 <= r < 7 and (qr.modules_count - 7) <= c < qr.modules_count:
+                            is_eye = True
+                            dr, dc = r, c - (qr.modules_count - 7)
+                        # Bottom-left eye (N-7..N-1, 0..6)
+                        elif (qr.modules_count - 7) <= r < qr.modules_count and 0 <= c < 7:
+                            is_eye = True
+                            dr, dc = r - (qr.modules_count - 7), c
+                        
+                        if is_eye:
+                            if 2 <= dr <= 4 and 2 <= dc <= 4:
+                                color = eye_color
+                            else:
+                                color = eye_outer_color
+                        
+                        # Draw block
+                        x0 = (c + border) * box_size
+                        y0 = (r + border) * box_size
+                        x1 = x0 + box_size
+                        y1 = y0 + box_size
+                        draw.rectangle([x0, y0, x1, y1], fill=color)
 
             buffer = BytesIO()
 
@@ -199,7 +279,7 @@ class EventEvent(models.Model):
 
             event.qr_code = base64.b64encode(
                 buffer.getvalue()
-            )
+            ).decode('utf-8')
 
             event.qr_code_filename = (
                 f"event_{event.id}_qr.png"
@@ -231,7 +311,12 @@ class EventEvent(models.Model):
             for field in [
                 'name',
                 'date_begin',
-                'date_end'
+                'date_end',
+                'qr_fg_color',
+                'qr_bg_color',
+                'qr_eye_color',
+                'qr_eye_outer_color',
+                'qr_text'
             ]
         ):
             self.generate_qr_code()
