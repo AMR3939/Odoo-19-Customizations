@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="gogaga_theme_asset" model="theme.ir.asset">
+        <field name="name">GoGaga Theme CSS</field>
+        <field name="bundle">web.assets_frontend</field>
+        <field name="path">theme_gogaga_1_aarathirocks/static/src/css/theme.css</field>
+    </record>
+</odoo>

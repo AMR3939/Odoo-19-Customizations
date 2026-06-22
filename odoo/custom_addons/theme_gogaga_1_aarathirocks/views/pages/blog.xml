@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         BLOG PAGE THEME — GoGaga Entertainments
+         Confirmed from actual Odoo 19 template inspection:
+
+         website_blog.index      — layout wrapper, has div#wrap
+         website_blog.blog_post_complete — single post page,
+                                   has section#o_wblog_post_top,
+                                   section#o_wblog_post_main,
+                                   section#o_wblog_post_footer
+         ═══════════════════════════════════════════════════════════ -->
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         1. BLOG LISTING — hero + ticker injected inside div#wrap
+            BEFORE the t-out="0" content slot.
+            Inherits: website_blog.index (confirmed has div#wrap)
+         ───────────────────────────────────────────────────────── -->
+    <record id="gg_blog_hero_inject" model="theme.ir.ui.view">
+        <field name="name">gogaga.blog.hero.inject</field>
+        <field name="key">theme_gogaga_1_aarathirocks.blog_hero_inject</field>
+        <field name="inherit_id" ref="website_blog.index"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@id='wrap']//t[@t-out='0']" position="before">
+                <t t-if="not blog_post">
+                    <!-- ── HERO ── -->
+                    <section class="gg-blog-hero">
+                        <div class="gg-blog-hero__content container">
+                            <p class="gg-tag">Stories &amp; Insights</p>
+                            <h1 class="gg-blog-hero__title">
+                                Behind the <em>Curtain</em>
+                            </h1>
+                            <p class="gg-blog-hero__sub">
+                                News, talent stories, industry insights and updates
+                                from the world of GoGaga Entertainments.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- ── GOLD TICKER ── -->
+                    <div class="gg-ticker">
+                        <div class="gg-ticker-inner">
+                            <span class="gg-ticker-item">Talent Stories <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Industry Insights <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Event Recaps <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Behind The Scenes <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">GoGaga News <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Casting Calls <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">South India Entertainment <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Talent Stories <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Industry Insights <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Event Recaps <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Behind The Scenes <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">GoGaga News <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Casting Calls <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">South India Entertainment <span class="gg-ticker-dot"></span></span>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+
+            <!-- Add our class to div#wrap for scoped CSS -->
+            <xpath expr="//div[@id='wrap']" position="attributes">
+                <attribute name="t-attf-class" add="#{not blog_post and 'gg-blog-index-wrap' or ''}" separator=" "/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         2. BLOG LISTING — CTA banner after content slot
+         ───────────────────────────────────────────────────────── -->
+    <record id="gg_blog_cta_inject" model="theme.ir.ui.view">
+        <field name="name">gogaga.blog.cta.inject</field>
+        <field name="key">theme_gogaga_1_aarathirocks.blog_cta_inject</field>
+        <field name="inherit_id" ref="website_blog.index"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@id='wrap']//t[@t-out='0']" position="after">
+                <t t-if="not blog_post">
+                    <section class="gg-audition" style="margin-top:0;">
+                        <div>
+                            <p class="gg-audition-eyebrow">Join The Stage</p>
+                            <h2 class="gg-audition-title">Register Your Talent</h2>
+                            <p class="gg-audition-sub">
+                                Read enough? Take the next step — let us help
+                                your talent find its rightful stage.
+                            </p>
+                        </div>
+                        <a href="/register" class="gg-btn-dark">Apply Now</a>
+                    </section>
+                </t>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         3. SINGLE BLOG POST — ticker above post cover
+            Confirmed: section#o_wblog_post_top exists in arch
+         ───────────────────────────────────────────────────────── -->
+    <record id="gg_blog_post_ticker" model="theme.ir.ui.view">
+        <field name="name">gogaga.blog.post.ticker</field>
+        <field name="key">theme_gogaga_1_aarathirocks.blog_post_ticker</field>
+        <field name="inherit_id" ref="website_blog.blog_post_complete"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//section[@id='o_wblog_post_top']" position="before">
+                <div class="gg-ticker">
+                    <div class="gg-ticker-inner">
+                        <span class="gg-ticker-item">GoGaga Blog <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Entertainment &amp; Talent <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Trivandrum <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">South India <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Stories &amp; Insights <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">GoGaga Blog <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Entertainment &amp; Talent <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Trivandrum <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">South India <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Stories &amp; Insights <span class="gg-ticker-dot"></span></span>
+                    </div>
+                </div>
+            </xpath>
+
+            <!-- Scope our CSS to the post main content area -->
+            <xpath expr="//section[@id='o_wblog_post_main']" position="attributes">
+                <attribute name="t-attf-class" add="gg-blog-post-page" separator=" "/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         4. SINGLE BLOG POST — CTA after post footer section
+            Confirmed: section#o_wblog_post_footer exists in arch
+         ───────────────────────────────────────────────────────── -->
+    <record id="gg_blog_post_footer_cta" model="theme.ir.ui.view">
+        <field name="name">gogaga.blog.post.footer.cta</field>
+        <field name="key">theme_gogaga_1_aarathirocks.blog_post_footer_cta</field>
+        <field name="inherit_id" ref="website_blog.blog_post_complete"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//section[@id='o_wblog_post_footer']" position="after">
+                <section class="gg-audition" style="margin-top:0;">
+                    <div>
+                        <p class="gg-audition-eyebrow">Join The Stage</p>
+                        <h2 class="gg-audition-title">Register Your Talent</h2>
+                        <p class="gg-audition-sub">
+                            Inspired by what you read? Let us help your talent
+                            find its rightful stage.
+                        </p>
+                    </div>
+                    <a href="/register" class="gg-btn-dark">Apply Now</a>
+                </section>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

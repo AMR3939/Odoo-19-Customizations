@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SERVICES PAGE — GoGaga Entertainments
+         Font stack: DM Sans + Bebas Neue + Playfair Display
+         Buttons: .gg-btn-gold / .gg-btn-outline / .gg-btn-dark
+         Ticker:  .gg-ticker > .gg-ticker-inner > .gg-ticker-item
+         ═══════════════════════════════════════════════════════ -->
+
+    <record id="page_services" model="theme.ir.ui.view">
+        <field name="name">gogaga.page.services</field>
+        <field name="key">theme_gogaga_1_aarathirocks.page_services</field>
+        <field name="arch" type="xml">
+            <t t-name="theme_gogaga_1_aarathirocks.page_services">
+                <t t-call="website.layout">
+                    <t t-set="pageName" t-value="'Services'"/>
+                    <t t-set="classes" t-value="'gogaga-theme'"/>
+
+                    <div id="wrap" class="gg-page-services">
+
+                        <!-- ══════════════════════════════════
+                             1. HERO
+                             ══════════════════════════════════ -->
+                        <section class="gg-svc-hero">
+                            <div class="gg-svc-hero__content container">
+                                <p class="gg-tag">What We Offer</p>
+                                <h1 class="gg-svc-hero__title">
+                                    Crafting <em>Extraordinary</em><br/>
+                                    Experiences
+                                </h1>
+                                <p class="gg-svc-hero__sub">
+                                    Talent management, brand events, casting and production —
+                                    every service built to leave a lasting impression.
+                                </p>
+                                <div class="gg-svc-hero__cta">
+                                    <a href="/contact" class="gg-btn-gold">Get In Touch</a>
+                                    <a href="#svc-grid" class="gg-btn-outline">Explore Services</a>
+                                </div>
+                            </div>
+                            <div class="gg-hero-scroll">Scroll</div>
+                        </section>
+
+                        <!-- ══════════════════════════════════
+                             2. GOLD TICKER (same markup as homepage)
+                             ══════════════════════════════════ -->
+                        <div class="gg-ticker">
+                            <div class="gg-ticker-inner">
+                                <span class="gg-ticker-item">Branded Events <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Talent Management <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Artist Casting <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Film &amp; Ad Production <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Event Partnering <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Artist Placements <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Corporate Videos <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Branded Events <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Talent Management <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Artist Casting <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Film &amp; Ad Production <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Event Partnering <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Artist Placements <span class="gg-ticker-dot"></span></span>
+                                <span class="gg-ticker-item">Corporate Videos <span class="gg-ticker-dot"></span></span>
+                            </div>
+                        </div>
+
+                        <!-- ══════════════════════════════════
+                             3. THREE PILLARS CARDS
+                             ══════════════════════════════════ -->
+                        <section id="svc-grid" class="gg-svc-grid">
+                            <div class="container">
+                                <div class="gg-svc-grid__header">
+                                    <p class="gg-tag">Our Expertise</p>
+                                    <h2>Three Pillars of <em>GoGaga</em></h2>
+                                    <p class="gg-svc-grid__sub">
+                                        Everything we do is rooted in one belief —
+                                        great talent deserves a great stage.
+                                    </p>
+                                </div>
+
+                                <div class="gg-svc-cards">
+
+                                    <!-- Card 1 — Branded Events -->
+                                    <div class="gg-service-card gg-svc-card--full">
+                                        <div class="gg-service-num">01</div>
+                                        <div class="gg-svc-card__icon">
+                                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="24" cy="24" r="22" stroke="#EAC800" stroke-width="1.2"/>
+                                                <path d="M14 32 C14 22 20 16 24 14 C28 16 34 22 34 32" stroke="#EAC800" stroke-width="1.2" stroke-linecap="round"/>
+                                                <path d="M18 28 L24 20 L30 28" stroke="#EAC800" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <circle cx="24" cy="34" r="2" fill="#EAC800"/>
+                                            </svg>
+                                        </div>
+                                        <h3 class="gg-service-name">Branded Events &amp; Partnering</h3>
+                                        <p class="gg-service-desc">
+                                            More than dance and music — we create immersive experiences where passion
+                                            meets memory. We collaborate with brands to transform ordinary gatherings
+                                            into extraordinary spectacles. We'll provide the talent and the know-how.
+                                        </p>
+                                        <ul class="gg-svc-list">
+                                            <li>Brand association &amp; co-sponsorship</li>
+                                            <li>Live concerts &amp; cultural shows</li>
+                                            <li>Corporate entertainment events</li>
+                                            <li>College fests &amp; community gatherings</li>
+                                        </ul>
+                                        <a href="/event" class="gg-service-link">Explore Events →</a>
+                                    </div>
+
+                                    <!-- Card 2 — Casting (featured gold) -->
+                                    <div class="gg-service-card gg-svc-card--full gg-svc-card--gold">
+                                        <div class="gg-svc-card__badge">Most Popular</div>
+                                        <div class="gg-service-num">02</div>
+                                        <div class="gg-svc-card__icon gg-svc-card__icon--dark">
+                                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="24" cy="24" r="22" stroke="#231F20" stroke-width="1.2"/>
+                                                <circle cx="24" cy="18" r="6" stroke="#231F20" stroke-width="1.2"/>
+                                                <path d="M12 38 C12 30 17 26 24 26 C31 26 36 30 36 38" stroke="#231F20" stroke-width="1.2" stroke-linecap="round"/>
+                                                <path d="M32 14 L34 16 L38 12" stroke="#231F20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <h3 class="gg-service-name">Casting &amp; Placements</h3>
+                                        <p class="gg-service-desc">
+                                            Searching for amazing talent for your ad or film? We provide casting
+                                            services for commercials and films with artists from diverse domains.
+                                            We also place artists at weddings, elite hotels and major events.
+                                        </p>
+                                        <ul class="gg-svc-list">
+                                            <li>Ad commercial &amp; film casting</li>
+                                            <li>Artist discovery &amp; first-break opportunities</li>
+                                            <li>Wedding &amp; hospitality placements</li>
+                                            <li>Musicians, dancers &amp; performers</li>
+                                        </ul>
+                                        <a href="/register" class="gg-service-link">Register as Artist →</a>
+                                    </div>
+
+                                    <!-- Card 3 — Production -->
+                                    <div class="gg-service-card gg-svc-card--full">
+                                        <div class="gg-service-num">03</div>
+                                        <div class="gg-svc-card__icon">
+                                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="24" cy="24" r="22" stroke="#EAC800" stroke-width="1.2"/>
+                                                <rect x="12" y="18" width="18" height="14" rx="2" stroke="#EAC800" stroke-width="1.2"/>
+                                                <path d="M30 21 L38 17 L38 31 L30 27" stroke="#EAC800" stroke-width="1.2" stroke-linejoin="round"/>
+                                                <circle cx="21" cy="25" r="2" fill="#EAC800"/>
+                                            </svg>
+                                        </div>
+                                        <h3 class="gg-service-name">Film &amp; Ad Production</h3>
+                                        <p class="gg-service-desc">
+                                            From storyboarding to lights-camera-action, our creative geniuses own
+                                            the set. Ad commercials, explainers, corporate or music videos —
+                                            we work alongside you to deliver the most beautiful quality content.
+                                        </p>
+                                        <ul class="gg-svc-list">
+                                            <li>Ad commercial production</li>
+                                            <li>Corporate &amp; explainer videos</li>
+                                            <li>Music video production</li>
+                                            <li>Storyboarding &amp; creative direction</li>
+                                        </ul>
+                                        <a href="/contact" class="gg-service-link">Start a Project →</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- ══════════════════════════════════
+                             4. BRANDED EVENTS — DEEP DIVE
+                             ══════════════════════════════════ -->
+                        <section class="gg-svc-deep gg-svc-deep--dark" id="svc-events">
+                            <div class="container">
+                                <div class="gg-svc-deep__grid">
+                                    <div class="gg-svc-deep__media">
+                                        <div class="gg-img-frame" style="height:420px;">
+                                            <img src="/theme_gogaga_1_aarathirocks/static/src/img/events_placeholder.png"
+                                                 alt="GoGaga Branded Events"/>
+                                            <div class="gg-img-frame__border"></div>
+                                        </div>
+                                    </div>
+                                    <div class="gg-svc-deep__copy">
+                                        <p class="gg-tag">Service 01</p>
+                                        <h2 class="gg-section-title">
+                                            Branded Events<br/>
+                                            <em>&amp; Partnering</em>
+                                        </h2>
+                                        <p class="gg-body-text">
+                                            It's much more than just dance and music. A chance to meet interesting
+                                            folk who share your passions — creating memories worth a lifetime.
+                                            For all artistic mavericks, opportunities are always knocking.
+                                        </p>
+                                        <p class="gg-body-text">
+                                            We collaborate with your company to transform ordinary events into
+                                            extraordinary experiences through brand association.
+                                            We'll provide the talent and the know-how.
+                                        </p>
+                                        <div class="gg-svc-stats">
+                                            <div class="gg-hero-stat">
+                                                <div class="gg-stat-num">300<span style="color:#EAC800">+</span></div>
+                                                <div class="gg-stat-label">Events Produced</div>
+                                            </div>
+                                            <div class="gg-hero-stat">
+                                                <div class="gg-stat-num">50<span style="color:#EAC800">+</span></div>
+                                                <div class="gg-stat-label">Brand Partners</div>
+                                            </div>
+                                            <div class="gg-hero-stat">
+                                                <div class="gg-stat-num">12<span style="color:#EAC800">+</span></div>
+                                                <div class="gg-stat-label">Years of Excellence</div>
+                                            </div>
+                                        </div>
+                                        <a href="/event" class="gg-btn-gold">Explore Events</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- ══════════════════════════════════
+                             5. CASTING — DEEP DIVE (green bg)
+                             ══════════════════════════════════ -->
+                        <section class="gg-svc-deep gg-svc-deep--green" id="svc-casting">
+                            <div class="container">
+                                <div class="gg-svc-deep__grid gg-svc-deep__grid--rev">
+                                    <div class="gg-svc-deep__copy">
+                                        <p class="gg-tag gg-tag--dark">Service 02</p>
+                                        <h2 class="gg-section-title gg-section-title--dark">
+                                            Casting<br/>
+                                            <em>&amp; Placements</em>
+                                        </h2>
+                                        <p class="gg-body-text gg-body-text--dark">
+                                            Are you a production or film company searching for amazing talent?
+                                            We provide casting services for ad commercials and films with artists
+                                            and divas from diverse domains.
+                                        </p>
+                                        <p class="gg-body-text gg-body-text--dark">
+                                            Shoutout to all artists looking for their first break — register with
+                                            us for exciting opportunities. We also place performers at weddings,
+                                            elite hotels and major events to add to their allure.
+                                        </p>
+                                        <div class="gg-svc-pills">
+                                            <span class="gg-pill gg-pill--solid">Dancers</span>
+                                            <span class="gg-pill gg-pill--solid">Musicians</span>
+                                            <span class="gg-pill gg-pill--solid">Actors</span>
+                                            <span class="gg-pill gg-pill--solid">Comedians</span>
+                                            <span class="gg-pill gg-pill--solid">Models</span>
+                                            <span class="gg-pill gg-pill--solid">Photographers</span>
+                                            <span class="gg-pill gg-pill--solid">Athletes</span>
+                                        </div>
+                                        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+                                            <a href="/register" class="gg-btn-dark">Register as Artist</a>
+                                            <a href="/contact" class="gg-btn-dark">Hire Talent</a>
+                                        </div>
+                                    </div>
+                                    <div class="gg-svc-deep__media">
+                                        <div class="gg-img-frame" style="height:420px;">
+                                            <img src="/theme_gogaga_1_aarathirocks/static/src/img/casting_placeholder.png"
+                                                 alt="GoGaga Casting Services"/>
+                                            <div class="gg-img-frame__border"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- ══════════════════════════════════
+                             6. PRODUCTION — DEEP DIVE
+                             ══════════════════════════════════ -->
+                        <section class="gg-svc-deep gg-svc-deep--dark" id="svc-production">
+                            <div class="container">
+                                <div class="gg-svc-deep__grid">
+                                    <div class="gg-svc-deep__media">
+                                        <div class="gg-img-frame" style="height:420px;">
+                                            <img src="/theme_gogaga_1_aarathirocks/static/src/img/production_placeholder.png"
+                                                 alt="GoGaga Production Services"/>
+                                            <div class="gg-img-frame__border"></div>
+                                        </div>
+                                    </div>
+                                    <div class="gg-svc-deep__copy">
+                                        <p class="gg-tag">Service 03</p>
+                                        <h2 class="gg-section-title">
+                                            Film &amp; Ad<br/>
+                                            <em>Production</em>
+                                        </h2>
+                                        <p class="gg-body-text">
+                                            Make the best use of our production services for ad commercials,
+                                            explainer, corporate or music videos. From storyboarding to lights,
+                                            camera, action — we know how to own the set.
+                                        </p>
+                                        <p class="gg-body-text">
+                                            Our brilliant creative geniuses work alongside you to ensure you get
+                                            the most beautiful quality content that perfectly realises your vision.
+                                        </p>
+                                        <!-- Process steps reuse .gg-ethos-val pattern from theme -->
+                                        <div class="gg-ethos-values" style="margin-top:1.5rem;">
+                                            <div class="gg-ethos-val">
+                                                <span class="gg-ethos-val-num">1</span>
+                                                <div class="gg-ethos-val-text">
+                                                    <strong>Concept &amp; Storyboard</strong>
+                                                    <span>We ideate and sketch out the full creative vision with you.</span>
+                                                </div>
+                                            </div>
+                                            <div class="gg-ethos-val">
+                                                <span class="gg-ethos-val-num">2</span>
+                                                <div class="gg-ethos-val-text">
+                                                    <strong>Pre-Production</strong>
+                                                    <span>Cast, crew, locations and shooting schedules are locked in.</span>
+                                                </div>
+                                            </div>
+                                            <div class="gg-ethos-val">
+                                                <span class="gg-ethos-val-num">3</span>
+                                                <div class="gg-ethos-val-text">
+                                                    <strong>Production</strong>
+                                                    <span>Lights. Camera. Action. Our team owns the set completely.</span>
+                                                </div>
+                                            </div>
+                                            <div class="gg-ethos-val">
+                                                <span class="gg-ethos-val-num">4</span>
+                                                <div class="gg-ethos-val-text">
+                                                    <strong>Post &amp; Delivery</strong>
+                                                    <span>Editing, colour grading and final delivery to brief.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="/contact" class="gg-btn-gold" style="margin-top:2rem;display:inline-block;">Start a Project</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- ══════════════════════════════════
+                             7. CLOSING CTA — mirrors .gg-about-cta
+                             ══════════════════════════════════ -->
+                        <section class="gg-svc-cta">
+                            <div class="gg-svc-cta__overlay"></div>
+                            <div class="container gg-svc-cta__inner">
+                                <p class="gg-tag" style="justify-content:center;">Need Help?</p>
+                                <h2 class="gg-about-cta__title">
+                                    Not sure where<br/>to start?
+                                </h2>
+                                <p class="gg-about-cta__sub">
+                                    For any queries, feel free to contact our crew.<br/>
+                                    We'll guide you through every step of the way.
+                                </p>
+                                <div class="gg-about-cta__btns">
+                                    <a href="/contact" class="gg-btn-gold">Contact Us</a>
+                                    <a href="/register" class="gg-btn-outline">Artist Registration</a>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div><!-- /wrap -->
+                </t>
+            </t>
+        </field>
+    </record>
+
+    <!-- Website page record -->
+    <record id="website_page_services" model="theme.website.page">
+        <field name="url">/services</field>
+        <field name="view_id" ref="page_services"/>
+        <field name="is_published" eval="True"/>
+        <field name="website_indexed" eval="True"/>
+    </record>
+
+</odoo>

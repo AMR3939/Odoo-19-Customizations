@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- gg_register_view FIRST, then page record that refs it -->
+    <record id="gg_register_view" model="theme.ir.ui.view">
+        <field name="name">gogaga.register</field>
+        <field name="key">theme_gogaga_1_aarathirocks.register</field>
+        <field name="arch" type="xml">
+            <t t-name="theme_gogaga_1_aarathirocks.register">
+                <t t-call="website.layout">
+                    <t t-set="pageName" t-value="'register'"/>
+                    <t t-set="classes" t-value="'gogaga-theme'"/>
+
+                    <!-- PAGE HERO -->
+                    <section class="gg-register-hero">
+                        <div class="gg-register-hero__content container">
+                            <p class="gg-tag">Open Registrations</p>
+                            <h1 class="gg-register-hero__title">
+                                Step Into The <em>Spotlight</em>
+                            </h1>
+                            <p class="gg-register-hero__sub">
+                                Fill in the form below and take your first step toward the
+                                GoGaga Grand Audition. We will be in touch soon.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- GOLD TICKER -->
+                    <div class="gg-ticker">
+                        <div class="gg-ticker-inner">
+                            <span class="gg-ticker-item">Grand Audition <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Register Now <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Trivandrum <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Open Auditions <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">All Talents Welcome <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Singers <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Dancers <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Comedians <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Grand Audition <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Register Now <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Trivandrum <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">All Talents Welcome <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Singers <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Dancers <span class="gg-ticker-dot"></span></span>
+                            <span class="gg-ticker-item">Comedians <span class="gg-ticker-dot"></span></span>
+                        </div>
+                    </div>
+
+                    <!-- MAIN REGISTER SECTION -->
+                    <section class="gg-register-section">
+                        <div class="gg-register-inner container">
+
+                            <!-- LEFT: Info panel -->
+                            <div class="gg-register-info">
+                                <p class="gg-tag">Why Register</p>
+                                <h2 class="gg-register-info__title">
+                                    Your Stage<br/>Awaits You
+                                </h2>
+                                <p class="gg-register-info__body">
+                                    GoGaga Entertainments has been discovering and launching
+                                    talent across South India since 2012. Our Grand Audition
+                                    is open to all - singers, dancers, comedians, actors,
+                                    musicians, and beyond.
+                                </p>
+
+                                <div class="gg-register-perks">
+                                    <div class="gg-register-perk">
+                                        <span class="gg-register-perk__icon">01</span>
+                                        <div>
+                                            <strong>Professional Platform</strong>
+                                            <p>Perform in front of industry professionals and a live audience.</p>
+                                        </div>
+                                    </div>
+                                    <div class="gg-register-perk">
+                                        <span class="gg-register-perk__icon">02</span>
+                                        <div>
+                                            <strong>Casting Opportunities</strong>
+                                            <p>Top performers get direct consideration for GoGaga productions.</p>
+                                        </div>
+                                    </div>
+                                    <div class="gg-register-perk">
+                                        <span class="gg-register-perk__icon">03</span>
+                                        <div>
+                                            <strong>All Talents Welcome</strong>
+                                            <p>No experience required. We judge on passion and potential.</p>
+                                        </div>
+                                    </div>
+                                    <div class="gg-register-perk">
+                                        <span class="gg-register-perk__icon">04</span>
+                                        <div>
+                                            <strong>Free Registration</strong>
+                                            <p>Registering costs nothing. Your talent is the only ticket.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="gg-register-stats">
+                                    <div class="gg-register-stat">
+                                        <span class="gg-register-stat__num">500+</span>
+                                        <span class="gg-register-stat__label">Artists Launched</span>
+                                    </div>
+                                    <div class="gg-register-stat">
+                                        <span class="gg-register-stat__num">12+</span>
+                                        <span class="gg-register-stat__label">Years Experience</span>
+                                    </div>
+                                    <div class="gg-register-stat">
+                                        <span class="gg-register-stat__num">300+</span>
+                                        <span class="gg-register-stat__label">Productions</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT: Registration Form -->
+                            <div class="gg-register-form-wrap">
+                                <div class="gg-register-form-header">
+                                    <p class="gg-register-form-eyebrow">Grand Audition 2025</p>
+                                    <h3 class="gg-register-form-title">Registration Form</h3>
+                                </div>
+
+                                <form class="gg-register-form"
+                                      action="/website/form/res.partner"
+                                      method="post"
+                                      enctype="multipart/form-data"
+                                      data-success-mode="redirect"
+                                      data-success-page="/register/thank-you">
+
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="form_id" value="gg_register_form"/>
+
+                                    <!-- Row 1: Full Name + Age -->
+                                    <div class="gg-form-row">
+                                        <div class="gg-form-group">
+                                            <label class="gg-form-label" for="reg_name">
+                                                Full Name <span class="gg-form-required">*</span>
+                                            </label>
+                                            <input class="gg-form-input" type="text" id="reg_name" name="name" placeholder="Your full name" required="required"/>
+                                        </div>
+                                        <div class="gg-form-group">
+                                            <label class="gg-form-label" for="reg_age">
+                                                Age <span class="gg-form-required">*</span>
+                                            </label>
+                                            <input class="gg-form-input"
+                                                   type="number"
+                                                   id="reg_age"
+                                                   name="age"
+                                                   placeholder="Your age"
+                                                   min="5"
+                                                   max="70"
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 2: Email + Phone -->
+                                    <div class="gg-form-row">
+                                        <div class="gg-form-group">
+                                            <label class="gg-form-label" for="reg_email">
+                                                Email Address <span class="gg-form-required">*</span>
+                                            </label>
+                                            <input class="gg-form-input" type="email" id="reg_email" name="email" placeholder="you@email.com" required="required"/>
+                                        </div>
+                                        <div class="gg-form-group">
+                                            <label class="gg-form-label" for="reg_phone">
+                                                Phone Number <span class="gg-form-required">*</span>
+                                            </label>
+                                            <input class="gg-form-input" type="tel" id="reg_phone" name="phone" placeholder="+91 XXXXX XXXXX" required="required"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 3: City + Category -->
+                                    <div class="gg-form-row">
+                                        <div class="gg-form-row">
+                                            <div class="gg-form-group">
+                                                <label class="gg-form-label" for="reg_city">
+                                                    City <span class="gg-form-required">*</span>
+                                                </label>
+                                                <input class="gg-form-input" type="text" id="reg_city" name="city" placeholder="Your city" required="required"/>
+                                            </div>
+                                            <div class="gg-form-group">
+                                                <label class="gg-form-label" for="reg_category">
+                                                    Talent Category <span class="gg-form-required">*</span>
+                                                </label>
+                                                <select class="gg-form-input gg-form-select"
+                                                        id="reg_category"
+                                                        name="talent_category"
+                                                        required="required">
+                                                    <option value="" disabled="disabled" selected="selected">Select your talent</option>
+                                                    <option value="singing">Singing</option>
+                                                    <option value="dancing">Dancing</option>
+                                                    <option value="comedy">Comedy / Stand-up</option>
+                                                    <option value="acting">Acting / Theatre</option>
+                                                    <option value="music">Instrumental Music</option>
+                                                    <option value="spoken_word">Spoken Word / Poetry</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Experience level -->
+                                    <div class="gg-form-group gg-form-group--full">
+                                        <label class="gg-form-label">Experience Level</label>
+                                        <div class="gg-form-radio-group">
+                                            <label class="gg-form-radio">
+                                                <input type="radio" name="experience_level" value="beginner"/>
+                                                <span class="gg-form-radio__box">Beginner</span>
+                                            </label>
+                                            <label class="gg-form-radio">
+                                                <input type="radio" name="experience_level" value="intermediate"/>
+                                                <span class="gg-form-radio__box">Intermediate</span>
+                                            </label>
+                                            <label class="gg-form-radio">
+                                                <input type="radio" name="experience_level" value="professional"/>
+                                                <span class="gg-form-radio__box">Professional</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- About yourself -->
+                                    <div class="gg-form-group gg-form-group--full">
+                                        <label class="gg-form-label" for="reg_about">
+                                            Tell Us About Yourself
+                                        </label>
+                                        <textarea class="gg-form-input gg-form-textarea"
+                                                  id="reg_about"
+                                                  name="description"
+                                                  rows="4"
+                                                  placeholder="Brief intro - your experience, inspirations, why you want to audition..."></textarea>
+                                    </div>
+
+                                    <!-- How did you hear -->
+                                    <div class="gg-form-group gg-form-group--full">
+                                        <label class="gg-form-label" for="reg_source">
+                                            How Did You Hear About Us?
+                                        </label>
+                                        <select class="gg-form-input gg-form-select"
+                                                id="reg_source"
+                                                name="source">
+                                            <option value="" disabled="disabled" selected="selected">Select an option</option>
+                                            <option value="instagram">Instagram</option>
+                                            <option value="friend">Friend / Word of Mouth</option>
+                                            <option value="whatsapp">WhatsApp</option>
+                                            <option value="youtube">YouTube</option>
+                                            <option value="website">GoGaga Website</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Consent checkbox -->
+                                    <div class="gg-form-group gg-form-group--full">
+                                        <label class="gg-form-checkbox">
+                                            <input type="checkbox" name="consent" value="yes" required="required"/>
+                                            <span class="gg-form-checkbox__box"></span>
+                                            <span class="gg-form-checkbox__text">
+                                                I agree to be contacted by GoGaga Entertainments regarding
+                                                auditions, events and opportunities. I confirm the details
+                                                provided are accurate.
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <button type="submit" class="gg-form-submit">
+                                        Submit Registration
+                                    </button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- AUDITION CTA BANNER -->
+                    <section class="gg-audition">
+                        <div>
+                            <p class="gg-audition-eyebrow">Any Questions?</p>
+                            <h2 class="gg-audition-title">Get In Touch</h2>
+                            <p class="gg-audition-sub">
+                                Reach us at info@gogagaentertainment.com or
+                                call +91 81569 80812 for registration queries.
+                            </p>
+                        </div>
+                        <a href="/contact" class="gg-btn-dark">Contact Us</a>
+                    </section>
+
+                </t>
+            </t>
+        </field>
+    </record>
+
+    <record id="gg_register_page" model="theme.website.page">
+        <field name="is_published" eval="True"/>
+        <field name="url">/register</field>
+        <field name="view_id" ref="gg_register_view"/>
+    </record>
+
+    <!-- THANK YOU VIEW first, then its page record -->
+    <record id="gg_register_thankyou_view" model="theme.ir.ui.view">
+        <field name="name">gogaga.register.thankyou</field>
+        <field name="key">theme_gogaga_1_aarathirocks.register_thankyou</field>
+        <field name="arch" type="xml">
+            <t t-name="theme_gogaga_1_aarathirocks.register_thankyou">
+                <t t-call="website.layout">
+                    <section class="gg-thankyou-section">
+                        <div class="gg-thankyou-inner">
+                            <span class="gg-thankyou-icon">&#10022;</span>
+                            <h1 class="gg-thankyou-title">
+                                Registration <em>Received!</em>
+                             </h1>
+                            <p class="gg-thankyou-body">
+                                Thank you for registering with GoGaga Entertainments.
+                                Our team will review your details and get back to you shortly.
+                                Keep an eye on your email and WhatsApp.
+                            </p>
+                            <div class="gg-thankyou-actions">
+                                <a href="/event" class="gg-btn-gold">View Upcoming Events</a>
+                                <a href="/" class="gg-btn-outline">Back to Home</a>
+                            </div>
+                        </div>
+                    </section>
+                </t>
+            </t>
+        </field>
+    </record>
+
+    <record id="gg_register_thankyou_page" model="theme.website.page">
+        <field name="is_published" eval="True"/>
+        <field name="url">/register/thank-you</field>
+        <field name="view_id" ref="gg_register_thankyou_view"/>
+    </record>
+
+</odoo>

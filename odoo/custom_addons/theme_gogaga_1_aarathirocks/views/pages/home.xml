@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- =============================================================
+     HOME PAGE - GoGaga Cinematic Homepage
+     ============================================================ -->
+<record id="gogaga_home" model="theme.ir.ui.view">
+    <field name="name">GoGaga Home</field>
+    <field name="key">theme_gogaga_1_aarathirocks.gogaga_home</field>
+    <field name="arch" type="xml">
+        <t t-name="theme_gogaga_1_aarathirocks.gogaga_home">
+            <t t-call="website.layout">
+                <t t-set="pageName" t-value="'home'"/>
+                <t t-set="classes" t-value="'gogaga-theme'"/>
+
+                <div id="wrap" class="oe_structure oe_empty">
+                    <!-- ── HERO ── -->
+                    <section class="gg-hero">
+                        <!-- Background atmosphere layers -->
+                        <div class="gg-hero-bg" aria-hidden="true"/>
+                        <div class="gg-hero-grid" aria-hidden="true"/>
+                        <!-- Floating stats (desktop) -->
+                        <div class="gg-hero-stats d-none d-xl-flex">
+                            <div class="gg-hero-stat text-center">
+                                <div class="gg-stat-num gg-bebas">50+</div>
+                                <div class="gg-stat-label">Events Hosted</div>
+                            </div>
+                            <div class="gg-hero-stat text-center">
+                                <div class="gg-stat-num gg-bebas">3</div>
+                                <div class="gg-stat-label">Signature Brands</div>
+                            </div>
+                            <div class="gg-hero-stat text-center">
+                                <div class="gg-stat-num gg-bebas">2019</div>
+                                <div class="gg-stat-label">Founded</div>
+                            </div>
+                        </div>
+                        <!-- Main Hero Content -->
+                        <div class="gg-hero-content">
+                            <div class="gg-hero-tag">GoGaga Entertainment - Kerala's Premier</div>
+                            <h1 class="gg-hero-headline">
+                                Where<br/><em>Artistry</em> Meets Life.
+                            </h1>
+                            <p class="gg-hero-sub">
+                                Dance. Music. Film. Fashion. Comedy. Photography. Sports.
+                                On tiring days with dreary routines, we are your perfect escape --
+                                sculpted with great care and destined to enthrall.
+                            </p>
+                            <div class="gg-hero-actions">
+                                <a href="/event" class="gg-btn-gold">Explore Events</a>
+                                <a href="/services" class="gg-btn-outline">Our Services</a>
+                            </div>
+                        </div>
+                        <!-- Scroll indicator -->
+                        <div class="gg-hero-scroll d-none d-lg-flex" aria-hidden="true">Scroll</div>
+                    </section>
+
+                    <!-- ── TICKER ── -->
+                    <div class="gg-ticker" aria-hidden="true">
+                        <div class="gg-ticker-inner">
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Dance Socials</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Branded Events</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Casting &amp; Placement</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Film Production</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Music Nights</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>God's Own Latin Country</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Timeless Signature</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Grand Audition - Trivandrum</span>
+                            <!-- duplicate set for seamless loop -->
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Dance Socials</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Branded Events</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Casting &amp; Placement</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Film Production</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Music Nights</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>God's Own Latin Country</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Timeless Signature</span>
+                            <span class="gg-ticker-item"><span class="gg-ticker-dot"/>Grand Audition - Trivandrum</span>
+                        </div>
+                    </div>
+
+                    <!-- ── ABOUT SNAPSHOT ── -->
+                    <section class="gg-about" id="about">
+                        <div class="gg-about-bg-text" aria-hidden="true">GG</div>
+                        <div class="gg-about-inner">
+                            <div class="gg-about-text">
+                                <div class="gg-tag">Our Story</div>
+                                <h2>A Passion That<br/>Became a Movement.</h2>
+                                <p class="gg-about-body">
+                                    GoGaga's story goes back to a personal effort -- the founder introduced
+                                    latin dance socials to Kerala alongside a friend.
+                                    <em>God's Own Latin Country</em> and later <em>Timeless Signature</em>
+                                    delighted crowds across the realms of dance and music. After successfully
+                                    conducting a score of events, the foundations of a company were finally
+                                    laid in March 2019.
+                                </p>
+                                <p class="gg-about-body">
+                                    From branded events to ad &amp; film making, our aspiration is to be the
+                                    leader in every realm of entertainment -- not just to succeed, but to
+                                    achieve perfection.
+                                </p>
+                                <div class="gg-pills">
+                                    <span class="gg-pill">Dance &amp; Music</span>
+                                    <span class="gg-pill">Film &amp; Production</span>
+                                    <span class="gg-pill">Casting &amp; Placement</span>
+                                    <span class="gg-pill">Brand Partnering</span>
+                                    <span class="gg-pill">Eco-Conscious</span>
+                                </div>
+                                <div style="margin-top:2.5rem;">
+                                    <a href="/about" class="gg-btn-outline">Our Full Story -&gt;</a>
+                                </div>
+                            </div>
+                            <div class="gg-about-visual">
+                                <div class="gg-about-accent"/>
+                                <div class="gg-about-card">
+                                    <div class="gg-about-card-quote">
+                                        "Artful imagination coupled with an earnest desire for perfection."
+                                    </div>
+                                    <div class="gg-about-card-source">-- GoGaga Entertainment, est. 2019</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ── SERVICES SNAPSHOT ── -->
+                    <section class="gg-services" id="services">
+                        <div class="gg-services-inner">
+                            <div class="gg-services-header">
+                                <div>
+                                    <div class="gg-tag">What We Do</div>
+                                    <h2>Our Services</h2>
+                                </div>
+                                <a href="/contact" class="gg-btn-outline">Talk to Our Team -&gt;</a>
+                            </div>
+                            <div class="gg-services-grid">
+                                <!-- Service 01 -->
+                                <div class="gg-service-card">
+                                    <div class="gg-service-num">01</div>
+                                    <div class="gg-service-icon"/>
+                                    <div class="gg-service-name">Branded Events &amp; Partnering</div>
+                                    <p class="gg-service-desc">
+                                        It's much more than just dance and music. A chance to meet interesting
+                                        folk, create memories worth a lifetime, and discover opportunities for
+                                        artistic mavericks. We transform ordinary events into extraordinary
+                                        experiences through brand association.
+                                    </p>
+                                    <a href="/event" class="gg-service-link">View Events <span>-&gt;</span></a>
+                                </div>
+                                <!-- Service 02 -->
+                                <div class="gg-service-card">
+                                    <div class="gg-service-num">02</div>
+                                    <div class="gg-service-icon"/>
+                                    <div class="gg-service-name">Casting &amp; Artist Placement</div>
+                                    <p class="gg-service-desc">
+                                        We provide casting services for ad commercials and films with artists
+                                        from diverse domains. Shoutout to artists looking for their first break
+                                        -- register with us for exciting opportunities. We also place musicians
+                                        and artists at weddings, elite hotels, and major events.
+                                    </p>
+                                    <a href="/register" class="gg-service-link">Register Now <span>-&gt;</span></a>
+                                </div>
+                                <!-- Service 03 -->
+                                <div class="gg-service-card">
+                                    <div class="gg-service-num">03</div>
+                                    <div class="gg-service-icon"/>
+                                    <div class="gg-service-name">Film &amp; Content Production</div>
+                                    <p class="gg-service-desc">
+                                        Make the best use of our production services for Ad Commercials,
+                                        Explainer Videos, Corporate Films, or Music Videos. From storyboarding
+                                        to lights, camera, action -- our brilliant creative geniuses deliver
+                                        beautiful quality content.
+                                    </p>
+                                    <a href="/services" class="gg-service-link">Learn More <span>-&gt;</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ── AUDITION BANNER ── -->
+                    <div class="gg-audition">
+                        <div>
+                            <div class="gg-audition-eyebrow">Now Open - Trivandrum</div>
+                            <div class="gg-audition-title gg-bebas">Grand Audition</div>
+                            <p class="gg-audition-sub">
+                                Get ready to witness the best show Trivandrum has ever seen.
+                                Your stage awaits. Grab your tickets and make your mark.
+                            </p>
+                        </div>
+                        <a href="/register" class="gg-btn-dark">Register Now</a>
+                    </div>
+
+                    <!-- ── ETHOS SECTION ── -->
+                    <section class="gg-ethos" id="ethos">
+                        <div class="gg-ethos-inner">
+                            <!-- Left: Values list -->
+                            <div class="gg-ethos-left">
+                                <div class="gg-tag">Our Values</div>
+                                <h2>Built on Ethics,<br/>Driven by Vision.</h2>
+                                <div class="gg-ethos-values">
+                                    <div class="gg-ethos-val">
+                                        <div class="gg-ethos-val-num gg-bebas">01</div>
+                                        <div class="gg-ethos-val-text">
+                                            <strong>Ethics &amp; Equity</strong>
+                                            <span>We neither engage in nor encourage any discrimination -- by race, gender, colour, caste, creed, or ability. Opportunities are provided solely on merit.</span>
+                                        </div>
+                                    </div>
+                                    <div class="gg-ethos-val">
+                                        <div class="gg-ethos-val-num gg-bebas">02</div>
+                                        <div class="gg-ethos-val-text">
+                                            <strong>Eco-Conscious by Design</strong>
+                                            <span>Our green ethos isn't cosmetic. From production choices to partnerships, we actively support a world that respects the environment.</span>
+                                        </div>
+                                    </div>
+                                    <div class="gg-ethos-val">
+                                        <div class="gg-ethos-val-num gg-bebas">03</div>
+                                        <div class="gg-ethos-val-text">
+                                            <strong>Long-Term Relationships</strong>
+                                            <span>We seek lasting bonds with patrons and partners -- not one-time engagements. Your trust is the foundation of everything we build.</span>
+                                        </div>
+                                    </div>
+                                    <div class="gg-ethos-val">
+                                        <div class="gg-ethos-val-num gg-bebas">04</div>
+                                        <div class="gg-ethos-val-text">
+                                            <strong>Pursuit of Perfection</strong>
+                                            <span>Our mantra is not just to succeed, but to achieve perfection. We align every event's objective with creative concepts to deliver exceptional experiences.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Right: Quote + Team -->
+                            <div class="gg-ethos-right">
+                                <div class="gg-ethos-big">
+                                    "We dream of a world without poverty that respects the environment."
+                                </div>
+                                <p class="gg-ethos-body">
+                                    Founded by an engineer who is an artist and entrepreneur in spirit, GoGaga
+                                    combines wide-ranging expertise -- from sports to photography, music to
+                                    medicine -- to shape a company that enriches lives and nurtures talent.
+                                </p>
+                                <div class="gg-team-grid">
+                                    <div class="gg-team-card">
+                                        <div class="gg-team-name">Tushar M</div>
+                                        <div class="gg-team-role">Founder &amp; CEO</div>
+                                        <div class="gg-team-bio">
+                                            Engineer by craft, artist &amp; entrepreneur in spirit.
+                                            Original loves: music and dancing.
+                                        </div>
+                                    </div>
+                                    <div class="gg-team-card">
+                                        <div class="gg-team-name">Dr. Mathew Abraham</div>
+                                        <div class="gg-team-role">Director</div>
+                                        <div class="gg-team-bio">
+                                            Seasoned Neurologist with 36 years of experience.
+                                            Booklover, history buff, medical advocate.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ── CONNECT CTA ── -->
+                    <section style="background:#231F20; padding:7rem 4rem; text-align:center;">
+                        <div style="max-width:600px; margin:0 auto;">
+                            <div class="gg-tag" style="justify-content:center;">Get in Touch</div>
+                            <h2 style="font-size:clamp(2rem,4vw,3rem); margin-bottom:1.5rem;">
+                                Let's Create<br/><em style="color:#EAC800;">Something Wonderful.</em>
+                            </h2>
+                            <p style="color:rgba(255,255,255,0.55); font-weight:300; line-height:1.8; margin-bottom:2.5rem;">
+                                Whether you're looking to partner, register as an artist, or enquire about
+                                events -- we'd love to hear from you.
+                            </p>
+                            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                                <a href="/contact" class="gg-btn-gold">Contact Us</a>
+                                <a href="/register" class="gg-btn-outline">Register as Artist</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            </t>
+        </t>
+    </field>
+</record>
+
+<record id="gogaga_home_page" model="theme.website.page">
+    <field name="url">/gogaga-home</field>
+    <field name="view_id" ref="gogaga_home"/>
+    <field name="is_published" eval="True"/>
+</record>
+
+</odoo>
