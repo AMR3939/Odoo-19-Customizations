@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="gogaga_contact_page_view" model="theme.ir.ui.view">
+        <field name="name">gogaga.contact</field>
+        <field name="key">theme_gogaga_1_aarathirocks.page_contact</field>
+        <field name="arch" type="xml">
+            <t t-name="theme_gogaga_1_aarathirocks.page_contact">
+                <t t-call="website.layout">
+                    <t t-set="additional_title">Contact Us | GoGaga Entertainments</t>
+
+                    <section class="gg-contact-hero">
+                        <div class="gg-contact-hero__content">
+                            <p class="gg-eyebrow">Get In Touch</p>
+                            <h1 class="gg-contact-hero__title">
+                                Let's Create<br/>
+                                <em>Something Extraordinary</em>
+                            </h1>
+                            <p class="gg-contact-hero__sub">
+                                Whether you're a talent looking for your breakthrough, a brand seeking a creative
+                                partner, or a producer with a vision — we want to hear from you.
+                            </p>
+                        </div>
+                        <div class="gg-about-hero__scroll">
+                            <span></span>
+                            <p>Scroll</p>
+                        </div>
+                    </section>
+
+                    <section class="gg-contact-strip">
+                        <div class="gg-contact-strip__grid">
+                            <div class="gg-contact-info-card">
+                                <div class="gg-contact-info-card__icon">
+                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#EAC800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                </div>
+                                <h4 class="gg-contact-info-card__label">Visit Us</h4>
+                                <p class="gg-contact-info-card__value">
+                                    56/206, 2nd Floor, Indeevaram<br/>
+                                    K.C. Abraham Master Road<br/>
+                                    Panampilly Nagar, Kochi<br/>
+                                    Kerala, India
+                                </p>
+                            </div>
+                            <div class="gg-contact-info-card">
+                                <div class="gg-contact-info-card__icon">
+                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#EAC800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </div>
+                                <h4 class="gg-contact-info-card__label">Email Us</h4>
+                                <p class="gg-contact-info-card__value">
+                                    <a href="mailto:support@gogagaentertainment.com">support@gogagaentertainment.com</a>
+                                </p>
+                            </div>
+                            <div class="gg-contact-info-card">
+                                <div class="gg-contact-info-card__icon">
+                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#EAC800" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                                    </svg>
+                                </div>
+                                <h4 class="gg-contact-info-card__label">Follow Us</h4>
+                                <p class="gg-contact-info-card__value">
+                                    <a href="https://www.instagram.com/gogagaentertainment/" target="_blank" rel="noopener">@gogagaentertainment</a>
+                                </p>
+                                <div class="gg-contact-socials">
+                                    <a href="https://www.instagram.com/gogagaentertainment/" target="_blank" rel="noopener" class="gg-social-icon" aria-label="Instagram">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                                        </svg>
+                                    </a>
+                                    <a href="https://www.youtube.com/@gogagaentertainment" target="_blank" rel="noopener" class="gg-social-icon" aria-label="YouTube">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+                                            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+                                        </svg>
+                                    </a>
+                                    <a href="https://www.facebook.com/gogagaentertainment" target="_blank" rel="noopener" class="gg-social-icon" aria-label="Facebook">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="gg-contact-main">
+                        <div class="gg-contact-main__inner">
+                            <div class="gg-contact-form-col">
+                                <p class="gg-eyebrow">Send a Message</p>
+                                <h2 class="gg-contact-form-col__title">
+                                    We Read<br/><em>Every Message</em>
+                                </h2>
+                                <p class="gg-contact-form-col__body">
+                                    Write to us or let the phone ring for anything about our company
+                                    or services. We'll do our best to get back to you as soon as possible.
+                                </p>
+                                <div class="gg-form">
+                                    <div class="gg-form__row">
+                                        <div class="gg-form__group">
+                                            <label class="gg-form__label" for="c_name">Full Name <span class="gg-form__req">*</span></label>
+                                            <input type="text" id="c_name" name="c_name" class="gg-form__input" placeholder="Your full name" required="required"/>
+                                        </div>
+                                        <div class="gg-form__group">
+                                            <label class="gg-form__label" for="c_email">Email Address <span class="gg-form__req">*</span></label>
+                                            <input type="email" id="c_email" name="c_email" class="gg-form__input" placeholder="your@email.com" required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="gg-form__row">
+                                        <div class="gg-form__group">
+                                            <label class="gg-form__label" for="c_phone">Phone Number</label>
+                                            <input type="tel" id="c_phone" name="c_phone" class="gg-form__input" placeholder="+91 8156980812"/>
+                                        </div>
+                                        <div class="gg-form__group">
+                                            <label class="gg-form__label" for="c_subject">Subject <span class="gg-form__req">*</span></label>
+                                            <select id="c_subject" name="c_subject" class="gg-form__input gg-form__select" required="required">
+                                                <option value="">Select a subject…</option>
+                                                <option value="talent">Talent Representation</option>
+                                                <option value="production">Production Services</option>
+                                                <option value="events">Events &amp; Activations</option>
+                                                <option value="casting">Casting &amp; Auditions</option>
+                                                <option value="brand">Brand Partnerships</option>
+                                                <option value="general">General Enquiry</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="gg-form__group gg-form__group--full">
+                                        <label class="gg-form__label" for="c_message">Message <span class="gg-form__req">*</span></label>
+                                        <textarea id="c_message" name="c_message" class="gg-form__input gg-form__textarea" rows="6" placeholder="Tell us what's on your mind…" required="required"></textarea>
+                                    </div>
+                                    <div class="gg-form__footer">
+                                        <p class="gg-form__note">Fields marked <span class="gg-form__req">*</span> are required. We typically respond within 24–48 hours.</p>
+                                        <button type="submit" class="gg-btn-gold gg-form__submit">
+                                            SendMessage <span class="gg-form__arrow">→</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gg-contact-side">
+                                <div class="gg-contact-map">
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.7067946242787!2d76.29498729999997!3d9.958334800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0872fd6dc47ecf%3A0xa6d60ac41b9f5557!2sGoGaga%20Entertainment%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1781205986057!5m2!1sen!2sin"
+                                        width="100%" height="300"
+                                        style="border:0;" allowfullscreen="allowfullscreen"
+                                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                                        title="GoGaga Entertainments Location">
+                                    </iframe>
+                                </div>
+                                <div class="gg-contact-hours">
+                                    <h4 class="gg-contact-side__heading">Office Hours</h4>
+                                    <div class="gg-contact-hours__list">
+                                        <div class="gg-contact-hours__row">
+                                            <span class="gg-contact-hours__day">Monday – Friday</span>
+                                            <span class="gg-contact-hours__time">10:00 AM – 6:00 PM</span>
+                                        </div>
+                                        <div class="gg-contact-hours__row">
+                                            <span class="gg-contact-hours__day">Saturday</span>
+                                            <span class="gg-contact-hours__time">10:00 AM – 2:00 PM</span>
+                                        </div>
+                                        <div class="gg-contact-hours__row">
+                                            <span class="gg-contact-hours__day">Sunday</span>
+                                            <span class="gg-contact-hours__time">By Appointment</span>
+                                        </div>
+                                    </div>
+                                    <p class="gg-contact-hours__tz">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#EAC800" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                                        </svg>
+                                        All times are IST (UTC +5:30)
+                                    </p>
+                                </div>
+                                <div class="gg-contact-quicklinks">
+                                    <h4 class="gg-contact-side__heading">Quick Links</h4>
+                                    <a href="/register" class="gg-contact-quicklinks__item">
+                                        <span>Artist Registration</span><span class="gg-contact-quicklinks__arrow">→</span>
+                                    </a>
+                                    <a href="/event" class="gg-contact-quicklinks__item">
+                                        <span>Upcoming Events</span><span class="gg-contact-quicklinks__arrow">→</span>
+                                    </a>
+                                    <a href="/services" class="gg-contact-quicklinks__item">
+                                        <span>Our Services</span><span class="gg-contact-quicklinks__arrow">→</span>
+                                    </a>
+                                    <a href="/blog" class="gg-contact-quicklinks__item">
+                                        <span>Blog &amp; News</span><span class="gg-contact-quicklinks__arrow">→</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="gg-audition" style="flex-direction:column; justify-content:center; align-items:center; text-align:center; gap:1.5rem;">
+                        <div>
+                            <p class="gg-audition-eyebrow">Ready to begin?</p>
+                            <h2 class="gg-audition-title">Your Stage Awaits</h2>
+                            <p class="gg-audition-sub" style="margin:0 auto;">
+                                Join hundreds of artists and brands who trust GoGaga Entertainments
+                                to bring their creative vision to life.
+                            </p>
+                        </div>
+                        <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                            <a href="/register" class="gg-btn-dark">Register as Artist</a>
+                            <a href="/services" class="gg-btn-dark">Explore Services</a>
+                        </div>
+                    </section>
+
+                </t>
+            </t>
+        </field>
+    </record>
+
+    <record id="gogaga_contact_page" model="theme.website.page">
+        <field name="url">/contact</field>
+        <field name="view_id" ref="gogaga_contact_page_view"/>
+        <field name="is_published" eval="True"/>
+    </record>
+
+</odoo>

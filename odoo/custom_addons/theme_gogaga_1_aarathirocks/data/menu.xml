@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="menu_gogaga_root" model="theme.website.menu">
+    <field name="name">GoGaga Main Menu</field>
+    <field name="url">/</field>
+    <field name="sequence">1</field>
+  </record>
+
+  <record id="menu_home" model="theme.website.menu">
+    <field name="name">Home</field>
+    <field name="url">/</field>
+    <field name="parent_id" ref="menu_gogaga_root"/>
+    <field name="sequence">1</field>
+  </record>
+
+  <record id="menu_about" model="theme.website.menu">
+    <field name="name">About Us</field>
+    <field name="url">/about</field>
+    <field name="parent_id" ref="menu_gogaga_root"/>
+    <field name="sequence">2</field>
+  </record>
+
+  <record id="menu_services" model="theme.website.menu">
+    <field name="name">Services</field>
+    <field name="url">/services</field>
+    <field name="parent_id" ref="menu_gogaga_root"/>
+    <field name="sequence">3</field>
+  </record>
+
+  <record id="menu_events" model="theme.website.menu">
+    <field name="name">Events</field>
+    <field name="url">/event</field>
+    <field name="parent_id" ref="menu_gogaga_root"/>
+    <field name="sequence">4</field>
+  </record>
+
+  <record id="menu_register" model="theme.website.menu">
+    <field name="name">Register</field>
+    <field name="url">/register</field>
+    <field name="parent_id" ref="menu_gogaga_root"/>
+    <field name="sequence">5</field>
+  </record>
+
+  <record id="menu_blog" model="theme.website.menu">
+    <field name="name">Blog</field>
+    <field name="url">/blog</field>
+    <field name="parent_id" ref="menu_gogaga_root"/>
+    <field name="sequence">6</field>
+  </record>
+
+  <record id="menu_contact" model="theme.website.menu">
+    <field name="name">Contact Us</field>
+    <field name="url">/contact</field>
+    <field name="parent_id" ref="menu_gogaga_root"/>
+    <field name="sequence">7</field>
+  </record>
+
+</odoo>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- 1. ROOT CLASS -->
+<record id="gogaga_root_class" model="theme.ir.ui.view">
+    <field name="name">GoGaga Theme Root Class</field>
+    <field name="inherit_id" ref="website.layout"/>
+    <field name="key">theme_gogaga_1_aarathirocks.gogaga_root_class</field>
+    <field name="arch" type="xml">
+        <xpath expr="//div[@id='wrapwrap']" position="attributes">
+            <attribute name="t-attf-class">#{classes or ''} gogaga-theme</attribute>
+        </xpath>
+    </field>
+</record>
+
+<!-- 2. HEADER -->
+<record id="gogaga_header" model="theme.ir.ui.view">
+    <field name="name">GoGaga Cinematic Header</field>
+    <field name="inherit_id" ref="website.layout"/>
+    <field name="key">theme_gogaga_1_aarathirocks.gogaga_header</field>
+    <field name="arch" type="xml">
+        <xpath expr="//header[@id='top']" position="replace">
+            <header id="top" class="o_top_fixed_element">
+                <div class="gg-navbar">
+                    <a href="/" class="gg-nav-logo gg-bebas">
+                        <span>Go</span>Gaga
+                    </a>
+                    <ul class="gg-nav-links d-none d-lg-flex">
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/services">Services</a></li>
+                        <li><a href="/event">Events</a></li>
+                        <li><a href="/register">Register</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                    <a href="/register" class="gg-nav-cta d-none d-lg-inline-block">Register Now</a>
+                    <button class="navbar-toggler d-lg-none border-0 shadow-none bg-transparent"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#ggMobileNav"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span style="display:block; width:22px; height:2px; background:#EAC800; margin-bottom:5px;"/>
+                        <span style="display:block; width:22px; height:2px; background:#EAC800; margin-bottom:5px;"/>
+                        <span style="display:block; width:22px; height:2px; background:#EAC800;"/>
+                    </button>
+                </div>
+                <div class="collapse" id="ggMobileNav">
+                    <nav class="d-flex flex-column p-4 gap-3" style="background:rgba(35,31,32,0.98); border-top:1px solid rgba(234,200,0,0.15);">
+                        <a href="/about" style="font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.75); text-decoration:none;">About</a>
+                        <a href="/services" style="font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.75); text-decoration:none;">Services</a>
+                        <a href="/event" style="font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.75); text-decoration:none;">Events</a>
+                        <a href="/blog" style="font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.75); text-decoration:none;">Blog</a>
+                        <a href="/contact" style="font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.75); text-decoration:none;">Contact</a>
+                        <a href="/register" class="gg-nav-cta mt-2" style="text-align:center;">Register Now</a>
+                    </nav>
+                </div>
+            </header>
+        </xpath>
+    </field>
+</record>
+
+<!-- 3. FOOTER -->
+<record id="gogaga_footer" model="theme.ir.ui.view">
+    <field name="name">GoGaga Cinematic Footer</field>
+    <field name="inherit_id" ref="website.layout"/>
+    <field name="key">theme_gogaga_1_aarathirocks.gogaga_footer</field>
+    <field name="arch" type="xml">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" t-ignore="true" t-if="not no_footer">
+                <footer>
+                    <div class="gg-footer-inner">
+                        <div class="gg-footer-brand">
+                            <a href="/" class="gg-footer-logo gg-bebas">
+                                <span>Go</span>Gaga
+                            </a>
+                            <p class="gg-footer-tagline">
+                                Our aspiration is to be a behemoth in the world of entertainment
+                                with ethics, equity, and an eco-conscious heart.
+                            </p>
+                        </div>
+                        <div class="gg-footer-col">
+                            <h4>Company</h4>
+                            <ul>
+                                <li><a href="/about">About Us</a></li>
+                                <li><a href="/about#ethos">Our Ethos</a></li>
+                                <li><a href="/blog">Blog</a></li>
+                                <li><a href="/privacy-policy">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                        <div class="gg-footer-col">
+                            <h4>Services</h4>
+                            <ul>
+                                <li><a href="/services">Branded Events</a></li>
+                                <li><a href="/services">Casting</a></li>
+                                <li><a href="/services">Production</a></li>
+                                <li><a href="/event">Grand Audition</a></li>
+                            </ul>
+                        </div>
+                        <div class="gg-footer-col">
+                            <h4>Connect</h4>
+                            <ul>
+                                <li><a href="https://www.instagram.com/gogagaentertainment/" target="_blank" rel="noopener">Instagram</a></li>
+                                <li><a href="tel:+918156980812">+91 81569 80812</a></li>
+                                <li><a href="mailto:ceo@gogagaentertainment.com">Email Us</a></li>
+                                <li><a href="/web/login">Sign In</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="gg-footer-bottom">
+                        <span>&#169; 2026 GoGaga Entertainments Pvt. Ltd. All rights reserved.</span>
+                        <span>
+                            <a href="/terms-and-conditions">Terms of Use</a>
+                            <span style="margin:0 0.6rem; opacity:0.3;">&#183;</span>
+                            <a href="/privacy-policy">Privacy Policy</a>
+                        </span>
+                    </div>
+                </footer>
+            </div>
+        </xpath>
+    </field>
+</record>
+
+<!-- 4. FONTS -->
+<record id="gogaga_fonts" model="theme.ir.ui.view">
+    <field name="name">GoGaga Google Fonts</field>
+    <field name="inherit_id" ref="website.layout"/>
+    <field name="key">theme_gogaga_1_aarathirocks.gogaga_fonts</field>
+    <field name="arch" type="xml">
+        <xpath expr="//head" position="inside">
+            <link rel="preconnect" href="https://fonts.googleapis.com"/>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+            <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet"/>
+        </xpath>
+    </field>
+</record>
+
+</odoo>

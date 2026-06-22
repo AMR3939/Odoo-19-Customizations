@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         EVENTS PAGE THEME — GoGaga Entertainments -->
+    <!-- ─────────────────────────────────────────────────────────
+         1. INJECT HERO + TICKER above Odoo's event listing
+         ───────────────────────────────────────────────────────── -->
+    <record id="gg_events_hero_inject" model="theme.ir.ui.view">
+        <field name="name">gogaga.events.hero.inject</field>
+        <field name="key">theme_gogaga_1_aarathirocks.events_hero_inject</field>
+        <field name="inherit_id" ref="website_event.index"/>
+        <field name="arch" type="xml">
+
+            <!-- Insert hero BEFORE the main event content wrapper -->
+            <xpath expr="//div[hasclass('o_wevent_index')]" position="before">
+                <!-- ── HERO ── -->
+                <section class="gg-events-hero">
+                    <div class="gg-events-hero__content container">
+                        <p class="gg-tag">Live Experiences</p>
+                        <h1 class="gg-events-hero__title">
+                            Upcoming <em>Events</em>
+                        </h1>
+                        <p class="gg-events-hero__sub">
+                            Concerts, auditions, cultural shows and more —
+                            mark your dates and join us for something unforgettable.
+                        </p>
+                        <div class="gg-events-hero__tabs">
+                            <a t-attf-href="/event?date=all"
+                               t-attf-class="gg-events-tab #{'gg-events-tab--active' if not request.params.get('date') or request.params.get('date') == 'all' else ''}">
+                               Upcoming
+                            </a>
+                            <a t-attf-href="/event?date=old"
+                               t-attf-class="gg-events-tab #{'gg-events-tab--active' if request.params.get('date') == 'old' else ''}">
+                               Past Events
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── GOLD TICKER ── -->
+                <div class="gg-ticker">
+                    <div class="gg-ticker-inner">
+                        <span class="gg-ticker-item">Live Concerts <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Dance Performances <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Grand Auditions <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Cultural Fests <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Comedy Shows <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Fashion Events <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Film Premieres <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Live Concerts <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Dance Performances <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Grand Auditions <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Cultural Fests <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Comedy Shows <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Fashion Events <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Film Premieres <span class="gg-ticker-dot"></span></span>
+                    </div>
+                </div>
+            </xpath>
+
+            <!-- ── Wrap the Odoo index in our styled shell ── -->
+            <xpath expr="//div[hasclass('o_wevent_index')]" position="attributes">
+                <attribute name="t-attf-class" add="gg-events-index-wrap gg-events-main" separator=" "/>
+            </xpath>
+
+            <!-- ── Add class to #wrap for scoped CSS ── -->
+            <xpath expr="//div[@id='wrap']" position="attributes">
+                <attribute name="class" add="gg-events-wrap" separator=" "/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- ─────────────────────────────────────────────────────────
+         2. INJECT CTA BANNER after the event listing
+         ───────────────────────────────────────────────────────── -->
+    <record id="gg_events_cta_inject" model="theme.ir.ui.view">
+        <field name="name">gogaga.events.cta.inject</field>
+        <field name="key">theme_gogaga_1_aarathirocks.events_cta_inject</field>
+        <field name="inherit_id" ref="website_event.index"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('o_wevent_index')]" position="after">
+                <!-- ── AUDITION CTA (mirrors homepage audition strip) ── -->
+                <section class="gg-audition" style="margin-top:0;">
+                    <div>
+                        <p class="gg-audition-eyebrow">Don't Miss Out</p>
+                        <h2 class="gg-audition-title">Grand Audition</h2>
+                        <p class="gg-audition-sub">
+                            Get ready to witness the best show Trivandrum has seen yet.
+                            Grab your spot before it's gone.
+                        </p>
+                    </div>
+                    <a href="/register" class="gg-btn-dark">Register Now</a>
+                </section>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- ─────────────────────────────────────────────────────────
+         3. RESTYLE INDIVIDUAL EVENT CARDS
+         Target: event.event_index_cards (the repeating card block)
+         ───────────────────────────────────────────────────────── -->
+    <record id="gg_event_card_restyle" model="theme.ir.ui.view">
+        <field name="name">gogaga.event.card.restyle</field>
+        <field name="key">theme_gogaga_1_aarathirocks.event_card_restyle</field>
+        <field name="inherit_id" ref="website_event.events_list"/>
+        <field name="arch" type="xml">
+
+            <!-- Force 3-column grid by overriding the column class -->
+            <xpath expr="//div[contains(@t-attf-class,'opt_event_size')]" position="attributes">
+                <attribute name="t-attf-class">gg-event-col col-12 col-sm-6 col-lg-4</attribute>
+            </xpath>
+
+            <!-- Add our class to each event card article -->
+            <xpath expr="//article" position="attributes">
+                <attribute name="t-attf-class" add="gg-event-card" separator=" "/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- ─────────────────────────────────────────────────────────
+         4. RESTYLE EVENT DETAIL PAGE
+         Target: event.event_main  (the /event/<slug> page)
+         ───────────────────────────────────────────────────────── -->
+    <record id="gg_event_detail_restyle" model="theme.ir.ui.view">
+        <field name="name">gogaga.event.detail.restyle</field>
+        <field name="key">theme_gogaga_1_aarathirocks.event_detail_restyle</field>
+        <field name="inherit_id" ref="website_event.event_description_full"/>
+        <field name="arch" type="xml">
+
+            <!-- Inject gold ticker above event detail -->
+            <xpath expr="//section[@id='o_wevent_event_main']" position="before">
+                <div class="gg-ticker">
+                    <div class="gg-ticker-inner">
+                        <span class="gg-ticker-item">GoGaga Events <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Live Entertainment <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Book Your Spot <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Trivandrum <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">South India <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">GoGaga Events <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Live Entertainment <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Book Your Spot <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">Trivandrum <span class="gg-ticker-dot"></span></span>
+                        <span class="gg-ticker-item">South India <span class="gg-ticker-dot"></span></span>
+                    </div>
+                </div>
+            </xpath>
+
+            <!-- Add class to main detail wrapper -->
+            <xpath expr="//section[@id='o_wevent_event_main']" position="attributes">
+                <attribute name="t-attf-class" add="gg-event-detail-wrap" separator=" "/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

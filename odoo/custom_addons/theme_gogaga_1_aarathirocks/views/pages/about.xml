@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         About Us Page View
+    ============================================================ -->
+    <record id="gogaga_about_page_view" model="theme.ir.ui.view">
+        <field name="name">gogaga.about</field>
+        <field name="key">theme_gogaga_1_aarathirocks.gogaga_about</field>
+        <field name="arch" type="xml">
+            <t t-name="theme_gogaga_1_aarathirocks.gogaga_about">
+                <t t-call="website.layout">
+                    <t t-set="pageName" t-value="'about'"/>
+                    <t t-set="classes" t-value="'gogaga-theme'"/>
+
+                    <div id="wrap" class="oe_structure oe_empty">
+                        <!-- - HERO - -->
+                        <section class="gg-about-hero">
+                            <div class="gg-about-hero__overlay"></div>
+                            <div class="gg-about-hero__content">
+                                <p class="gg-eyebrow">Our Story</p>
+                                <h1 class="gg-about-hero__title">
+                                    Where <span class="gg-gold">Talent</span> Meets<br/>
+                                    Its Stage
+                                </h1>
+                                <p class="gg-about-hero__sub">
+                                    GoGaga Entertainments is South India's premier talent management
+                                    and entertainment consultancy -- connecting gifted artists with
+                                    the opportunities they deserve.
+                                </p>
+                            </div>
+                            <div class="gg-about-hero__scroll">
+                                <span></span>
+                                <p>Scroll</p>
+                            </div>
+                        </section>
+
+                        <!-- - MISSION - -->
+                        <section class="gg-mission">
+                            <div class="container">
+                                <div class="gg-mission__grid">
+                                    <div class="gg-mission__text">
+                                        <p class="gg-eyebrow">Our Mission</p>
+                                        <h2 class="gg-section-title">
+                                            Built to <span class="gg-gold">Elevate</span><br/>
+                                            Every Artist
+                                        </h2>
+                                        <p class="gg-body-text">
+                                            We believe exceptional talent should never go unnoticed.
+                                            GoGaga was founded with a single purpose -- to bridge the
+                                            gap between raw potential and real-world opportunity across
+                                            film, television, music, modelling and live performance.
+                                        </p>
+                                        <p class="gg-body-text">
+                                            Through strategic management, industry partnerships and
+                                            relentless advocacy for our artists, we turn ambition into
+                                            careers that last.
+                                        </p>
+                                        <div class="gg-mission__stats">
+                                            <div class="gg-stat">
+                                                <span class="gg-stat__num">500<span class="gg-gold">+</span></span>
+                                                <span class="gg-stat__label">Artists Managed</span>
+                                            </div>
+                                            <div class="gg-stat">
+                                                <span class="gg-stat__num">12<span class="gg-gold">+</span></span>
+                                                <span class="gg-stat__label">Years of Excellence</span>
+                                            </div>
+                                            <div class="gg-stat">
+                                                <span class="gg-stat__num">300<span class="gg-gold">+</span></span>
+                                                <span class="gg-stat__label">Productions</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- - VALUES - -->
+                        <section class="gg-values">
+                            <div class="gg-values__bg-text" aria-hidden="true">VALUES</div>
+                            <div class="container">
+                                <div class="gg-section-header gg-section-header--center">
+                                    <p class="gg-eyebrow">What We Stand For</p>
+                                    <h2 class="gg-section-title">
+                                        The Principles That <span class="gg-gold">Drive</span> Us
+                                    </h2>
+                                </div>
+                                <div class="gg-values__grid">
+                                    <div class="gg-value-card">
+                                        <span class="gg-value-card__num">01</span>
+                                        <h3 class="gg-value-card__title">Artist First</h3>
+                                        <p class="gg-value-card__text">
+                                            Every decision we make begins with one question:
+                                            does this serve our artist's vision and long-term career?
+                                        </p>
+                                    </div>
+                                    <div class="gg-value-card">
+                                        <span class="gg-value-card__num">02</span>
+                                        <h3 class="gg-value-card__title">Uncompromising Quality</h3>
+                                        <p class="gg-value-card__text">
+                                            From audition preparation to final contract, we bring
+                                            precision, professionalism and craft to every detail.
+                                        </p>
+                                    </div>
+                                    <div class="gg-value-card">
+                                        <span class="gg-value-card__num">03</span>
+                                        <h3 class="gg-value-card__title">Transparent Partnerships</h3>
+                                        <p class="gg-value-card__text">
+                                            We build relationships on honesty. Our artists always
+                                            know where they stand, what to expect and why.
+                                        </p>
+                                    </div>
+                                    <div class="gg-value-card">
+                                        <span class="gg-value-card__num">04</span>
+                                        <h3 class="gg-value-card__title">Industry Access</h3>
+                                        <p class="gg-value-card__text">
+                                            Our network spans directors, casting agents, labels and
+                                            producers across Kollywood, Mollywood and beyond.
+                                        </p>
+                                    </div>
+                                    <div class="gg-value-card">
+                                        <span class="gg-value-card__num">05</span>
+                                        <h3 class="gg-value-card__title">Diverse Talent</h3>
+                                        <p class="gg-value-card__text">
+                                            We celebrate every form of artistry -- actors, singers,
+                                            dancers, models, comedians and content creators.
+                                        </p>
+                                    </div>
+                                    <div class="gg-value-card">
+                                        <span class="gg-value-card__num">06</span>
+                                        <h3 class="gg-value-card__title">Long-Term Vision</h3>
+                                        <p class="gg-value-card__text">
+                                            We don't just book gigs. We architect careers --
+                                            guiding artists from discovery through stardom.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- - TEAM - -->
+                        <section class="gg-team">
+                            <div class="container">
+                                <div class="gg-section-header gg-section-header--center">
+                                    <p class="gg-eyebrow">The People Behind GoGaga</p>
+                                    <h2 class="gg-section-title">
+                                        Meet the <span class="gg-gold">Founders</span>
+                                    </h2>
+                                </div>
+                                <div class="gg-team__grid">
+                                    <div class="gg-team-card">
+                                        <div class="gg-team-card__photo-wrap">
+                                            <img
+                                                src="/theme_gogaga_1_aarathirocks/static/src/img/team_tushar.jpeg"
+                                                alt="Tushar"
+                                                class="gg-team-card__photo"/>
+                                            <div class="gg-team-card__photo-border"></div>
+                                        </div>
+                                        <div class="gg-team-card__body">
+                                            <h3 class="gg-team-card__name">Tushar</h3>
+                                            <p class="gg-team-card__role">Co-Founder &amp; Creative Director</p>
+                                            <div class="gg-team-card__divider"></div>
+                                            <p class="gg-team-card__bio">
+                                                A visionary creative with deep roots in South Indian
+                                                cinema, Tushar has spent over a decade identifying
+                                                and cultivating talent across acting, dance and music.
+                                                His sharp eye for potential and industry relationships
+                                                form the creative backbone of GoGaga.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="gg-team-card">
+                                        <div class="gg-team-card__photo-wrap">
+                                            <img
+                                                src="/theme_gogaga_1_aarathirocks/static/src/img/team_mathew.jpeg"
+                                                alt="Mathew"
+                                                class="gg-team-card__photo gg-photo--mathew"/>
+                                            <div class="gg-team-card__photo-border"></div>
+                                        </div>
+                                        <div class="gg-team-card__body">
+                                            <h3 class="gg-team-card__name">Mathew</h3>
+                                            <p class="gg-team-card__role">Co-Founder &amp; Operations Lead</p>
+                                            <div class="gg-team-card__divider"></div>
+                                            <p class="gg-team-card__bio">
+                                                Mathew brings strategic precision to GoGaga's
+                                                operations, contracts and partnerships. With a
+                                                background in entertainment law and production
+                                                management, he ensures every artist engagement
+                                                is seamless, protected and purposeful.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- - JOURNEY TIMELINE - -->
+                        <section class="gg-journey">
+                            <div class="gg-journey__bg-text" aria-hidden="true">JOURNEY</div>
+                            <div class="container">
+                                <div class="gg-section-header gg-section-header--center">
+                                    <p class="gg-eyebrow">How We Got Here</p>
+                                    <h2 class="gg-section-title">
+                                        Our <span class="gg-gold">Journey</span>
+                                    </h2>
+                                </div>
+                                <div class="gg-timeline">
+                                    <div class="gg-timeline__line"></div>
+                                    <div class="gg-timeline__item gg-timeline__item--left">
+                                        <div class="gg-timeline__dot"></div>
+                                        <div class="gg-timeline__card">
+                                            <span class="gg-timeline__year">2012</span>
+                                            <h4 class="gg-timeline__title">The Beginning</h4>
+                                            <p class="gg-timeline__text">
+                                                GoGaga was born in Chennai as a boutique casting
+                                                consultancy, placing local actors in regional
+                                                television productions.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="gg-timeline__item gg-timeline__item--right">
+                                        <div class="gg-timeline__dot"></div>
+                                        <div class="gg-timeline__card">
+                                            <span class="gg-timeline__year">2015</span>
+                                            <h4 class="gg-timeline__title">Expanding the Roster</h4>
+                                            <p class="gg-timeline__text">
+                                                Grew to 100+ managed artists. First feature film
+                                                placement milestone reached. Music and modelling
+                                                verticals launched.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="gg-timeline__item gg-timeline__item--left">
+                                        <div class="gg-timeline__dot"></div>
+                                        <div class="gg-timeline__card">
+                                            <span class="gg-timeline__year">2018</span>
+                                            <h4 class="gg-timeline__title">Pan-South Presence</h4>
+                                            <p class="gg-timeline__text">
+                                                Established partnerships across Kollywood, Mollywood
+                                                and Tollywood. Opened operations in Kochi and
+                                                Hyderabad.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="gg-timeline__item gg-timeline__item--right">
+                                        <div class="gg-timeline__dot"></div>
+                                        <div class="gg-timeline__card">
+                                            <span class="gg-timeline__year">2021</span>
+                                            <h4 class="gg-timeline__title">Digital Pivot</h4>
+                                            <p class="gg-timeline__text">
+                                                Launched OTT and digital content management
+                                                services. Partnered with leading streaming
+                                                platforms for exclusive talent placements.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="gg-timeline__item gg-timeline__item--left">
+                                        <div class="gg-timeline__dot gg-timeline__dot--gold"></div>
+                                        <div class="gg-timeline__card gg-timeline__card--active">
+                                            <span class="gg-timeline__year">2024</span>
+                                            <h4 class="gg-timeline__title">Today</h4>
+                                            <p class="gg-timeline__text">
+                                                500+ active artists. 300+ productions. South India's
+                                                most trusted full-service talent and entertainment
+                                                management house.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- - EVENTS SNAPSHOT - -->
+                        <section class="gg-about-events">
+                            <div class="container">
+                                <div class="gg-about-events__grid">
+                                    <div class="gg-about-events__image">
+                                        <div class="gg-img-frame">
+                                            <img
+                                                src="/theme_gogaga_1_aarathirocks/static/src/img/events_placeholder.png"
+                                                alt="GoGaga Events"
+                                                loading="lazy"/>
+                                            <div class="gg-img-frame__border"></div>
+                                        </div>
+                                    </div>
+                                    <div class="gg-about-events__text">
+                                        <p class="gg-eyebrow">Beyond Management</p>
+                                        <h2 class="gg-section-title">
+                                            Events That <span class="gg-gold">Define</span><br/>
+                                            the Industry
+                                        </h2>
+                                        <p class="gg-body-text">
+                                            GoGaga doesn't just manage talent -- we create the
+                                            platforms on which talent shines. From curated audition
+                                            showcases to large-scale entertainment events, we design
+                                            experiences that connect artists with the audiences
+                                            and decision-makers that matter.
+                                        </p>
+                                        <a href="/event" class="gg-btn-gold">View All Events</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- - CTA - -->
+                        <section class="gg-about-cta">
+                            <div class="gg-about-cta__overlay"></div>
+                            <div class="container">
+                                <div class="gg-about-cta__inner">
+                                    <p class="gg-eyebrow">Ready to Begin?</p>
+                                    <h2 class="gg-about-cta__title">
+                                        Your Story Starts <span class="gg-gold">Here</span>
+                                    </h2>
+                                    <p class="gg-about-cta__sub">
+                                        Whether you are an artist looking for representation or a
+                                        production house seeking exceptional talent, GoGaga is
+                                        your partner.
+                                    </p>
+                                    <div class="gg-about-cta__btns">
+                                        <a href="/register" class="gg-btn-gold">Register as Artist</a>
+                                        <a href="/contact" class="gg-btn-outline">Contact Us</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                </t>
+            </t>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         Website Page Record  (registers /about route)
+    ============================================================ -->
+    <record id="gogaga_about_page" model="theme.website.page">
+        <field name="url">/about</field>
+        <field name="view_id" ref="gogaga_about_page_view"/>
+        <field name="is_published" eval="True"/>
+    </record>
+
+</odoo>
