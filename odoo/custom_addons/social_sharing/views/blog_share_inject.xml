@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inject into blog post content -->
+    <template id="social_sharing_blog_post" inherit_id="website_blog.blog_post_content" name="Social Sharing Blog Post">
+        <xpath expr="//div[@t-field='blog_post.content']" position="after">
+            <div class="s_share_bar s_share_bar--blog container py-3 s_share o_no_link_popover oe_share">
+                <span class="s_share_bar_label">Share this post:</span>
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/sharer/sharer.php?u={url}"
+                   target="_blank" rel="noopener" class="s_share_facebook" title="Share on Facebook">
+                    <i class="fa fa-facebook rounded-circle shadow-sm"/>
+                </a>
+                <!-- Instagram (profile link) -->
+                <a href="https://www.instagram.com/gogagaentertainments"
+                   target="_blank" rel="noopener" class="s_share_instagram" title="Follow us on Instagram">
+                    <i class="fa fa-instagram rounded-circle shadow-sm"/>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={url}"
+                   target="_blank" rel="noopener" class="s_share_linkedin" title="Share on LinkedIn">
+                    <i class="fa fa-linkedin rounded-circle shadow-sm"/>
+                </a>
+                <!-- X (Twitter) -->
+                <a href="https://x.com/intent/tweet?url={url}"
+                   target="_blank" rel="noopener" class="s_share_twitter" title="Share on X">
+                    <i class="fa fa-twitter rounded-circle shadow-sm"/>
+                </a>
+                <!-- Pinterest -->
+                <a href="https://pinterest.com/pin/create/button/?url={url}"
+                   target="_blank" rel="noopener" class="s_share_pinterest" title="Pin on Pinterest">
+                    <i class="fa fa-pinterest rounded-circle shadow-sm"/>
+                </a>
+            </div>
+        </xpath>
+    </template>
+</odoo>

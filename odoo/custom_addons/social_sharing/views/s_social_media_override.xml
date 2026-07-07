@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Remove the "Instagram Page" feed block from the Website Builder
+         snippet panel (Social category). This hides the template from the
+         "Insert a block" popup while keeping Map and Google Map intact.
+
+         The existing Social Media snippet icons (s_social_media) in
+         footers/headers are handled separately below. -->
+    <template id="s_instagram_page_remove_snippet"
+              inherit_id="website.snippets"
+              name="GoGaga — Remove Instagram Page Snippet">
+        <xpath expr="//t[@t-snippet='website.s_instagram_page']" position="replace"/>
+    </template>
+
+    <!-- Remove the built-in Instagram icon/anchor from the default Odoo
+         Social Media snippet (s_social_media). The GoGaga Instagram profile
+         link is provided instead through our custom vertical and horizontal
+         snippet templates (s_social_share_vertical / s_social_share_horizontal).
+
+         Per spec section 1.9 — this xpath removes only the Instagram anchor.
+         All other platform icons (Facebook, X, LinkedIn, YouTube, GitHub,
+         TikTok, Discord) are unaffected. -->
+    <template id="s_social_media_instagram_remove"
+              inherit_id="website.s_social_media"
+              name="GoGaga — Remove Instagram from Social Media Snippet">
+        <xpath expr="//a[hasclass('s_social_media_instagram')]" position="replace"/>
+    </template>
+</odoo>

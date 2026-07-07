@@ -1,0 +1,82 @@
+/* ============================================================
+   Social Sharing – Snippet Preview Panel Overrides
+   Targets: html_builder.iframe_add_dialog bundle
+   Purpose: Fix excessive whitespace on Map/Google Map snippet
+            thumbnails in the Website Builder "Insert a block" panel.
+
+   Root cause: .s_map and .s_google_map sections carry pb56 pt56
+   (56 px top + bottom padding) and their .map_container is
+   position:absolute / inset:0, so the section expands to the
+   height of the embedded map iframe (~400 px by default).
+   Rendered at the 0.3× preview scale this still produces a very
+   tall card compared to other snippet categories.
+
+   Fix: inside the preview iframe, clamp the section height and
+   strip the decorative vertical padding so the thumbnail card
+   sits at a height consistent with peer snippets.
+   ============================================================ */
+
+/* ---- Unified Snippet Preview Height & Alignment ---- */
+.o_snippet_preview_wrap .s_map,
+.o_snippet_preview_wrap .s_google_map,
+.o_snippet_preview_wrap .s_social_share_vertical,
+.o_snippet_preview_wrap .s_social_share_horizontal {
+    /* Set a consistent, moderate rendered height (150px) for all 4 snippets.
+       This provides a balanced thumbnail height without excessive empty space. */
+    height: 150px !important;
+    min-height: unset !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Flex-center the social sharing sections to perfectly align the inner content */
+.o_snippet_preview_wrap .s_social_share_vertical,
+.o_snippet_preview_wrap .s_social_share_horizontal {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #ffffff !important;
+}
+
+/* Ensure both vertical and horizontal wrappers look identically balanced
+   and centered in the preview card. Remove any fixed positioning, margins,
+   or paddings that cause shifts or unbalanced whitespace. */
+.o_snippet_preview_wrap .s_social_share_vertical_wrap,
+.o_snippet_preview_wrap .s_social_share_horizontal_wrap {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    position: static !important;
+    transform: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+/* Hide the "Share:" label in the horizontal snippet preview 
+   so it exactly matches the visual balance of the vertical snippet. */
+.o_snippet_preview_wrap .s_social_share_horizontal_wrap .s_share_bar_label {
+    display: none !important;
+}
+
+/* The map container is absolutely positioned 0/0/0/0 and relies on
+   the parent section having a determined height – which we set above.
+   No extra override needed for .map_container itself. */
+
+/* The embedded iframe should fill the constrained section. */
+.o_snippet_preview_wrap .s_map .s_map_embedded,
+.o_snippet_preview_wrap .s_google_map .s_map_embedded {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Hide the "missing address" warning banner in the preview –
+   it would show as a blue alert strip on top of the map card. */
+.o_snippet_preview_wrap .s_map .missing_option_warning,
+.o_snippet_preview_wrap .s_google_map .missing_option_warning {
+    display: none !important;
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="s_social_share_horizontal" name="Social Sharing - Horizontal" inherit_id="website.snippets">
+        <xpath expr="//snippets[@id='snippet_structure']//t[@t-snippet='social_sharing.s_social_share_vertical_block']" position="after">
+            <t t-snippet="social_sharing.s_social_share_horizontal_block"
+               string="Social Share - Horizontal"
+               group="social"
+               t-thumbnail="/social_sharing/static/src/img/snippet_thumb_horizontal.png">
+                <keywords>share, social, horizontal, bar, facebook, twitter, linkedin, instagram, pinterest</keywords>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="s_social_share_horizontal_block" name="Social Share - Horizontal">
+        <section class="s_social_share_horizontal o_cc1" data-snippet="s_social_share_horizontal_block" data-name="Social Share Horizontal">
+            <div class="s_social_share_horizontal_wrap container s_share text-start o_no_link_popover oe_share">
+                <span class="s_share_bar_label">Share:</span>
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/sharer/sharer.php?u={url}" class="s_share_facebook" title="Share on Facebook" target="_blank">
+                    <i class="fa fa-facebook rounded-circle shadow-sm"/>
+                </a>
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/gogagaentertainments" class="s_share_instagram" title="Follow us on Instagram" target="_blank">
+                    <i class="fa fa-instagram rounded-circle shadow-sm"/>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url={url}" class="s_share_linkedin" title="Share on LinkedIn" target="_blank">
+                    <i class="fa fa-linkedin rounded-circle shadow-sm"/>
+                </a>
+                <!-- X (Twitter) -->
+                <a href="https://x.com/intent/tweet?text={title}&amp;url={url}" class="s_share_twitter" title="Share on X" target="_blank">
+                    <i class="fa fa-twitter rounded-circle shadow-sm"/>
+                </a>
+                <!-- Pinterest -->
+                <a href="https://pinterest.com/pin/create/button/?url={url}&amp;media={media}&amp;description={title}" class="s_share_pinterest" title="Pin on Pinterest" target="_blank">
+                    <i class="fa fa-pinterest rounded-circle shadow-sm"/>
+                </a>
+            </div>
+        </section>
+    </template>
+</odoo>

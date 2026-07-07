@@ -1,0 +1,181 @@
+/* ============================================================
+   Generic Social Sharing – stylesheet
+   Blends with the theme using native Odoo variable styles
+   ============================================================ */
+
+/* ------ inline share bar (blog/product) ------ */
+.s_share_bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid var(--border-color, #dee2e6);
+    padding-top: 16px !important;
+    margin-top: 16px;
+}
+
+.s_share_bar_label {
+    font-weight: 600;
+    margin-right: 8px;
+    color: var(--body-color, #212529);
+    font-size: 14px;
+}
+
+/* ------ social sharing icon containers ------ */
+.s_social_share_vertical_wrap,
+.s_social_share_horizontal_wrap,
+.s_share_bar {
+    /* Odoo's native s_share styling is inherited */
+}
+
+/* Base style for individual sharing icons */
+.s_share_facebook,
+.s_share_instagram,
+.s_share_linkedin,
+.s_share_twitter,
+.s_share_pinterest {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50% !important;
+    background: var(--body-bg, #fff);
+    color: var(--body-color, #495057) !important;
+    border: 1px solid var(--border-color, #dee2e6);
+    transition: all 0.2s ease-in-out;
+    margin: 4px;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.s_share_facebook i,
+.s_share_instagram i,
+.s_share_linkedin i,
+.s_share_twitter i,
+.s_share_pinterest i {
+    font-size: 18px;
+    display: inline-block;
+    line-height: 1;
+}
+
+/* ------ Website Builder snippet panel — always show brand colors ------ */
+/* In the "Insert a block" thumbnail panel (.o_snippet_preview_wrap / iframe
+   rendered at small scale), show each platform's brand color at rest so
+   the icons are instantly identifiable without needing to hover. */
+.o_snippet_preview_wrap .s_share_facebook,
+.we_editor .s_share_facebook {
+    background: #1877f2 !important;
+    color: #fff !important;
+    border-color: #1877f2 !important;
+}
+.o_snippet_preview_wrap .s_share_instagram,
+.we_editor .s_share_instagram {
+    background: #e1306c !important;
+    color: #fff !important;
+    border-color: #e1306c !important;
+}
+.o_snippet_preview_wrap .s_share_linkedin,
+.we_editor .s_share_linkedin {
+    background: #0a66c2 !important;
+    color: #fff !important;
+    border-color: #0a66c2 !important;
+}
+.o_snippet_preview_wrap .s_share_twitter,
+.we_editor .s_share_twitter {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #000 !important;
+}
+.o_snippet_preview_wrap .s_share_pinterest,
+.we_editor .s_share_pinterest {
+    background: #e60023 !important;
+    color: #fff !important;
+    border-color: #e60023 !important;
+}
+
+/* Hover effects with brand color transitions */
+.s_share_facebook:hover {
+    background: #1877f2 !important;
+    color: #fff !important;
+    border-color: #1877f2 !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(24, 119, 242, 0.3);
+}
+
+.s_share_instagram:hover {
+    background: #e1306c !important;
+    color: #fff !important;
+    border-color: #e1306c !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(225, 48, 108, 0.3);
+}
+
+.s_share_linkedin:hover {
+    background: #0a66c2 !important;
+    color: #fff !important;
+    border-color: #0a66c2 !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(10, 102, 194, 0.3);
+}
+
+.s_share_twitter:hover {
+    background: #000000 !important;
+    color: #fff !important;
+    border-color: #000000 !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.s_share_pinterest:hover {
+    background: #e60023 !important;
+    color: #fff !important;
+    border-color: #e60023 !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(230, 0, 35, 0.3);
+}
+
+/* ------ vertical sidebar snippet layout ------ */
+.s_social_share_vertical_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 6px;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1050;
+    background: var(--body-bg, #ffffff);
+    border: 1px solid var(--border-color, #dee2e6);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ------ horizontal snippet layout ------ */
+.s_social_share_horizontal_wrap {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px 0;
+}
+
+/* ------ Odoo Website Builder Edit Mode styles ------ */
+/* In edit mode, do not fix the vertical sidebar to the screen. 
+   Display it statically in-flow so the section has dimensions, 
+   making it easily selectable, movable, and deletable by designers. */
+body.editor_enable .s_social_share_vertical_wrap {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: 1px dashed var(--border-color, #dee2e6);
+    background: var(--body-bg, #f8f9fa);
+    border-radius: 4px;
+    margin: 15px auto;
+    max-width: 60px;
+    display: inline-flex !important;
+}

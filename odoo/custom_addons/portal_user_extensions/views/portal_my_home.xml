@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_loyalty" inherit_id="portal.portal_my_home" name="Portal My Home: Loyalty Points" priority="25">
+        <xpath expr="//div[@id='portal_client_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Loyalty Points</t>
+                <t t-set="url" t-value="'/my/loyalty'"/>
+                <t t-set="text">View your loyalty points</t>
+                <t t-set="count" t-value="'%.0f' % loyalty_points_total"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+
+        <!-- Remove the standard common category which is on a separate row -->
+        <xpath expr="//div[@id='portal_common_category']" position="replace"/>
+
+        <!-- Re-inject Connection and Addresses at the end of the client category for a continuous grid -->
+        <xpath expr="//div[@id='portal_client_category']" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/portal/static/src/img/portal-connection.svg'"/>
+                <t t-set="title">Connection &amp; Security</t>
+                <t t-set="text">Configure your connection parameters</t>
+                <t t-set="url" t-value="'/my/security'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/portal/static/src/img/portal-addresses.svg'"/>
+                <t t-set="title">Addresses</t>
+                <t t-set="text">Add, remove or modify your addresses</t>
+                <t t-set="url" t-value="'/my/addresses'"/>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>
