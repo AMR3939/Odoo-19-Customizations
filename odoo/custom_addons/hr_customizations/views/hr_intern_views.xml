@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Employee Form: Convert Intern to Regular Employee          -->
+    <!-- ========================================================= -->
+
+    <record id="view_hr_employee_form_intern_conversion"
+            model="ir.ui.view">
+
+        <field name="name">hr.employee.form.intern.conversion</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="priority" eval="50"/>
+
+        <field name="arch" type="xml">
+
+            <!-- Add Create Employee beside Create User -->
+            <xpath expr="//form/header/button[@name='action_create_user']"
+                   position="after">
+
+                <button name="action_convert_intern_to_employee"
+                        type="object"
+                        string="Create Employee"
+                        class="btn-primary"
+                        groups="hr.group_hr_manager"
+                        invisible="not is_intern_employee or is_blacklisted_employee or not active"
+                        confirm="Are you sure you want to convert this intern into a regular employee?"/>
+
+            </xpath>
+
+            <!-- Fields required for button visibility -->
+            <xpath expr="//form/sheet" position="inside">
+                <field name="is_intern_employee" invisible="1"/>
+                <field name="is_blacklisted_employee" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Interns Action                                             -->
+    <!-- ========================================================= -->
+
+    <record id="action_hr_intern_employees"
+            model="ir.actions.act_window">
+
+        <field name="name">Interns</field>
+        <field name="res_model">hr.employee</field>
+
+        <!-- Do not put this value on multiple lines -->
+        <field name="view_mode">kanban,list,form,activity</field>
+
+        <field name="domain">[
+            ('is_intern_employee', '=', True),
+            ('is_blacklisted_employee', '=', False)
+        ]</field>
+
+        <field name="context">{
+            'default_is_intern_employee': True,
+            'default_intern_source': 'manual'
+        }</field>
+
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Interns Menu inside Employees App                          -->
+    <!-- ========================================================= -->
+
+    <menuitem id="menu_hr_intern_employees"
+              name="Interns"
+              parent="hr.menu_hr_root"
+              action="action_hr_intern_employees"
+              sequence="6"/>
+
+</odoo>

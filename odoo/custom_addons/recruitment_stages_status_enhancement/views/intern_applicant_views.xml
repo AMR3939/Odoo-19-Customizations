@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Intern Applicant Quick Create Form                         -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_applicant_quick_create_form" model="ir.ui.view">
+        <field name="name">intern.applicant.quick.create.form</field>
+        <field name="model">intern.applicant</field>
+        <field name="arch" type="xml">
+            <form string="Create Intern Applicant">
+                <group>
+                    <field name="intern_first_name" required="1"/>
+                    <field name="intern_middle_name"/>
+                    <field name="intern_last_name" required="1"/>
+
+                    <field name="email_from" required="1"/>
+                    <field name="partner_phone" required="1"/>
+                    <field name="pan_number"
+                           required="1"
+                           placeholder="ABCDE1234F"/>
+
+                    <field name="job_id" required="1"/>
+
+                    <field name="degree_id"
+                           required="1"
+                           options="{'no_create_edit': False}"/>
+
+                    <field name="stream_id"
+                           options="{'no_create_edit': False}"/>
+
+                    <field name="university_id"
+                           required="1"
+                           options="{'no_create_edit': False}"/>
+
+                    <field name="university_city_id"
+                           readonly="1"/>
+
+                    <field name="university_state_id"
+                           readonly="1"/>
+
+                    <field name="university_country_id"
+                           readonly="1"/>
+
+                    <field name="type_id" invisible="1"/>
+
+                    <field name="availability" required="1"/>
+
+                    <field name="stage_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Applicant List View                                 -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_applicant_list" model="ir.ui.view">
+        <field name="name">intern.applicant.list</field>
+        <field name="model">intern.applicant</field>
+        <field name="arch" type="xml">
+            <list string="Intern Applications"
+                  default_order="priority desc, sequence asc, id desc">
+
+                <header>
+                    <button name="action_intern_approve"
+                            type="object"
+                            string="Approve"
+                            class="btn-primary"/>
+
+                    <button name="action_intern_send_back"
+                            type="object"
+                            string="Send Back"/>
+
+                    <button name="action_intern_reject"
+                            type="object"
+                            string="Reject"/>
+                </header>
+
+                <field name="sequence" widget="handle"/>
+                <field name="intern_reference"/>
+
+                <field name="partner_name"
+                       string="Applicant"/>
+
+                <field name="email_from"/>
+                <field name="partner_phone"/>
+                <field name="pan_number" optional="hide"/>
+
+                <field name="job_id"/>
+
+                <field name="degree_id" optional="show"/>
+                <field name="stream_id" optional="hide"/>
+                <field name="university_id" optional="hide"/>
+
+                <field name="university_city_id"
+                       optional="hide"/>
+
+                <field name="university_state_id"
+                       optional="hide"/>
+
+                <field name="university_country_id"
+                       optional="hide"/>
+
+                <field name="stage_id"/>
+
+                <field name="intern_stage_category"
+                       optional="hide"/>
+
+                <field name="intern_is_post_hiring"
+                       optional="hide"/>
+
+                <field name="application_status"/>
+                <field name="employee_id"/>
+                <field name="user_id"/>
+
+                <field name="company_id"
+                       groups="base.group_multi_company"/>
+
+                <field name="create_date"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Applicant Kanban View                               -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_applicant_kanban" model="ir.ui.view">
+        <field name="name">intern.applicant.kanban</field>
+        <field name="model">intern.applicant</field>
+        <field name="arch" type="xml">
+            <kanban string="Intern Applications"
+                    default_group_by="stage_id"
+                    records_draggable="0"
+                    group_create="1"
+                    group_edit="1"
+                    quick_create="1"
+                    quick_create_view="recruitment_stages_status_enhancement.view_intern_applicant_quick_create_form"
+                    class="o_kanban_small_column">
+
+                <field name="stage_id"
+                       domain="[('active', '=', True)]"
+                       context="{
+                           'default_intern_requires_approval': True,
+                           'default_intern_allow_send_back': True,
+                           'default_intern_allow_reject': True,
+                           'default_intern_workflow_category': 'application'
+                       }"/>
+
+                <field name="partner_name"/>
+                <field name="email_from"/>
+                <field name="partner_phone"/>
+                <field name="pan_number"/>
+                <field name="job_id"/>
+
+                <field name="degree_id"/>
+                <field name="stream_id"/>
+                <field name="university_id"/>
+                <field name="university_city_id"/>
+                <field name="university_state_id"/>
+                <field name="university_country_id"/>
+
+                <field name="user_id"/>
+                <field name="priority"/>
+                <field name="intern_reference"/>
+                <field name="intern_stage_category"/>
+                <field name="intern_is_post_hiring"/>
+                <field name="application_status"/>
+                <field name="employee_id"/>
+
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+
+                            <div class="o_kanban_record_top">
+                                <div>
+                                    <strong>
+                                        <field name="partner_name"/>
+                                    </strong>
+
+                                    <div class="text-muted">
+                                        <field name="intern_reference"/>
+                                    </div>
+                                </div>
+
+                                <field name="user_id"
+                                       widget="many2one_avatar_user"/>
+                            </div>
+
+                            <div class="mt-2 text-muted">
+                                <field name="job_id"/>
+                            </div>
+
+                            <div class="mt-1 text-muted"
+                                 t-if="record.degree_id.raw_value">
+                                <span>Degree: </span>
+                                <field name="degree_id"/>
+                            </div>
+
+                            <div class="mt-1 text-muted"
+                                 t-if="record.university_id.raw_value">
+                                <span>University: </span>
+                                <field name="university_id"/>
+                            </div>
+
+                            <div class="mt-2">
+                                <t t-if="record.intern_is_post_hiring.raw_value">
+                                    <span class="badge rounded-pill text-bg-info">
+                                        Post-Hiring
+                                    </span>
+                                </t>
+
+                                <t t-if="record.employee_id.raw_value">
+                                    <span class="badge rounded-pill text-bg-success">
+                                        Employee Created
+                                    </span>
+                                </t>
+
+                                <t t-if="record.application_status.raw_value == 'rejected'">
+                                    <span class="badge rounded-pill text-bg-danger">
+                                        Rejected
+                                    </span>
+                                </t>
+                            </div>
+
+                            <div class="mt-2">
+                                <field name="email_from"/>
+                            </div>
+
+                            <div>
+                                <field name="partner_phone"/>
+                            </div>
+
+                            <div class="o_kanban_record_bottom mt-2">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="priority" widget="priority"/>
+                                </div>
+
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="application_status"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Applicant Form View                                 -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_applicant_form" model="ir.ui.view">
+        <field name="name">intern.applicant.form</field>
+        <field name="model">intern.applicant</field>
+        <field name="arch" type="xml">
+            <form string="Intern Applicant">
+
+                <header>
+                    <button name="action_intern_approve"
+                            type="object"
+                            string="Move to Next Stage"
+                            class="btn-primary"
+                            invisible="not intern_can_approve"/>
+
+                    <button name="action_intern_send_back"
+                            type="object"
+                            string="Move to Previous Stage"
+                            invisible="not intern_can_send_back"/>
+
+                    <button name="action_intern_reject"
+                            type="object"
+                            string="Reject"
+                            invisible="not intern_can_reject"/>
+
+                    <button name="create_employee_from_applicant"
+                            type="object"
+                            string="Create Intern"
+                            class="btn-primary"
+                            invisible="not intern_can_create_employee"/>
+
+                    <field name="stage_id"
+                           widget="statusbar"
+                           domain="[('active', '=', True)]"
+                           context="{
+                               'default_intern_requires_approval': True,
+                               'default_intern_allow_send_back': True,
+                               'default_intern_allow_reject': True
+                           }"
+                           options="{'clickable': False}"/>
+                </header>
+
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <field name="intern_can_approve" invisible="1"/>
+                    <field name="intern_can_send_back" invisible="1"/>
+                    <field name="intern_can_reject" invisible="1"/>
+                    <field name="intern_can_create_employee" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="type_id" invisible="1"/>
+
+                    <div class="oe_button_box" name="button_box">
+                        <button name="create_employee_from_applicant"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-user"
+                                invisible="not employee_id">
+
+                            <field name="employee_id"
+                                   widget="statinfo"
+                                   string="Employee"/>
+                        </button>
+                    </div>
+
+                    <widget name="web_ribbon"
+                            title="Rejected"
+                            bg_color="text-bg-danger"
+                            invisible="application_status != 'rejected'"/>
+
+                    <widget name="web_ribbon"
+                            title="Hired"
+                            bg_color="text-bg-success"
+                            invisible="application_status != 'hired'"/>
+
+                    <widget name="web_ribbon"
+                            title="Completed"
+                            bg_color="text-bg-info"
+                            invisible="application_status != 'completed'"/>
+
+                    <div class="oe_title">
+                        <label for="intern_first_name"
+                               string="Intern Applicant"/>
+
+                        <h1>
+                            <field name="intern_first_name"
+                                   placeholder="First Name"
+                                   required="1"
+                                   class="oe_inline"/>
+
+                            <field name="intern_middle_name"
+                                   placeholder="Middle Name"
+                                   class="oe_inline"/>
+
+                            <field name="intern_last_name"
+                                   placeholder="Last Name"
+                                   required="1"
+                                   class="oe_inline"/>
+                        </h1>
+
+                        <h3>
+                            <field name="intern_reference"
+                                   readonly="1"/>
+                        </h3>
+                    </div>
+
+                    <group>
+                        <group string="Applicant Details">
+                            <field name="partner_name" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="email_from" required="1"/>
+                            <field name="partner_phone" required="1"/>
+
+                            <field name="pan_number"
+                                   required="1"
+                                   placeholder="ABCDE1234F"/>
+
+                            <field name="linkedin_profile"/>
+                            <field name="availability" required="1"/>
+                        </group>
+
+                        <group string="Intern Recruitment Details">
+                            <field name="priority" widget="priority"/>
+                            <field name="job_id" required="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="department_id" readonly="1"/>
+
+                            <field name="interviewer_ids"
+                                   widget="many2many_tags"/>
+
+                            <field name="categ_ids"
+                                   widget="many2many_tags"/>
+
+                            <field name="application_status"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- Education Details                                  -->
+                    <!-- ================================================= -->
+
+                    <group string="Education Details">
+                        <group>
+                            <field name="degree_id"
+                                   string="Degree"
+                                   required="1"
+                                   options="{'no_create_edit': False}"/>
+
+                            <field name="stream_id"
+                                   string="Stream"
+                                   options="{'no_create_edit': False}"/>
+
+                            <field name="university_id"
+                                   string="University"
+                                   required="1"
+                                   options="{'no_create_edit': False}"/>
+                        </group>
+
+                        <group>
+                            <field name="university_city_id"
+                                   string="University City"
+                                   readonly="1"/>
+
+                            <field name="university_state_id"
+                                   string="University State"
+                                   readonly="1"/>
+
+                            <field name="university_country_id"
+                                   string="University Country"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- Hidden Workflow Fields                             -->
+                    <!-- ================================================= -->
+
+                    <group invisible="1">
+                        <field name="stage_id"/>
+                        <field name="intern_stage_category"/>
+                        <field name="intern_is_post_hiring"/>
+                        <field name="employee_id"/>
+                        <field name="date_closed"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Notes"
+                              name="application_note">
+
+                            <field name="applicant_notes"
+                                   placeholder="Add private notes about this applicant..."/>
+
+                            <separator string="Resume"/>
+
+                            <field name="resume_filename"
+                                   invisible="1"/>
+
+                            <field name="resume_file"
+                                   filename="resume_filename"
+                                   widget="binary"
+                                   string="Resume"/>
+                        </page>
+
+                        <page string="Salary / Stipend"
+                              name="salary_stipend">
+
+                            <group>
+                                <field name="salary_expected"/>
+                                <field name="salary_expected_extra"/>
+                                <field name="salary_proposed"/>
+                                <field name="salary_proposed_extra"/>
+                            </group>
+                        </page>
+
+                        <page string="Workflow History"
+                              name="workflow_history">
+
+                            <field name="intern_workflow_history_ids"
+                                   readonly="1">
+
+                                <list string="Workflow History"
+                                      default_order="action_date desc">
+
+                                    <field name="action_date"/>
+                                    <field name="action_type"/>
+                                    <field name="old_stage_id"/>
+                                    <field name="new_stage_id"/>
+                                    <field name="action_by_id"/>
+                                    <field name="remarks"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <div class="o_attachment_preview">
+                    <field name="message_main_attachment_id"
+                           widget="attachment_preview"
+                           nolabel="1"/>
+                </div>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Applicant Search View                               -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_applicant_search" model="ir.ui.view">
+        <field name="name">intern.applicant.search</field>
+        <field name="model">intern.applicant</field>
+        <field name="arch" type="xml">
+            <search string="Search Intern Applications">
+
+                <field name="partner_name"/>
+                <field name="email_from"/>
+                <field name="partner_phone"/>
+                <field name="pan_number"/>
+                <field name="job_id"/>
+
+                <field name="degree_id"/>
+                <field name="stream_id"/>
+                <field name="university_id"/>
+                <field name="university_city_id"/>
+                <field name="university_state_id"/>
+                <field name="university_country_id"/>
+
+                <field name="stage_id"/>
+                <field name="user_id"/>
+                <field name="application_status"/>
+
+                <filter name="filter_active"
+                        string="Active"
+                        domain="[('active', '=', True)]"/>
+
+                <filter name="filter_archived"
+                        string="Archived"
+                        domain="[('active', '=', False)]"/>
+
+                <separator/>
+
+                <filter name="filter_ongoing"
+                        string="Ongoing"
+                        domain="[('application_status', '=', 'ongoing')]"/>
+
+                <filter name="filter_hired"
+                        string="Hired"
+                        domain="[('application_status', '=', 'hired')]"/>
+
+                <filter name="filter_rejected"
+                        string="Rejected"
+                        domain="[('application_status', '=', 'rejected')]"/>
+
+                <filter name="filter_completed"
+                        string="Completed"
+                        domain="[('application_status', '=', 'completed')]"/>
+
+                <separator/>
+
+                <filter name="filter_application"
+                        string="Application"
+                        domain="[('intern_stage_category', '=', 'application')]"/>
+
+                <filter name="filter_screening"
+                        string="Screening"
+                        domain="[('intern_stage_category', '=', 'screening')]"/>
+
+                <filter name="filter_interview"
+                        string="Interview"
+                        domain="[('intern_stage_category', '=', 'interview')]"/>
+
+                <filter name="filter_selection"
+                        string="Selection"
+                        domain="[('intern_stage_category', '=', 'selection')]"/>
+
+                <filter name="filter_onboarding"
+                        string="Onboarding"
+                        domain="[('intern_stage_category', '=', 'onboarding')]"/>
+
+                <filter name="filter_active_stage"
+                        string="Active Stage"
+                        domain="[('intern_stage_category', '=', 'active')]"/>
+
+                <filter name="filter_exit"
+                        string="Exit"
+                        domain="[('intern_stage_category', '=', 'exit')]"/>
+
+                <filter name="filter_completed_stage"
+                        string="Completed Stage"
+                        domain="[('intern_stage_category', '=', 'completed')]"/>
+
+                <filter name="filter_post_hiring"
+                        string="Post-Hiring"
+                        domain="[('intern_is_post_hiring', '=', True)]"/>
+
+                <separator/>
+
+                <filter name="group_stage"
+                        string="Stage"
+                        context="{'group_by': 'stage_id'}"/>
+
+                <filter name="group_job"
+                        string="Job Position"
+                        context="{'group_by': 'job_id'}"/>
+
+                <filter name="group_degree"
+                        string="Degree"
+                        context="{'group_by': 'degree_id'}"/>
+
+                <filter name="group_stream"
+                        string="Stream"
+                        context="{'group_by': 'stream_id'}"/>
+
+                <filter name="group_university"
+                        string="University"
+                        context="{'group_by': 'university_id'}"/>
+
+                <filter name="group_university_city"
+                        string="University City"
+                        context="{'group_by': 'university_city_id'}"/>
+
+                <filter name="group_university_state"
+                        string="University State"
+                        context="{'group_by': 'university_state_id'}"/>
+
+                <filter name="group_university_country"
+                        string="University Country"
+                        context="{'group_by': 'university_country_id'}"/>
+
+                <filter name="group_recruiter"
+                        string="Recruiter"
+                        context="{'group_by': 'user_id'}"/>
+
+                <filter name="group_status"
+                        string="Application Status"
+                        context="{'group_by': 'application_status'}"/>
+
+                <filter name="group_category"
+                        string="Intern Stage Category"
+                        context="{'group_by': 'intern_stage_category'}"/>
+            </search>
+        </field>
+    </record>
+    <!-- ========================================================= -->
+<!-- Intern Applicant Activity View                            -->
+<!-- ========================================================= -->
+
+<record id="view_intern_applicant_activity" model="ir.ui.view">
+    <field name="name">intern.applicant.activity</field>
+    <field name="model">intern.applicant</field>
+
+    <field name="arch" type="xml">
+        <activity string="Intern Applicants">
+
+            <field name="user_id"/>
+            <field name="partner_name"/>
+            <field name="job_id"/>
+
+            <templates>
+                <div t-name="activity-box">
+                    <div class="d-flex flex-column">
+
+                        <field name="partner_name"
+                               display="full"
+                               class="fw-bold o_text_block"/>
+
+                        <field name="job_id"
+                               display="full"
+                               muted="1"
+                               class="o_text_block"/>
+
+                    </div>
+                </div>
+            </templates>
+
+        </activity>
+    </field>
+</record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Applicant Activity Search View                     -->
+    <!-- Only Intern Job Position and Stage are available here.    -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_applicant_activity_search"
+            model="ir.ui.view">
+        <field name="name">intern.applicant.activity.search</field>
+        <field name="model">intern.applicant</field>
+
+        <field name="arch" type="xml">
+            <search>
+
+                <!-- Filter by Intern Job Position -->
+                <field name="job_id"
+                       string="Intern Job Position"/>
+
+                <!-- Filter by the actual Intern Recruitment Stage -->
+                <field name="stage_id"
+                       string="Intern Recruitment Stage"/>
+
+                <separator/>
+
+                <group>
+                    <filter name="group_activity_job"
+                            string="Intern Job Position"
+                            context="{'group_by': 'job_id'}"/>
+
+                    <filter name="group_activity_stage"
+                            string="Intern Recruitment Stage"
+                            context="{'group_by': 'stage_id'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Applications Action                                 -->
+    <!-- ========================================================= -->
+
+    <record id="action_intern_applications" model="ir.actions.act_window">
+        <field name="name">Intern Applications</field>
+        <field name="res_model">intern.applicant</field>
+        <field name="view_mode">kanban,list,form,activity</field>
+        <field name="domain">[]</field>
+
+        <field name="context">{
+            'search_default_filter_active': 1,
+            'search_default_group_stage': 1
+        }</field>
+
+        <field name="search_view_id"
+               ref="view_intern_applicant_search"/>
+
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {
+                'view_mode': 'kanban',
+                'view_id': ref('view_intern_applicant_kanban')
+            }),
+            (0, 0, {
+                'view_mode': 'list',
+                'view_id': ref('view_intern_applicant_list')
+            }),
+            (0, 0, {
+                'view_mode': 'form',
+                'view_id': ref('view_intern_applicant_form')
+            })
+        ]"/>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Post-Hiring Interns Action                                 -->
+    <!-- ========================================================= -->
+
+    <record id="action_post_hiring_interns" model="ir.actions.act_window">
+        <field name="name">Post-Hiring Interns</field>
+        <field name="res_model">intern.applicant</field>
+        <field name="view_mode">kanban,list,form,activity</field>
+
+        <field name="domain">[
+            ('intern_is_post_hiring', '=', True)
+        ]</field>
+
+        <field name="context">{
+            'search_default_filter_active': 1,
+            'search_default_filter_post_hiring': 1,
+            'search_default_group_stage': 1
+        }</field>
+
+        <field name="search_view_id"
+               ref="view_intern_applicant_search"/>
+
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {
+                'view_mode': 'kanban',
+                'view_id': ref('view_intern_applicant_kanban')
+            }),
+            (0, 0, {
+                'view_mode': 'list',
+                'view_id': ref('view_intern_applicant_list')
+            }),
+            (0, 0, {
+                'view_mode': 'form',
+                'view_id': ref('view_intern_applicant_form')
+            })
+        ]"/>
+    </record>
+
+</odoo>

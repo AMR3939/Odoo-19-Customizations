@@ -5,3 +5,6 @@ from . import hr_employee_place_of_birth
 #from . import hr_contract
 from . import hr_employee
 from . import resource
+from . import hr_employee_intern
+from . import hr_pan
+from . import hr_employee_blacklist

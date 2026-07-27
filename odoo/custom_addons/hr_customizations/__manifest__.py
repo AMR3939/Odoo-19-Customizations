@@ -9,15 +9,22 @@
     'depends': [
         'hr',
         #'hr_contract',
-        'contact_enhancements', # CRITICAL DEPENDENCY
+        'contact_enhancements',# CRITICAL DEPENDENCY
+         'hr_recruitment', # CRITICAL DEPENDENCY
+         'website_hr_recruitment',#CRITICAL DEPENDENCY
     ],
 
     'data': [
         'security/ir.model.access.csv',
+        'data/blacklist_reason_data.xml',
         'views/configuration_views.xml',
         'views/hr_employee_views.xml',
         'views/hr_employee_search_views.xml',
         'views/hr_menus.xml',
+        'views/hr_intern_views.xml',
+        'views/hr_pan_views.xml',
+        'views/hr_recruitment_website_pan_views.xml',
+        'views/hr_employee_blacklist_views.xml',
     ],
 
     'assets': {

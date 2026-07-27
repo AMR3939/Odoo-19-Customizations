@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Add PAN Number in Normal Website Job Application Form      -->
+    <!-- ========================================================= -->
+
+    <template id="website_hr_recruitment_apply_inherit_pan_number"
+              inherit_id="website_hr_recruitment.apply"
+              name="Website Job Application PAN Number">
+
+        <!-- Add PAN after phone number field -->
+        <xpath expr="//input[@name='partner_phone']/.." position="after">
+
+            <div class="mb-3 col-12 col-lg-6">
+                <label for="pan_number" class="form-label">
+                    PAN Number <span class="text-danger">*</span>
+                </label>
+
+                <input type="text"
+                       id="pan_number"
+                       name="pan_number"
+                       class="form-control text-uppercase"
+                       required="required"
+                       minlength="10"
+                       maxlength="10"
+                       pattern="[A-Z]{5}[0-9]{4}[A-Z]"
+                       title="Enter a valid PAN number. Example: ABCDE1234F"
+                       placeholder="ABCDE1234F"/>
+
+                <small class="form-text text-muted">
+                    Format: ABCDE1234F
+                </small>
+            </div>
+
+        </xpath>
+
+    </template>
+
+</odoo>

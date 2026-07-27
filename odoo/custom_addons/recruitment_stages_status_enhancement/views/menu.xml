@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Hide old separate Intern Recruitment root menu             -->
+    <!-- ========================================================= -->
+
+    <record id="menu_intern_recruitment_root" model="ir.ui.menu">
+        <field name="name">Intern Recruitment</field>
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Applications → Employee Applications                       -->
+    <!-- ========================================================= -->
+
+    <menuitem id="menu_employee_applications_heading"
+              name="Employee Applications"
+              parent="hr_recruitment.menu_crm_case_categ0_act_job"
+              sequence="1"/>
+
+    <record id="hr_recruitment.menu_hr_job_position" model="ir.ui.menu">
+        <field name="parent_id" ref="menu_employee_applications_heading"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="hr_recruitment.menu_hr_job_position_interviewer" model="ir.ui.menu">
+        <field name="parent_id" ref="menu_employee_applications_heading"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="hr_recruitment.menu_crm_case_categ_all_app" model="ir.ui.menu">
+        <field name="parent_id" ref="menu_employee_applications_heading"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Applications → Intern Applications                         -->
+    <!-- ========================================================= -->
+
+    <menuitem id="menu_intern_job_positions"
+              name="Intern Applications"
+              parent="hr_recruitment.menu_crm_case_categ0_act_job"
+              sequence="2"
+              groups="recruitment_stages_status_enhancement.group_intern_recruitment_user"/>
+
+    <menuitem id="menu_intern_job_positions_list"
+              name="Intern Job Positions"
+              parent="menu_intern_job_positions"
+              action="action_intern_job_positions"
+              sequence="10"
+              groups="recruitment_stages_status_enhancement.group_intern_recruitment_user"/>
+
+    <menuitem id="menu_intern_applications"
+              name="Intern Applications"
+              parent="menu_intern_job_positions"
+              action="action_intern_applications"
+              sequence="20"
+              groups="recruitment_stages_status_enhancement.group_intern_recruitment_user"/>
+
+    <menuitem id="menu_intern_workflow_history"
+              name="Workflow History"
+              parent="menu_intern_job_positions"
+              action="action_intern_workflow_history"
+              sequence="30"
+              groups="recruitment_stages_status_enhancement.group_intern_recruitment_user"/>
+
+    <!-- ========================================================= -->
+    <!-- Applications → Availability                                -->
+    <!-- ========================================================= -->
+
+    <menuitem id="menu_recruitment_availability_heading"
+              name="Availability"
+              parent="hr_recruitment.menu_crm_case_categ0_act_job"
+              sequence="3"/>
+
+    <record id="hr_recruitment.menu_hr_talent_pools" model="ir.ui.menu">
+        <field name="parent_id" ref="menu_recruitment_availability_heading"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Configuration → Employee Job Position                      -->
+    <!-- ========================================================= -->
+
+    <record id="hr_recruitment.menu_hr_recruitment_config_jobs" model="ir.ui.menu">
+        <field name="name">Employee Job Positions</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="hr_recruitment.menu_hr_recruitment_stage" model="ir.ui.menu">
+        <field name="name">Employee Stages</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <!-- Employment Types menu stays under Employee Job Position -->
+
+    <!-- ========================================================= -->
+    <!-- Configuration → Intern Job Position                        -->
+    <!-- ========================================================= -->
+
+    <menuitem id="menu_intern_recruitment_configuration"
+              name="Intern Job Positions"
+              parent="hr_recruitment.menu_hr_recruitment_configuration"
+              sequence="11"
+              groups="recruitment_stages_status_enhancement.group_intern_recruitment_manager"/>
+
+    <menuitem id="menu_intern_recruitment_stages"
+              name="Intern Stages"
+              parent="menu_intern_recruitment_configuration"
+              action="action_intern_recruitment_stage"
+              sequence="10"
+              groups="recruitment_stages_status_enhancement.group_intern_recruitment_manager"/>
+
+</odoo>

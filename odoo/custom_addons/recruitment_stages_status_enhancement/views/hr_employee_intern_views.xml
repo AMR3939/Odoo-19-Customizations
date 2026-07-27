@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_employee_form_inherit_intern_job_position" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.intern.job.position</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//sheet" position="inside">
+                <field name="is_intern_employee" invisible="1"/>
+                <field name="intern_source" invisible="1"/>
+                <field name="intern_job_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="invisible">is_intern_employee</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="intern_job_id"
+                       string="Job Position"
+                       invisible="not is_intern_employee"
+                       options="{'no_create': True}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

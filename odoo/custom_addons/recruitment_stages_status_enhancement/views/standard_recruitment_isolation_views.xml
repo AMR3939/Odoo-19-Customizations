@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_applicant_view_form_hide_intern_stages" model="ir.ui.view">
+        <field name="name">hr.applicant.form.hide.intern.stages</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/field[@name='stage_id']" position="attributes">
+                <attribute name="domain">[
+                    ('is_intern_stage', '=', False),
+                    '|',
+                    ('job_ids', '=', False),
+                    ('job_ids', '=', job_id)
+                ]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_applicant_kanban_hide_intern_stages" model="ir.ui.view">
+        <field name="name">hr.applicant.kanban.hide.intern.stages</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban/field[@name='stage_id']" position="attributes">
+                <attribute name="domain">[('is_intern_stage', '=', False)]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_recruitment.crm_case_categ0_act_job" model="ir.actions.act_window">
+        <field name="domain">[('is_intern_applicant', '=', False)]</field>
+        <field name="context">{'search_default_applicants': 1, 'default_is_intern_applicant': False}</field>
+    </record>
+
+    <record id="hr_recruitment.action_hr_job_applications" model="ir.actions.act_window">
+        <field name="domain">[('is_intern_applicant', '=', False)]</field>
+        <field name="context">{
+            'search_default_job_id': [active_id],
+            'search_default_applicants': 1,
+            'default_job_id': active_id,
+            'default_is_intern_applicant': False,
+            'dialog_size': 'medium',
+            'allow_search_matching_applicants': 1
+        }</field>
+    </record>
+
+    <record id="hr_recruitment.action_hr_applicant_new" model="ir.actions.act_window">
+        <field name="view_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="context">{'default_job_id': active_id, 'default_is_intern_applicant': False}</field>
+    </record>
+
+    <record id="hr_recruitment.action_hr_job" model="ir.actions.act_window">
+        <field name="domain">[('is_intern_job', '=', False)]</field>
+        <field name="context">{'search_default_in_recruitment': 1, 'default_is_intern_job': False}</field>
+    </record>
+
+    <record id="hr_recruitment.action_hr_job_interviewer" model="ir.actions.act_window">
+        <field name="domain">[('is_intern_job', '=', False)]</field>
+        <field name="context">{'search_default_in_recruitment': 1, 'default_is_intern_job': False}</field>
+    </record>
+</odoo>
