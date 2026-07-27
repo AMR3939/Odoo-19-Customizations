@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ===================================================== -->
+    <!-- List View -->
+    <!-- ===================================================== -->
+
+    <record id="view_sales_commission_achievement_line_list" model="ir.ui.view">
+        <field name="name">sales.commission.achievement.line.list</field>
+        <field name="model">sales.commission.achievement.line</field>
+        <field name="arch" type="xml">
+            <list string="Achievements" create="0">
+                <field name="salesperson_id" string="Sales Person"/>
+                <field name="plan_id" string="Commission Plan"/>
+                <field name="commission_target" string="Commission Target" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="achieved_rate" string="Achieved Rate"/>
+                <field name="target" string="Target" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="commission_rate" string="Commission Rate"/>
+                <field name="period" string="Period"/>
+                <field name="source" string="Source"/>
+                <field name="partner_id" string="Customer"/>
+                <field name="currency_id" string="Currency"/>
+                <field name="achieved" string="Achieved" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- Search View -->
+    <!-- ===================================================== -->
+
+    <record id="view_sales_commission_achievement_line_search" model="ir.ui.view">
+        <field name="name">sales.commission.achievement.line.search</field>
+        <field name="model">sales.commission.achievement.line</field>
+        <field name="arch" type="xml">
+            <search string="Achievements">
+                <field name="salesperson_id"/>
+                <field name="plan_id"/>
+                <field name="partner_id"/>
+                <field name="source"/>
+
+                <separator/>
+
+                <filter
+                    string="Group By"
+                    name="group_by">
+
+                    <filter
+                        name="group_by_salesperson"
+                        string="Sales Person"
+                        context="{'group_by':'salesperson_id'}"/>
+
+                    <filter
+                        name="group_by_plan"
+                        string="Commission Plan"
+                        context="{'group_by':'plan_id'}"/>
+
+                    <filter
+                        name="group_by_period"
+                        string="Period"
+                        context="{'group_by':'period'}"/>
+
+                    <filter
+                        name="group_by_customer"
+                        string="Customer"
+                        context="{'group_by':'partner_id'}"/>
+
+                </filter>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- Action -->
+    <!-- ===================================================== -->
+
+    <record id="action_sales_commission_achievement_line" model="ir.actions.act_window">
+        <field name="name">Achievements</field>
+        <field name="res_model">sales.commission.achievement.line</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_sales_commission_achievement_line_search"/>
+        <field name="domain">
+            [('plan_id.state','!=','done')]
+        </field>
+    </record>
+
+</odoo>

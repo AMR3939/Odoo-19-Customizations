@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="view_sales_commission_tree" model="ir.ui.view">
+    <field name="name">sales.commission.tree</field>
+    <field name="model">sales.commission</field>
+
+    <field name="arch" type="xml">
+        <list editable="bottom">
+            <field name="target_completion"/>
+            <field name="commission"/>
+            <field name="otc"/>
+        </list>
+    </field>
+</record>
+
+    <!-- Form View -->
+    <record id="view_sales_commission_form" model="ir.ui.view">
+    <field name="name">sales.commission.form</field>
+    <field name="model">sales.commission</field>
+
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="plan_id"/>
+                    <field name="target_completion"/>
+                    <field name="commission"/>
+                    <field name="otc"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+    <!-- Action -->
+    <record id="action_sales_commission" model="ir.actions.act_window">
+        <field name="name">Commissions</field>
+        <field name="res_model">sales.commission</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==========================================================
+                            TREE VIEW
+    ========================================================== -->
+
+    <record id="view_commission_record_tree" model="ir.ui.view">
+        <field name="name">sales.commission.record.tree</field>
+        <field name="model">sales.commission.record</field>
+
+        <field name="arch" type="xml">
+            <list create="0"
+                  edit="0"
+                  delete="0"
+                  open_form_view="1">
+
+                <field name="salesperson_id"/>
+                <field name="plan_id" optional="show"/>
+                <field name="period"/>
+                <field name="target_amount" optional="show"/>
+                <field name="achieved" optional="show"/>
+                <field name="achieved_rate" optional="show"/>
+                <field name="commission" optional="show"/>
+                <field name="state" widget="badge"/>
+
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ==========================================================
+                            FORM VIEW
+    ========================================================== -->
+
+    <record id="view_commission_record_form" model="ir.ui.view">
+
+        <field name="name">sales.commission.record.form</field>
+        <field name="model">sales.commission.record</field>
+
+        <field name="arch" type="xml">
+
+            <form create="0"
+                  edit="0"
+                  delete="0">
+
+                <sheet>
+
+                    <group>
+
+                        <group>
+                            <field name="salesperson_id" readonly="1"/>
+                            <field name="plan_id" readonly="1"/>
+                            <field name="period" readonly="1"/>
+                        </group>
+
+                        <group>
+                            <field name="target_amount" readonly="1"/>
+                            <field name="achieved" readonly="1"/>
+                            <field name="achieved_rate" readonly="1"/>
+                            <field name="commission" readonly="1"/>
+                            <field name="state" readonly="1"/>
+                        </group>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+
+    </record>
+
+
+    <!-- ==========================================================
+                            SEARCH VIEW
+    ========================================================== -->
+
+    <record id="view_commission_record_search" model="ir.ui.view">
+
+        <field name="name">sales.commission.record.search</field>
+        <field name="model">sales.commission.record</field>
+
+        <field name="arch" type="xml">
+
+            <search>
+
+                <field name="salesperson_id"/>
+                <field name="plan_id"/>
+                <field name="period"/>
+
+                <separator/>
+
+                <filter name="draft"
+                        string="Draft"
+                        domain="[('state','=','draft')]"/>
+
+                <filter name="paid"
+                        string="Paid"
+                        domain="[('state','=','paid')]"/>
+
+                <separator/>
+
+                <filter string="Sales Person"
+                        name="group_salesperson"
+                        context="{'group_by':'salesperson_id'}"/>
+
+                <filter string="Commission Plan"
+                        name="group_plan"
+                        context="{'group_by':'plan_id'}"/>
+
+                <filter string="Period"
+                        name="group_period"
+                        context="{'group_by':'period'}"/>
+
+            </search>
+
+        </field>
+
+    </record>
+
+
+    <!-- ==========================================================
+                        MY COMMISSIONS
+    ========================================================== -->
+
+    <record id="action_my_commission_record"
+            model="ir.actions.act_window">
+
+        <field name="name">My Commissions</field>
+        <field name="res_model">sales.commission.record</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_commission_record_search"/>
+
+        <field name="domain">
+            [('salesperson_id','=',uid)]
+        </field>
+
+        <field name="context">
+            {
+                'create': False,
+                'edit': False,
+                'delete': False
+            }
+        </field>
+
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Unfortunately, there are no commissions for you.
+            </p>
+
+            <p>
+                Ensure you are assigned to a commission plan and have
+                made sales that qualify for commissions.
+            </p>
+        </field>
+
+    </record>
+
+
+    <!-- ==========================================================
+                        ALL COMMISSIONS
+    ========================================================== -->
+
+    <record id="action_all_commission_record"
+            model="ir.actions.act_window">
+
+        <field name="name">Commissions</field>
+        <field name="res_model">sales.commission.record</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_commission_record_search"/>
+
+        <field name="domain">
+            [('plan_id.state','!=','done')]
+        </field>
+
+    </record>
+
+</odoo>

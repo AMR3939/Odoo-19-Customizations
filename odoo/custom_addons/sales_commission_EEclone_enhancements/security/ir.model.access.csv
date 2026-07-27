@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sales_commission,sales.commission,model_sales_commission,,1,1,1,1
+access_sales_commission_record,sales.commission.record,model_sales_commission_record,,1,1,1,1
+access_sales_commission_plan,sales.commission.plan,model_sales_commission_plan,sales_team.group_sale_manager,1,1,1,1
+access_sales_commission_adjustment_manager,sales.commission.adjustment.manager,model_sales_commission_adjustment,sales_team.group_sale_manager,1,1,1,1
+access_sales_commission_adjustment_salesperson,sales.commission.adjustment.salesperson,model_sales_commission_adjustment,sales_team.group_sale_salesman,1,0,0,0
+access_sales_commission_achievement,sales.commission.achievement,model_sales_commission_achievement,sales_team.group_sale_manager,1,1,1,1
+access_sales_commission_achievement_line,sales.commission.achievement.line,model_sales_commission_achievement_line,sales_team.group_sale_manager,1,1,1,1
+access_sales_commission_salesperson,sales.commission.salesperson,model_sales_commission_salesperson,,1,1,1,1
+access_sales_commission_target,sales.commission.target,model_sales_commission_target,,1,1,1,1
+access_sales_commission_report,sales.commission.report,model_sales_commission_report,,1,1,1,1
+access_sales_commission_period,sales.commission.period,model_sales_commission_period,base.group_user,1,1,1,1
+access_sales_commission_report_wizard,sales.commission.report.wizard,model_sales_commission_report_wizard,,1,1,1,1

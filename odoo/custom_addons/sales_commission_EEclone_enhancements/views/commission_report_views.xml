@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ===================================================== -->
+    <!-- Pivot View -->
+    <!-- ===================================================== -->
+
+    <record id="view_sales_commission_report_pivot" model="ir.ui.view">
+        <field name="name">sales.commission.report.pivot</field>
+        <field name="model">sales.commission.record</field>
+        <field name="arch" type="xml">
+            <pivot string="Commissions">
+
+                <field name="plan_id" type="row"/>
+
+                <field name="salesperson_id" type="row"/>
+
+                <field name="period" type="col"/>
+
+                <field name="commission" type="measure"/>
+                <field name="achieved" type="measure"/>
+                <field name="achieved_rate" type="measure"/>
+                <field name="target_amount" type="measure"/>
+
+            </pivot>
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- Graph View -->
+    <!-- ===================================================== -->
+
+    <record id="view_sales_commission_report_graph" model="ir.ui.view">
+        <field name="name">sales.commission.report.graph</field>
+        <field name="model">sales.commission.record</field>
+        <field name="arch" type="xml">
+            <graph string="Commissions" type="bar">
+
+                <field name="period"/>
+
+                <field name="commission" type="measure"/>
+                <field name="achieved" type="measure"/>
+                <field name="target_amount" type="measure"/>
+
+            </graph>
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- Search View -->
+    <!-- ===================================================== -->
+
+    <record id="view_sales_commission_report_search" model="ir.ui.view">
+        <field name="name">sales.commission.report.search</field>
+        <field name="model">sales.commission.record</field>
+        <field name="arch" type="xml">
+
+            <search string="Commissions">
+
+                <field name="plan_id"/>
+                <field name="salesperson_id"/>
+                <field name="period"/>
+
+                <separator/>
+
+                <filter
+                    name="draft"
+                    string="Draft"
+                    domain="[('state','=','draft')]"/>
+
+                <filter
+                    name="paid"
+                    string="Paid"
+                    domain="[('state','=','paid')]"/>
+
+                <separator/>
+
+                <filter
+                    string="Group By"
+                    name="group_by">
+
+                    <filter
+                        name="group_by_plan"
+                        string="Commission Plan"
+                        context="{'group_by':'plan_id'}"/>
+
+                    <filter
+                        name="group_by_salesperson"
+                        string="Salesperson"
+                        context="{'group_by':'salesperson_id'}"/>
+
+                    <filter
+                        name="group_by_period"
+                        string="Period"
+                        context="{'group_by':'period'}"/>
+
+                    <filter
+                        name="group_by_state"
+                        string="Status"
+                        context="{'group_by':'state'}"/>
+
+                </filter>
+
+            </search>
+
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- Action -->
+    <!-- ===================================================== -->
+
+    <record id="action_sales_commission_report" model="ir.actions.act_window">
+        <field name="name">Commissions</field>
+        <field name="res_model">sales.commission.record</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="search_view_id" ref="view_sales_commission_report_search"/>
+        <field name="domain">
+            [('plan_id.state','!=','done')]
+        </field>
+    </record>
+
+
+    <!-- ===================================================== -->
+    <!-- Menu -->
+    <!-- ===================================================== -->
+
+    <menuitem
+        id="menu_sales_reporting_commission"
+        name="Commissions"
+        parent="sale.menu_sale_report"
+        action="action_sales_commission_report"
+        groups="sales_team.group_sale_manager"
+        sequence="60"/>
+
+</odoo>

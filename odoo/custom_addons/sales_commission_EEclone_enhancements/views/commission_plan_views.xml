@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sales_commission_plan_tree" model="ir.ui.view">
+        <field name="name">sales.commission.plan.tree</field>
+        <field name="model">sales.commission.plan</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="commission_type"/>
+                <field name="periodicity"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"
+                    widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'approved'"
+                    decoration-muted="state == 'done'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sales_commission_plan_form" model="ir.ui.view">
+        <field name="name">sales.commission.plan.form</field>
+        <field name="model">sales.commission.plan</field>
+        <field name="arch" type="xml">
+
+            <form string="Commission Plan">
+
+                <header>
+
+                    <button name="action_approve"
+                            string="Approve"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_done"
+                            string="Mark as Done"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state != 'approved'"/>
+
+                    <button name="action_reset_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            invisible="state == 'draft'"/>
+
+                    <field name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,approved,done"
+                        clickable="1"/>
+
+                </header>
+
+                <sheet>
+
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"
+                                placeholder="i.e. Commission Plan 2025"
+                                readonly="state != 'draft'"/>
+                        </h1>
+                    </div>
+
+                    <group>
+
+                        <group>
+
+                            <field name="commission_type"
+                                readonly="state != 'draft'"/>
+
+                            <field name="applies_on"
+                                readonly="state != 'draft'"/>
+
+                            <field name="target_commission"
+                                invisible="commission_type != 'target'"
+                                readonly="state != 'draft'"/>
+
+                        </group>
+
+                        <group>
+
+                            <field name="start_date"
+                                readonly="state != 'draft'"/>
+
+                            <field name="end_date"
+                                readonly="state != 'draft'"/>
+
+                            <field name="periodicity"
+                                readonly="state != 'draft'"/>
+
+                        </group>
+
+                    </group>
+
+                    <notebook>
+
+                        <page string="Commissions" invisible="commission_type != 'target'">
+
+                            <group col="12" class="m-0 p-0">
+                                
+                                <group colspan="6" string="Commission Levels" class="p-0 m-0">
+                                    <field name="commission_ids"
+                                        nolabel="1"
+                                        colspan="2"
+                                        class="w-100"
+                                        context="{'default_plan_id': id}"
+                                        readonly="state != 'draft'">
+                                        <list editable="bottom" delete="1">
+                                            <field name="target_completion"/>
+                                            <field name="commission"/>
+                                            <field name="otc"/>
+                                            <control>
+                                                <create string="Add a new commission level"/>
+                                            </control>
+                                        </list>
+                                    </field>
+                                </group>
+
+                            <group colspan="6" string="Commission Curve">
+                                <field name="commission_ids"
+                                    widget="commission_graph"
+                                    nolabel="1"/>
+                            </group>
+
+                            </group>
+
+                            <div class="w-100 mt-1">
+
+                                <button
+                                    name="action_commission_table"
+                                    string="Commission table"
+                                    icon="fa-download"
+                                    type="object"
+                                    class="btn-link"/>
+
+                            </div>
+
+                        </page>
+
+                        <page string="Targets"
+                            invisible="commission_type != 'target'">
+
+                            <field name="target_ids"
+                                nolabel="1"
+                                readonly="state != 'draft'">
+
+                                <list editable="bottom"
+                                    create="0">
+
+                                    <field name="date_from" column_invisible="1"/>
+
+                                    <field name="date_to" column_invisible="1"/>
+
+                                    <field name="name"/>
+
+                                    <field name="target_amount"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                        <page string="Achievements">
+
+                            <field name="achievement_ids"
+                                nolabel="1"
+                                readonly="state != 'draft'">
+
+                                <list editable="bottom">
+
+                                    <field name="achievement_type"/>
+
+                                    <field name="product_id"/>
+
+                                    <field name="category_id"/>
+
+                                    <field name="rate"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                        <page string="Periods"
+                            invisible="commission_type != 'achievement'">
+
+                            <field name="period_ids"
+                                nolabel="1"
+                                readonly="state != 'draft'">
+
+                                <list editable="bottom">
+
+                                    <field name="name"/>
+
+                                </list>
+
+                            </field>
+
+                        </page>
+
+                        <page string="Sales People">
+
+                            <field name="salesperson_ids"
+                                nolabel="1"
+                                readonly="state != 'draft'">
+
+                                <list editable="bottom">
+
+                                    <control>
+
+                                        <create string="Add a new Sales Person"/>
+
+                                    </control>
+
+                                    <field name="user_id"/>
+
+                                    <field name="date_from"/>
+
+                                    <field name="date_to"/>
+
+                                    <field name="other_plan_count"
+                                        readonly="1"/>
+
+                                </list>
+
+                            </field>
+
+                            <button name="action_add_multiple_salespersons"
+                                    string="Add Multiple Salespersons"
+                                    type="object"
+                                    class="btn-primary"
+                                    invisible="state != 'draft'"/>
+
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+
+        </field>
+
+    </record>
+
+    <record id="view_sales_commission_plan_search" model="ir.ui.view">
+        <field name="name">sales.commission.plan.search</field>
+        <field name="model">sales.commission.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="approved" string="Approved" domain="[('state','=','approved')]"/>
+                <filter name="done" string="Done" domain="[('state','=','done')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sales_commission_plan" model="ir.actions.act_window">
+        <field name="name">Commission Plans</field>
+        <field name="res_model">sales.commission.plan</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_sales_commission_plan_search"/>
+    </record>
+
+</odoo>

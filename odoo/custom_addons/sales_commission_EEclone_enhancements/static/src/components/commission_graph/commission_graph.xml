@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <templates xml:space="preserve">
+       <t t-name="sales_commission.CommissionGraph">
+           <div class="o_commission_graph_container">
+               <canvas t-ref="canvas"/>
+           </div>
+       </t>
+   </templates>

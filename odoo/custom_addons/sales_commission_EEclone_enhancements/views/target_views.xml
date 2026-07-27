@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sales_commission_target_tree" model="ir.ui.view">
+        <field name="name">sales.commission.target.tree</field>
+        <field name="model">sales.commission.target</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="target_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_sales_commission_target" model="ir.actions.act_window">
+        <field name="name">Targets</field>
+        <field name="res_model">sales.commission.target</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>
