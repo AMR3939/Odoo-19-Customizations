@@ -3,3 +3,6 @@ access_hr_employee_degree_user,hr.employee.degree user,model_hr_employee_degree,
 access_hr_employee_stream_user,hr.employee.stream user,model_hr_employee_stream,base.group_user,1,1,1,1
 access_hr_employee_university_user,hr.employee.university user,model_hr_employee_university,base.group_user,1,1,1,1
 access_hr_employee_place_of_birth_user,hr.employee.place_of_birth user,model_hr_employee_place_of_birth,base.group_user,1,1,1,1
+access_hr_employee_blacklist_reason_user,hr.employee.blacklist.reason.user,model_hr_employee_blacklist_reason,base.group_user,1,1,1,0
+access_hr_employee_blacklist_reason_admin,hr.employee.blacklist.reason.admin,model_hr_employee_blacklist_reason,base.group_system,1,1,1,1
+access_hr_employee_blacklist_wizard_user,hr.employee.blacklist.wizard.user,model_hr_employee_blacklist_wizard,base.group_user,1,1,1,1

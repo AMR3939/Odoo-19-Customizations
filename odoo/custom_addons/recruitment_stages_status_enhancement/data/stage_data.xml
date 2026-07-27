@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="intern_recruitment_stage_applicant" model="intern.recruitment.stage">
+        <field name="name">Applicant</field>
+        <field name="sequence">0</field>
+        <field name="intern_workflow_category">application</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="True"/>
+        <field name="intern_final_stage" eval="False"/>
+        <field name="intern_rejected_stage" eval="False"/>
+        <field name="intern_allow_send_back" eval="False"/>
+        <field name="intern_allow_reject" eval="True"/>
+        <field name="intern_create_employee_stage" eval="False"/>
+        <field name="intern_is_post_hiring_stage" eval="False"/>
+        <field name="fold" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="intern_recruitment_stage_screening" model="intern.recruitment.stage">
+        <field name="name">Screening</field>
+        <field name="sequence">1</field>
+        <field name="intern_workflow_category">screening</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="False"/>
+        <field name="intern_final_stage" eval="False"/>
+        <field name="intern_rejected_stage" eval="False"/>
+        <field name="intern_allow_send_back" eval="True"/>
+        <field name="intern_allow_reject" eval="True"/>
+        <field name="intern_create_employee_stage" eval="False"/>
+        <field name="intern_is_post_hiring_stage" eval="False"/>
+        <field name="fold" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="intern_recruitment_stage_first_interview" model="intern.recruitment.stage">
+        <field name="name">First Interview</field>
+        <field name="sequence">2</field>
+        <field name="intern_workflow_category">interview</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="False"/>
+        <field name="intern_final_stage" eval="False"/>
+        <field name="intern_rejected_stage" eval="False"/>
+        <field name="intern_allow_send_back" eval="True"/>
+        <field name="intern_allow_reject" eval="True"/>
+        <field name="intern_create_employee_stage" eval="False"/>
+        <field name="intern_is_post_hiring_stage" eval="False"/>
+        <field name="fold" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="intern_recruitment_stage_second_interview" model="intern.recruitment.stage">
+        <field name="name">Second Interview</field>
+        <field name="sequence">3</field>
+        <field name="intern_workflow_category">interview</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="False"/>
+        <field name="intern_final_stage" eval="False"/>
+        <field name="intern_rejected_stage" eval="False"/>
+        <field name="intern_allow_send_back" eval="True"/>
+        <field name="intern_allow_reject" eval="True"/>
+        <field name="intern_create_employee_stage" eval="False"/>
+        <field name="intern_is_post_hiring_stage" eval="False"/>
+        <field name="fold" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="intern_recruitment_stage_selected" model="intern.recruitment.stage">
+        <field name="name">Selected</field>
+        <field name="sequence">4</field>
+        <field name="intern_workflow_category">selection</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="False"/>
+        <field name="intern_final_stage" eval="False"/>
+        <field name="intern_rejected_stage" eval="False"/>
+        <field name="intern_allow_send_back" eval="True"/>
+        <field name="intern_allow_reject" eval="True"/>
+        <field name="intern_create_employee_stage" eval="True"/>
+        <field name="intern_is_post_hiring_stage" eval="False"/>
+        <field name="fold" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="intern_recruitment_stage_onboarding" model="intern.recruitment.stage">
+        <field name="name">Onboarding</field>
+        <field name="sequence">5</field>
+        <field name="intern_workflow_category">onboarding</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="False"/>
+        <field name="intern_final_stage" eval="False"/>
+        <field name="intern_rejected_stage" eval="False"/>
+        <field name="intern_allow_send_back" eval="True"/>
+        <field name="intern_allow_reject" eval="False"/>
+        <field name="intern_create_employee_stage" eval="False"/>
+        <field name="intern_is_post_hiring_stage" eval="True"/>
+        <field name="fold" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="intern_recruitment_stage_active" model="intern.recruitment.stage">
+        <field name="name">Active</field>
+        <field name="sequence">6</field>
+        <field name="intern_workflow_category">active</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="False"/>
+        <field name="intern_final_stage" eval="False"/>
+        <field name="intern_rejected_stage" eval="False"/>
+        <field name="intern_allow_send_back" eval="True"/>
+        <field name="intern_allow_reject" eval="False"/>
+        <field name="intern_create_employee_stage" eval="False"/>
+        <field name="intern_is_post_hiring_stage" eval="True"/>
+        <field name="fold" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="intern_recruitment_stage_relieving_process" model="intern.recruitment.stage">
+        <field name="name">Relieving Process</field>
+        <field name="sequence">7</field>
+        <field name="intern_workflow_category">exit</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="False"/>
+        <field name="intern_final_stage" eval="False"/>
+        <field name="intern_rejected_stage" eval="False"/>
+        <field name="intern_allow_send_back" eval="True"/>
+        <field name="intern_allow_reject" eval="False"/>
+        <field name="intern_create_employee_stage" eval="False"/>
+        <field name="intern_is_post_hiring_stage" eval="True"/>
+        <field name="fold" eval="False"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="intern_recruitment_stage_completed" model="intern.recruitment.stage">
+        <field name="name">Completed</field>
+        <field name="sequence">8</field>
+        <field name="intern_workflow_category">completed</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="False"/>
+        <field name="intern_final_stage" eval="True"/>
+        <field name="intern_rejected_stage" eval="False"/>
+        <field name="intern_allow_send_back" eval="True"/>
+        <field name="intern_allow_reject" eval="False"/>
+        <field name="intern_create_employee_stage" eval="False"/>
+        <field name="intern_is_post_hiring_stage" eval="True"/>
+        <field name="fold" eval="True"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="intern_recruitment_stage_rejected" model="intern.recruitment.stage">
+        <field name="name">Rejected</field>
+        <field name="sequence">999</field>
+        <field name="intern_workflow_category">rejected</field>
+        <field name="intern_requires_approval" eval="True"/>
+        <field name="intern_initial_stage" eval="False"/>
+        <field name="intern_final_stage" eval="False"/>
+        <field name="intern_rejected_stage" eval="True"/>
+        <field name="intern_allow_send_back" eval="False"/>
+        <field name="intern_allow_reject" eval="False"/>
+        <field name="intern_create_employee_stage" eval="False"/>
+        <field name="intern_is_post_hiring_stage" eval="False"/>
+        <field name="fold" eval="True"/>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

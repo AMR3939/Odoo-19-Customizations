@@ -1,0 +1,1033 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Intern Jobs Website List Page                              -->
+    <!-- Route: /intern/jobs                                        -->
+    <!-- ========================================================= -->
+
+    <template id="website_intern_jobs_list" name="Intern Jobs">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="py-5 bg-light">
+                    <div class="container">
+
+                        <div class="text-center mb-5">
+                            <h1 class="display-5 fw-bold">
+                                Internship Opportunities
+                            </h1>
+
+                            <p class="lead text-muted">
+                                Explore available internship positions and
+                                apply online.
+                            </p>
+                        </div>
+
+                        <div class="row g-4">
+
+                            <t t-if="jobs">
+                                <t t-foreach="jobs" t-as="job">
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="card h-100 shadow-sm border-0">
+
+                                            <div class="card-body">
+
+                                                <h4 class="card-title">
+                                                    <t t-out="job.name"/>
+                                                </h4>
+
+                                                <p class="text-muted mb-2">
+                                                    <strong>Type:</strong>
+                                                    <span t-field="job.job_type"/>
+                                                </p>
+
+                                                <p class="text-muted mb-2"
+                                                   t-if="job.employment_type">
+                                                    <strong>Contract:</strong>
+                                                    <span t-field="job.employment_type"/>
+                                                </p>
+
+                                                <p class="text-muted mb-2"
+                                                   t-if="job.expected_skills">
+                                                    <strong>Expected Skills:</strong>
+                                                    <t t-out="job.expected_skills"/>
+                                                </p>
+
+                                                <p class="text-muted mb-2"
+                                                   t-if="job.department_id">
+                                                    <strong>Department:</strong>
+                                                    <t t-out="job.department_id.name"/>
+                                                </p>
+
+                                                <p class="text-muted mb-2"
+                                                   t-if="job.location">
+                                                    <strong>Location:</strong>
+                                                    <t t-out="job.location"/>
+                                                </p>
+
+                                                <p class="text-muted mb-2">
+                                                    <strong>Open Positions:</strong>
+                                                    <t t-out="job.open_positions"/>
+                                                </p>
+
+                                                <p class="text-muted mb-2"
+                                                   t-if="job.stipend_min or job.stipend_max">
+
+                                                    <strong>Stipend:</strong>
+
+                                                    <t t-if="job.stipend_min">
+                                                        <t t-out="job.stipend_min"/>
+                                                    </t>
+
+                                                    <t t-if="job.stipend_min and job.stipend_max">
+                                                        -
+                                                    </t>
+
+                                                    <t t-if="job.stipend_max">
+                                                        <t t-out="job.stipend_max"/>
+                                                    </t>
+
+                                                </p>
+
+                                            </div>
+
+                                            <div class="card-footer bg-white border-0 pb-4">
+
+                                                <a t-attf-href="/intern/jobs/#{job.id}"
+                                                   class="btn btn-outline-primary">
+                                                    View Details
+                                                </a>
+
+                                                <a t-attf-href="/intern/jobs/#{job.id}/apply"
+                                                   class="btn btn-primary ms-2">
+                                                    Apply Now
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+
+                            <t t-if="not jobs">
+                                <div class="col-12">
+                                    <div class="alert alert-info text-center">
+                                        No internship opportunities are
+                                        available at the moment.
+                                    </div>
+                                </div>
+                            </t>
+
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Job Detail Page                                     -->
+    <!-- Route: /intern/jobs/job_id                                 -->
+    <!-- ========================================================= -->
+
+    <template id="website_intern_job_detail"
+              name="Intern Job Detail">
+
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="py-5 bg-light">
+                    <div class="container">
+
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-5">
+
+                                <div class="d-flex justify-content-between
+                                            align-items-start flex-wrap
+                                            gap-3 mb-4">
+
+                                    <div>
+                                        <h1 class="fw-bold mb-2">
+                                            <t t-out="job.name"/>
+                                        </h1>
+
+                                        <p class="text-muted mb-0">
+
+                                            <t t-if="job.department_id">
+                                                <t t-out="job.department_id.name"/>
+                                            </t>
+
+                                            <t t-if="job.department_id and job.location">
+                                                |
+                                            </t>
+
+                                            <t t-if="job.location">
+                                                <t t-out="job.location"/>
+                                            </t>
+
+                                        </p>
+                                    </div>
+
+                                    <a t-attf-href="/intern/jobs/#{job.id}/apply"
+                                       class="btn btn-primary btn-lg">
+                                        Apply Now
+                                    </a>
+
+                                </div>
+
+                                <div class="row g-4 mb-4">
+
+                                    <div class="col-md-3">
+                                        <div class="p-3 bg-light rounded h-100">
+                                            <strong>Job Type</strong>
+
+                                            <div class="text-muted">
+                                                <span t-field="job.job_type"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3"
+                                         t-if="job.employment_type">
+                                        <div class="p-3 bg-light rounded h-100">
+                                            <strong>Contract</strong>
+
+                                            <div class="text-muted">
+                                                <span t-field="job.employment_type"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="p-3 bg-light rounded h-100">
+                                            <strong>Open Positions</strong>
+
+                                            <div class="text-muted">
+                                                <t t-out="job.open_positions"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3"
+                                         t-if="job.stipend_min or job.stipend_max">
+
+                                        <div class="p-3 bg-light rounded h-100">
+                                            <strong>Stipend</strong>
+
+                                            <div class="text-muted">
+
+                                                <t t-if="job.stipend_min">
+                                                    <t t-out="job.stipend_min"/>
+                                                </t>
+
+                                                <t t-if="job.stipend_min and job.stipend_max">
+                                                    -
+                                                </t>
+
+                                                <t t-if="job.stipend_max">
+                                                    <t t-out="job.stipend_max"/>
+                                                </t>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3"
+                                         t-if="job.company_id">
+
+                                        <div class="p-3 bg-light rounded h-100">
+                                            <strong>Company</strong>
+
+                                            <div class="text-muted">
+                                                <t t-out="job.company_id.name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div t-if="job.expected_skills"
+                                     class="mb-4">
+
+                                    <h3>Expected Skills</h3>
+
+                                    <div class="p-3 bg-light rounded">
+                                        <t t-out="job.expected_skills"/>
+                                    </div>
+
+                                </div>
+
+                                <div t-if="job.description"
+                                     class="mb-4">
+
+                                    <h3>Job Description</h3>
+                                    <div t-field="job.description"/>
+
+                                </div>
+
+                                <div t-if="job.responsibilities"
+                                     class="mb-4">
+
+                                    <h3>Responsibilities</h3>
+                                    <div t-field="job.responsibilities"/>
+
+                                </div>
+
+                                <div t-if="job.requirements"
+                                     class="mb-4">
+
+                                    <h3>Requirements</h3>
+                                    <div t-field="job.requirements"/>
+
+                                </div>
+
+                                <div class="mt-4">
+
+                                    <a t-attf-href="/intern/jobs/#{job.id}/apply"
+                                       class="btn btn-primary btn-lg">
+                                        Apply for this Internship
+                                    </a>
+
+                                    <a href="/intern/jobs"
+                                       class="btn btn-outline-secondary btn-lg ms-2">
+                                        Back to Jobs
+                                    </a>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Application Form                                    -->
+    <!-- Route: /intern/jobs/job_id/apply                           -->
+    <!-- Submit: /intern/jobs/job_id/apply/submit                   -->
+    <!-- ========================================================= -->
+
+    <template id="website_intern_apply_form"
+              name="Apply for Internship">
+
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+
+                <section class="py-5 bg-light">
+                    <div class="container">
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+
+                                <div class="card shadow-sm border-0">
+                                    <div class="card-body p-5">
+
+                                        <div class="mb-4">
+
+                                            <h1 class="fw-bold">
+                                                Apply for Internship
+                                            </h1>
+
+                                            <p class="text-muted mb-0">
+                                                Position:
+
+                                                <strong>
+                                                    <t t-out="job.name"/>
+                                                </strong>
+                                            </p>
+
+                                            <p class="text-muted mb-0"
+                                               t-if="job.employment_type">
+
+                                                Contract:
+
+                                                <strong>
+                                                    <span t-field="job.employment_type"/>
+                                                </strong>
+                                            </p>
+
+                                            <p class="text-muted mb-0"
+                                               t-if="job.expected_skills">
+
+                                                Expected Skills:
+
+                                                <strong>
+                                                    <t t-out="job.expected_skills"/>
+                                                </strong>
+                                            </p>
+
+                                        </div>
+
+                                        <t t-if="request.params.get('error_message')">
+                                            <div class="alert alert-danger">
+                                                <t t-out="request.params.get('error_message')"/>
+                                            </div>
+                                        </t>
+
+                                        <form t-attf-action="/intern/jobs/#{job.id}/apply/submit"
+                                              method="post"
+                                              enctype="multipart/form-data"
+                                              class="o_website_form">
+
+                                            <input type="hidden"
+                                                   name="csrf_token"
+                                                   t-att-value="request.csrf_token()"/>
+
+                                            <div class="row g-3">
+
+                                                <!-- Personal Details -->
+
+                                                <div class="col-12">
+                                                    <h5 class="fw-bold mb-0">
+                                                        Personal Details
+                                                    </h5>
+                                                </div>
+
+                                                <div class="col-md-4">
+
+                                                    <label for="intern_first_name"
+                                                           class="form-label">
+
+                                                        First Name
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="intern_first_name"
+                                                           name="intern_first_name"
+                                                           class="form-control"
+                                                           required="required"
+                                                           minlength="2"
+                                                           maxlength="50"
+                                                           pattern="[A-Za-z][A-Za-z\s.'-]{1,49}"
+                                                           title="Enter a valid first name."
+                                                           t-att-value="request.params.get('intern_first_name', '')"
+                                                           placeholder="First Name"/>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+
+                                                    <label for="intern_middle_name"
+                                                           class="form-label">
+                                                        Middle Name
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="intern_middle_name"
+                                                           name="intern_middle_name"
+                                                           class="form-control"
+                                                           maxlength="50"
+                                                           pattern="[A-Za-z][A-Za-z\s.'-]{1,49}"
+                                                           title="Enter a valid middle name."
+                                                           t-att-value="request.params.get('intern_middle_name', '')"
+                                                           placeholder="Middle Name"/>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+
+                                                    <label for="intern_last_name"
+                                                           class="form-label">
+
+                                                        Last Name
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="intern_last_name"
+                                                           name="intern_last_name"
+                                                           class="form-control"
+                                                           required="required"
+                                                           minlength="2"
+                                                           maxlength="50"
+                                                           pattern="[A-Za-z][A-Za-z\s.'-]{1,49}"
+                                                           title="Enter a valid last name."
+                                                           t-att-value="request.params.get('intern_last_name', '')"
+                                                           placeholder="Last Name"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="email_from"
+                                                           class="form-label">
+
+                                                        Email
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="email"
+                                                           id="email_from"
+                                                           name="email_from"
+                                                           class="form-control"
+                                                           required="required"
+                                                           maxlength="128"
+                                                           autocomplete="email"
+                                                           t-att-value="request.params.get('email_from', '')"
+                                                           placeholder="example@email.com"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="partner_phone"
+                                                           class="form-label">
+
+                                                        Mobile Number
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="tel"
+                                                           id="partner_phone"
+                                                           name="partner_phone"
+                                                           class="form-control"
+                                                           required="required"
+                                                           minlength="10"
+                                                           maxlength="10"
+                                                           inputmode="numeric"
+                                                           autocomplete="tel"
+                                                           pattern="[6-9][0-9]{9}"
+                                                           title="Enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9."
+                                                           t-att-value="request.params.get('partner_phone', '')"
+                                                           placeholder="9876543210"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="pan_number"
+                                                           class="form-label">
+
+                                                        PAN Number
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="pan_number"
+                                                           name="pan_number"
+                                                           class="form-control text-uppercase"
+                                                           required="required"
+                                                           minlength="10"
+                                                           maxlength="10"
+                                                           pattern="[A-Z]{5}[0-9]{4}[A-Z]"
+                                                           title="Enter a valid PAN number. Example: ABCDE1234F"
+                                                           t-att-value="request.params.get('pan_number', '')"
+                                                           placeholder="ABCDE1234F"/>
+
+                                                    <small class="form-text text-muted">
+                                                        Format: ABCDE1234F
+                                                    </small>
+
+                                                </div>
+
+
+                                                <!-- Education Details -->
+
+                                                <div class="col-12 mt-3">
+
+                                                    <h5 class="fw-bold mb-0">
+                                                        Education Details
+                                                    </h5>
+
+                                                    <small class="text-muted">
+                                                        Enter your current or
+                                                        most recent education
+                                                        details.
+                                                    </small>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="degree_text"
+                                                           class="form-label">
+
+                                                        Degree
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="degree_text"
+                                                           name="degree_text"
+                                                           class="form-control"
+                                                           required="required"
+                                                           minlength="2"
+                                                           maxlength="100"
+                                                           t-att-value="request.params.get('degree_text', '')"
+                                                           placeholder="Example: BCA, B.Tech, MCA"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="stream_text"
+                                                           class="form-label">
+                                                        Stream
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="stream_text"
+                                                           name="stream_text"
+                                                           class="form-control"
+                                                           maxlength="100"
+                                                           t-att-value="request.params.get('stream_text', '')"
+                                                           placeholder="Example: Computer Applications"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="university_text"
+                                                           class="form-label">
+
+                                                        University / Institution
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="university_text"
+                                                           name="university_text"
+                                                           class="form-control"
+                                                           required="required"
+                                                           minlength="2"
+                                                           maxlength="150"
+                                                           t-att-value="request.params.get('university_text', '')"
+                                                           placeholder="Example: SCMS School of Technology and Management"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="university_city_text"
+                                                           class="form-label">
+
+                                                        University City
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="university_city_text"
+                                                           name="university_city_text"
+                                                           class="form-control"
+                                                           required="required"
+                                                           minlength="2"
+                                                           maxlength="100"
+                                                           t-att-value="request.params.get('university_city_text', '')"
+                                                           placeholder="Example: Kakkanad"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="university_state_text"
+                                                           class="form-label">
+
+                                                        University State
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="university_state_text"
+                                                           name="university_state_text"
+                                                           class="form-control"
+                                                           required="required"
+                                                           minlength="2"
+                                                           maxlength="100"
+                                                           t-att-value="request.params.get('university_state_text', '')"
+                                                           placeholder="Example: Kerala"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="university_country_text"
+                                                           class="form-label">
+
+                                                        University Country
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="text"
+                                                           id="university_country_text"
+                                                           name="university_country_text"
+                                                           class="form-control"
+                                                           required="required"
+                                                           minlength="2"
+                                                           maxlength="100"
+                                                           t-att-value="request.params.get('university_country_text', '')"
+                                                           placeholder="Example: India"/>
+
+                                                </div>
+
+
+                                                <!-- Internship Details -->
+
+                                                <div class="col-12 mt-3">
+                                                    <h5 class="fw-bold mb-0">
+                                                        Internship Details
+                                                    </h5>
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="availability"
+                                                           class="form-label">
+
+                                                        Availability / Joining Date
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="date"
+                                                           id="availability"
+                                                           name="availability"
+                                                           class="form-control"
+                                                           required="required"
+                                                           t-att-value="request.params.get('availability', '')"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="linkedin_profile"
+                                                           class="form-label">
+                                                        LinkedIn Profile
+                                                    </label>
+
+                                                    <input type="url"
+                                                           id="linkedin_profile"
+                                                           name="linkedin_profile"
+                                                           class="form-control"
+                                                           pattern="https://(www\.)?linkedin\.com/in/[A-Za-z0-9_\-%]+/?"
+                                                           title="Example: https://www.linkedin.com/in/username"
+                                                           t-att-value="request.params.get('linkedin_profile', '')"
+                                                           placeholder="https://www.linkedin.com/in/username"/>
+
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <label for="salary_expected"
+                                                           class="form-label">
+                                                        Expected Stipend
+                                                    </label>
+
+                                                    <input type="number"
+                                                           id="salary_expected"
+                                                           name="salary_expected"
+                                                           class="form-control"
+                                                           min="0"
+                                                           step="0.01"
+                                                           t-att-value="request.params.get('salary_expected', '')"
+                                                           placeholder="Example: 5000"/>
+
+                                                </div>
+
+                                                <div class="col-12">
+
+                                                    <label for="resume_file"
+                                                           class="form-label">
+
+                                                        Resume
+
+                                                        <span class="text-danger">
+                                                            *
+                                                        </span>
+
+                                                    </label>
+
+                                                    <input type="file"
+                                                           id="resume_file"
+                                                           name="resume_file"
+                                                           class="form-control"
+                                                           required="required"
+                                                           accept="application/pdf,.pdf"/>
+
+                                                    <small class="form-text text-muted">
+                                                        Upload a PDF file.
+                                                        Maximum file size:
+                                                        5 MB.
+                                                    </small>
+
+                                                </div>
+
+                                                <div class="col-12">
+
+                                                    <label for="applicant_notes"
+                                                           class="form-label">
+                                                        Additional Notes
+                                                    </label>
+
+                                                    <textarea id="applicant_notes"
+                                                              name="applicant_notes"
+                                                              class="form-control"
+                                                              rows="4"
+                                                              maxlength="2000"
+                                                              placeholder="Add any additional details..."><t t-out="request.params.get('applicant_notes', '')"/></textarea>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="mt-4">
+
+                                                <button type="submit"
+                                                        id="intern_submit_button"
+                                                        class="btn btn-primary btn-lg">
+
+                                                    Submit Application
+
+                                                </button>
+
+                                                <a t-attf-href="/intern/jobs/#{job.id}"
+                                                   class="btn btn-outline-secondary btn-lg ms-2">
+                                                    Back
+                                                </a>
+
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+
+                <!-- Client-side validation -->
+
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function () {
+
+                        const availability =
+                            document.getElementById("availability");
+
+                        if (availability) {
+                            const today =
+                                new Date().toISOString().split("T")[0];
+
+                            availability.setAttribute("min", today);
+                        }
+
+
+                        const panNumber =
+                            document.getElementById("pan_number");
+
+                        if (panNumber) {
+                            panNumber.addEventListener("input", function () {
+                                this.value = this.value
+                                    .toUpperCase()
+                                    .replace(/[^A-Z0-9]/g, "")
+                                    .slice(0, 10);
+                            });
+                        }
+
+
+                        const phoneNumber =
+                            document.getElementById("partner_phone");
+
+                        if (phoneNumber) {
+                            phoneNumber.addEventListener("input", function () {
+                                this.value = this.value
+                                    .replace(/[^0-9]/g, "")
+                                    .slice(0, 10);
+                            });
+                        }
+
+
+                        const resumeFile =
+                            document.getElementById("resume_file");
+
+                        if (resumeFile) {
+                            resumeFile.addEventListener(
+                                "change",
+                                function () {
+
+                                    const file = this.files[0];
+
+                                    if (!file) {
+                                        return;
+                                    }
+
+                                    const maxSize = 5 * 1024 * 1024;
+                                    const fileName =
+                                        file.name.toLowerCase();
+
+                                    const isPdf =
+                                        fileName.endsWith(".pdf") ||
+                                        file.type === "application/pdf";
+
+                                    if (!isPdf) {
+                                        alert(
+                                            "Resume must be a PDF file."
+                                        );
+
+                                        this.value = "";
+                                        return;
+                                    }
+
+                                    if (file.size > maxSize) {
+                                        alert(
+                                            "Resume file size must not exceed 5 MB."
+                                        );
+
+                                        this.value = "";
+                                    }
+                                }
+                            );
+                        }
+
+
+                        const applicationForm =
+                            document.querySelector(
+                                "form.o_website_form"
+                            );
+
+                        const submitButton =
+                            document.getElementById(
+                                "intern_submit_button"
+                            );
+
+                        if (applicationForm &amp;&amp; submitButton) {
+                            applicationForm.addEventListener(
+                                "submit",
+                                function () {
+
+                                    if (!applicationForm.checkValidity()) {
+                                        return;
+                                    }
+
+                                    submitButton.disabled = true;
+                                    submitButton.innerText =
+                                        "Submitting...";
+                                }
+                            );
+                        }
+
+                    });
+                </script>
+
+            </div>
+        </t>
+    </template>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Application Success Page                            -->
+    <!-- Route: /intern/apply/success                               -->
+    <!-- ========================================================= -->
+
+    <template id="website_intern_apply_success"
+              name="Intern Application Submitted">
+
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+
+                <section class="py-5 bg-light">
+                    <div class="container">
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+
+                                <div class="card shadow-sm border-0 text-center">
+                                    <div class="card-body p-5">
+
+                                        <div class="display-4 text-success mb-3">
+                                            ✓
+                                        </div>
+
+                                        <h1 class="fw-bold mb-3">
+                                            Application Submitted
+                                        </h1>
+
+                                        <p class="lead text-muted">
+                                            Thank you for applying. Your
+                                            internship application has been
+                                            received successfully.
+                                        </p>
+
+                                        <t t-if="reference">
+                                            <div class="alert alert-success mt-3">
+
+                                                <strong>
+                                                    Application Reference:
+                                                </strong>
+
+                                                <t t-out="reference"/>
+
+                                            </div>
+                                        </t>
+
+                                        <a href="/intern/jobs"
+                                           class="btn btn-primary mt-3">
+                                            Back to Opportunities
+                                        </a>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

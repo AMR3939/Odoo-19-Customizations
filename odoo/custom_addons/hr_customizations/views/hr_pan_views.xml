@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Add PAN Number in Employee / Intern Employee Form          -->
+    <!-- ========================================================= -->
+
+    <record id="view_hr_employee_form_inherit_pan_number" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.pan.number</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Show PAN below Identification No in Personal tab -->
+            <xpath expr="//field[@name='identification_id']" position="after">
+                <field name="pan_number" placeholder="ABCDE1234F"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Add PAN Number in Normal Recruitment Applicant Form         -->
+    <!-- ========================================================= -->
+
+    <record id="view_hr_applicant_form_inherit_pan_number" model="ir.ui.view">
+        <field name="name">hr.applicant.form.inherit.pan.number</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Show PAN near Email / Phone in applicant form -->
+            <xpath expr="//field[@name='email_from']" position="after">
+                <field name="pan_number" placeholder="ABCDE1234F"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

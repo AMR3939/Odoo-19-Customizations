@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Intern Stage Update Email Template                         -->
+    <!-- ========================================================= -->
+
+    <record id="mail_template_intern_stage_update" model="mail.template">
+        <field name="name">Intern Stage Update</field>
+        <field name="model_id" ref="model_intern_applicant"/>
+        <field name="subject">Intern application stage updated</field>
+        <field name="email_from">{{ object.company_id.email or user.email_formatted }}</field>
+        <field name="email_to">{{ object.email_from }}</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Hello <t t-out="object.partner_name or ''"/>,
+                </p>
+
+                <p>
+                    Your internship application status has been updated.
+                </p>
+
+                <p>
+                    <strong>Application Reference:</strong>
+                    <t t-out="object.intern_reference or ''"/>
+                </p>
+
+                <p>
+                    <strong>Intern Job Position:</strong>
+                    <t t-out="object.job_id.name or ''"/>
+                </p>
+
+                <p>
+                    <strong>Current Stage:</strong>
+                    <t t-out="object.stage_id.name or ''"/>
+                </p>
+
+                <p>
+                    Thank you.
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Intern Employee Created Email Template                     -->
+    <!-- ========================================================= -->
+
+    <record id="mail_template_intern_employee_created" model="mail.template">
+        <field name="name">Intern Employee Created</field>
+        <field name="model_id" ref="model_intern_applicant"/>
+        <field name="subject">Intern employee record created</field>
+        <field name="email_from">{{ object.company_id.email or user.email_formatted }}</field>
+        <field name="email_to">{{ object.email_from }}</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>
+                    Hello <t t-out="object.partner_name or ''"/>,
+                </p>
+
+                <p>
+                    Your employee record has been created from your intern application.
+                </p>
+
+                <p>
+                    <strong>Application Reference:</strong>
+                    <t t-out="object.intern_reference or ''"/>
+                </p>
+
+                <p>
+                    <strong>Intern Job Position:</strong>
+                    <t t-out="object.job_id.name or ''"/>
+                </p>
+
+                <p>
+                    Thank you.
+                </p>
+            </div>
+        </field>
+    </record>
+
+</odoo>

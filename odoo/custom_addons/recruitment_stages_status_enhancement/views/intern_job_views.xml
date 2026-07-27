@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Intern Job List View                                       -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_job_list" model="ir.ui.view">
+        <field name="name">intern.job.list</field>
+        <field name="model">intern.job</field>
+        <field name="arch" type="xml">
+            <list string="Intern Job Positions"
+                  default_order="sequence asc, id desc">
+
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="job_type"/>
+                <field name="employment_type"/>
+                <field name="department_id"/>
+                <field name="recruiter_id" widget="many2one_avatar_user"/>
+                <field name="interviewer_ids"
+                       
+                       optional="hide"/>
+                <field name="location"/>
+                <field name="expected_skills" optional="hide"/>
+                <field name="open_positions" string="No of Vacancies"/>
+                <field name="application_count" string="Applications"/>
+                <field name="new_application_count" string="New"/>
+                <field name="open_application_count" string="In Process"/>
+                <field name="post_hiring_count" string="Onboarded Interns"/>
+                <field name="website_published" string="Publish on Website"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Job Kanban View                                     -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_job_kanban" model="ir.ui.view">
+        <field name="name">intern.job.kanban</field>
+        <field name="model">intern.job</field>
+        <field name="arch" type="xml">
+            <kanban string="Intern Job Positions"
+                    class="o_kanban_mobile o_intern_job_kanban"
+                    sample="1">
+
+                <field name="name"/>
+                <field name="active"/>
+                <field name="job_type"/>
+                <field name="employment_type"/>
+                <field name="department_id"/>
+                <field name="recruiter_id"/>
+                <field name="interviewer_ids"/>
+                <field name="location"/>
+                <field name="expected_skills"/>
+                <field name="open_positions"/>
+                <field name="application_count"/>
+                <field name="open_application_count"/>
+                <field name="new_application_count"/>
+                <field name="post_hiring_count"/>
+                <field name="website_published"/>
+                <field name="website_url"/>
+                <field name="activity_ids"/>
+
+                <templates>
+
+                    <!-- ================================================= -->
+                    <!-- Kanban Dropdown Menu                              -->
+                    <!-- ================================================= -->
+
+                    <t t-name="menu">
+
+                        <a role="menuitem"
+                           name="action_open_applications"
+                           type="object"
+                           class="dropdown-item">
+                            Applications
+                        </a>
+
+                        <a role="menuitem"
+                           name="action_create_application"
+                           type="object"
+                           class="dropdown-item">
+                            New Application
+                        </a>
+
+                        <a role="menuitem"
+                           name="action_open_post_hiring_interns"
+                           type="object"
+                           class="dropdown-item">
+                            Onboarded Interns
+                        </a>
+
+                        <a t-if="record.website_published.raw_value"
+                           role="menuitem"
+                           name="action_open_website_page"
+                           type="object"
+                           class="dropdown-item">
+                            Website Page
+                        </a>
+
+                        <a t-if="!record.website_published.raw_value"
+                           role="menuitem"
+                           name="action_publish_job"
+                           type="object"
+                           class="dropdown-item">
+                            Publish on Website
+                        </a>
+
+                        <a t-if="record.website_published.raw_value"
+                           role="menuitem"
+                           name="action_unpublish_job"
+                           type="object"
+                           class="dropdown-item">
+                            Unpublish from Website
+                        </a>
+
+                        <a role="menuitem"
+                           type="open"
+                           class="dropdown-item">
+                            Configuration
+                        </a>
+
+                        <a t-if="record.active.raw_value"
+                           role="menuitem"
+                           type="archive"
+                           class="dropdown-item">
+                            Archive
+                        </a>
+
+                        <a t-if="!record.active.raw_value"
+                           role="menuitem"
+                           type="unarchive"
+                           class="dropdown-item">
+                            Unarchive
+                        </a>
+
+                    </t>
+
+
+                    <!-- ================================================= -->
+                    <!-- Kanban Card                                       -->
+                    <!-- ================================================= -->
+
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click p-3">
+
+                            <div class="o_kanban_record_top mb-2">
+                                <div class="pe-3">
+                                    <strong class="fs-4">
+                                        <field name="name"/>
+                                    </strong>
+
+                                    <div class="text-muted mt-1">
+                                        <field name="job_type"/>
+                                    </div>
+                                </div>
+
+                                <field name="recruiter_id"
+                                       widget="many2one_avatar_user"/>
+                            </div>
+
+                            <div class="mt-3">
+                                <span class="text-muted">
+                                    Employment Type:
+                                </span>
+                                <field name="employment_type"/>
+                            </div>
+
+                            <div class="mt-1">
+                                <span class="text-muted">
+                                    Department:
+                                </span>
+                                <field name="department_id"/>
+                            </div>
+
+                            <div class="mt-1">
+                                <span class="text-muted">
+                                    Location:
+                                </span>
+                                <field name="location"/>
+                            </div>
+
+                            <div class="mt-1" t-if="record.expected_skills.raw_value">
+                                <span class="text-muted">
+                                    Expected Skills:
+                                </span>
+                                <field name="expected_skills"/>
+                            </div>
+
+                            <div class="mt-3">
+                                <t t-if="record.website_published.raw_value">
+                                    <span class="badge rounded-pill text-bg-success">
+                                        Published
+                                    </span>
+                                </t>
+
+                                <t t-if="!record.website_published.raw_value">
+                                    <span class="badge rounded-pill text-bg-secondary">
+                                        Unpublished
+                                    </span>
+                                </t>
+                            </div>
+
+
+                            <!-- ================================================= -->
+                            <!-- Dashboard Counts                                  -->
+                            <!-- ================================================= -->
+
+                            <div class="mt-4 mb-3"
+                                 style="display: grid;
+                                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                                        gap: 12px;">
+
+                                <div class="border rounded p-2 bg-light text-center">
+                                    <strong class="fs-4">
+                                        <field name="open_positions"/>
+                                    </strong>
+
+                                    <div class="text-muted small">
+                                        No of Vacancies
+                                    </div>
+                                </div>
+
+                                <div class="border rounded p-2 bg-light text-center">
+                                    <strong class="fs-4">
+                                        <field name="open_application_count"/>
+                                    </strong>
+
+                                    <div class="text-muted small">
+                                        In Process
+                                    </div>
+                                </div>
+
+                                <div class="border rounded p-2 bg-light text-center">
+                                    <strong class="fs-4">
+                                        <field name="new_application_count"/>
+                                    </strong>
+
+                                    <div class="text-muted small">
+                                        New
+                                    </div>
+                                </div>
+
+                                <div class="border rounded p-2 bg-light text-center">
+                                    <strong class="fs-4">
+                                        <field name="post_hiring_count"/>
+                                    </strong>
+
+                                    <div class="text-muted small">
+                                        Onboarded Interns
+                                    </div>
+                                </div>
+
+                                <div class="border rounded p-2 bg-light text-center"
+                                    style="grid-column: 1 / -1;">
+
+                                    <a name="action_open_activities"
+                                    type="object"
+                                    class="d-block text-decoration-none">
+
+                                        <i class="fa fa-clock-o fs-4 text-success"
+                                        role="img"
+                                        aria-label="Activities"
+                                        title="Activities"/>
+
+                                        <div class="text-muted small mt-1">
+                                            Activity
+                                        </div>
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- ================================================= -->
+                            <!-- Kanban Footer Buttons                              -->
+                            <!-- ================================================= -->
+
+                            <footer class="mt-4"
+                                    style="display: grid;
+                                           grid-template-columns: repeat(3, 1fr);
+                                           gap: 10px;">
+
+                                <button name="action_open_applications"
+                                        type="object"
+                                        class="btn btn-primary btn-sm"
+                                        style="width: 100%;">
+                                    Applications
+                                </button>
+
+                                <button name="action_create_application"
+                                        type="object"
+                                        class="btn btn-secondary btn-sm"
+                                        style="width: 100%;">
+                                    New Application
+                                </button>
+
+                                <button t-if="record.website_published.raw_value"
+                                        name="action_open_website_page"
+                                        type="object"
+                                        class="btn btn-secondary btn-sm"
+                                        style="width: 100%;">
+                                    Website Page
+                                </button>
+
+                            </footer>
+                        </div>
+                    </t>
+
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Job Form View                                       -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_job_form" model="ir.ui.view">
+        <field name="name">intern.job.form</field>
+        <field name="model">intern.job</field>
+        <field name="arch" type="xml">
+            <form string="Intern Job Position">
+
+                <!-- ================================================= -->
+                <!-- Header                                             -->
+                <!-- ================================================= -->
+
+                <header>
+
+                    <!-- Keep Website Page button -->
+                    <button name="action_open_website_page"
+                            string="Website Page"
+                            type="object"
+                            class="btn-primary"
+                            invisible="not website_published"/>
+
+                </header>
+
+
+                <!-- ================================================= -->
+                <!-- Form Sheet                                         -->
+                <!-- ================================================= -->
+
+                <sheet>
+
+                    <field name="active" invisible="1"/>
+                    <field name="website_url" invisible="1"/>
+                    <field name="standard_job_id" invisible="1"/>
+
+
+                    <!-- ================================================= -->
+                    <!-- Publication Ribbons                                -->
+                    <!-- ================================================= -->
+
+                    <widget name="web_ribbon"
+                            title="Published"
+                            bg_color="text-bg-success"
+                            invisible="not website_published"/>
+
+                    <widget name="web_ribbon"
+                            title="Unpublished"
+                            bg_color="text-bg-secondary"
+                            invisible="website_published"/>
+
+
+                    <!-- ================================================= -->
+                    <!-- Smart Buttons                                      -->
+                    <!-- ================================================= -->
+
+                    <div class="oe_button_box" name="button_box">
+
+                        <button name="action_open_applications"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil">
+
+                            <field name="application_count"
+                                   widget="statinfo"
+                                   string="Applications"/>
+                        </button>
+
+                       <!-- <button name="action_open_post_hiring_interns"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-users">
+
+                            <field name="post_hiring_count"
+                                   widget="statinfo"
+                                   string="Onboarded Interns"/>
+                        </button>-->
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- Job Title                                          -->
+                    <!-- ================================================= -->
+
+                    <div class="oe_title">
+                        <label for="name"
+                               string="Intern Job Position"/>
+
+                        <h1>
+                            <field name="name"
+                                   placeholder="e.g. QA Intern"/>
+                        </h1>
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- Job Details and Recruitment Target                 -->
+                    <!-- ================================================= -->
+
+                    <group>
+
+                        <group string="Job Details">
+
+                            <field name="recruiter_id"
+                                   widget="many2one_avatar_user"/>
+
+                            <field name="interviewer_ids"
+                                   widget="many2many_avatar_user"/>
+
+                            <field name="job_type"/>
+
+                            <field name="department_id"/>
+
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+
+                            <field name="location"/>
+
+                        </group>
+
+
+                        <group string="Recruitment Target">
+
+                            <field name="open_positions"
+                                   string="No of Vacancies"/>
+
+                            <field name="stipend_min"
+                                   string="Minimum Stipend"/>
+
+                            <field name="stipend_max"
+                                   string="Maximum Stipend"/>
+
+                            <field name="employment_type"
+                                   string="Employment Type"/>
+
+                            <field name="current_job_skill_ids"
+                                   string="Expected Skills"
+                                   mode="list"
+                                   widget="many2one_tags_skills"
+                                   context="{'default_job_id': standard_job_id}"
+                                   readonly="not standard_job_id">
+                                <list>
+                                    <field name="skill_id"/>
+                                    <field name="skill_level_id"/>
+                                    <field name="display_name"/>
+                                    <field name="color"/>
+                                </list>
+                            </field>
+
+                            <!-- This should remain the last field -->
+                            <field name="website_published"
+                                   string="Publish on Website"
+                                   widget="boolean_toggle"/>
+
+                        </group>
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- Intern Recruitment Statistics                     -->
+                    <!-- ================================================= -->
+
+                    <group string="Intern Recruitment Statistics">
+
+                        <group>
+
+                            <field name="open_positions"
+                                   string="No of Vacancies"
+                                   readonly="1"/>
+
+                            <field name="application_count"
+                                   string="Applications"
+                                   readonly="1"/>
+
+                            <field name="new_application_count"
+                                   string="New"
+                                   readonly="1"/>
+
+                        </group>
+
+
+                        <group>
+
+                            <field name="open_application_count"
+                                   string="In Process"
+                                   readonly="1"/>
+
+                            <field name="post_hiring_count"
+                                   string="Onboarded Interns"
+                                   readonly="1"/>
+
+                        </group>
+
+                    </group>
+
+
+                    <!-- ================================================= -->
+                    <!-- Job Information Tabs                               -->
+                    <!-- ================================================= -->
+
+                    <notebook>
+
+                        <page string="Job Description"
+                              name="job_description">
+
+                            <field name="description"
+                                   placeholder="Describe the internship role."/>
+
+                        </page>
+
+
+                        <page string="Responsibilities"
+                              name="responsibilities">
+
+                            <field name="responsibilities"
+                                   placeholder="Mention responsibilities for this internship."/>
+
+                        </page>
+
+
+                        <page string="Requirements"
+                              name="requirements">
+
+                            <field name="requirements"
+                                   placeholder="Mention eligibility, academic background, technical skills, or other requirements."/>
+
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+                <chatter/>
+
+            </form>
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Job Search View                                     -->
+    <!-- ========================================================= -->
+
+    <record id="view_intern_job_search" model="ir.ui.view">
+        <field name="name">intern.job.search</field>
+        <field name="model">intern.job</field>
+        <field name="arch" type="xml">
+            <search string="Search Intern Job Positions">
+
+                <field name="name"/>
+                <field name="job_type"/>
+                <field name="employment_type"/>
+                <field name="expected_skills"/>
+                <field name="department_id"/>
+                <field name="company_id"
+                       groups="base.group_multi_company"/>
+                <field name="recruiter_id"/>
+                <field name="location"/>
+
+                <filter string="Active"
+                        name="active_jobs"
+                        domain="[('active', '=', True)]"/>
+
+                <filter string="Archived"
+                        name="archived_jobs"
+                        domain="[('active', '=', False)]"/>
+
+                <filter string="Published"
+                        name="published_jobs"
+                        domain="[('website_published', '=', True)]"/>
+
+                <filter string="Unpublished"
+                        name="unpublished_jobs"
+                        domain="[('website_published', '=', False)]"/>
+
+                <filter string="My Intern Jobs"
+                        name="my_intern_jobs"
+                        domain="[('recruiter_id', '=', uid)]"/>
+
+                <separator/>
+
+                <filter string="Job Type"
+                        name="group_by_job_type"
+                        context="{'group_by': 'job_type'}"/>
+
+                <filter string="Employment Type"
+                        name="group_by_employment_type"
+                        context="{'group_by': 'employment_type'}"/>
+
+                <filter string="Department"
+                        name="group_by_department"
+                        context="{'group_by': 'department_id'}"/>
+
+                <filter string="Recruiter"
+                        name="group_by_recruiter"
+                        context="{'group_by': 'recruiter_id'}"/>
+
+                <filter string="Interviewer"
+                        name="group_by_interviewer"
+                        context="{'group_by': 'interviewer_ids'}"/>
+
+                <filter string="Company"
+                        name="group_by_company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"/>
+
+            </search>
+        </field>
+    </record>
+
+
+    <!-- ========================================================= -->
+    <!-- Intern Job Action                                          -->
+    <!-- ========================================================= -->
+
+    <record id="action_intern_job_positions"
+            model="ir.actions.act_window">
+
+        <field name="name">Intern Job Positions</field>
+
+        <field name="res_model">intern.job</field>
+
+        <field name="view_mode">kanban,list,form</field>
+
+        <field name="domain">[]</field>
+
+        <field name="context">{
+            'search_default_active_jobs': 1
+        }</field>
+
+        <field name="search_view_id"
+               ref="view_intern_job_search"/>
+
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {
+                'view_mode': 'kanban',
+                'view_id': ref('view_intern_job_kanban')
+            }),
+            (0, 0, {
+                'view_mode': 'list',
+                'view_id': ref('view_intern_job_list')
+            }),
+            (0, 0, {
+                'view_mode': 'form',
+                'view_id': ref('view_intern_job_form')
+            })
+        ]"/>
+
+    </record>
+
+</odoo>
