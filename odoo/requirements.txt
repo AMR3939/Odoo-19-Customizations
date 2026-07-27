@@ -3,7 +3,7 @@
 asn1crypto==1.4.0 ; python_version < '3.11'
 asn1crypto==1.5.1 ; python_version >= '3.11'
 Babel==2.9.1 ; python_version < '3.11'  # min version = 2.6.0 (Focal with security backports)
-Babel==2.10.3 ; python_version >= '3.11' and python_version < '3.13'
+Babel==2.11.0 ; python_version >= '3.11' and python_version < '3.13'
 Babel==2.17.0 ; python_version >= '3.13'
 cbor2==5.4.2.post1 ; python_version < '3.11'  # (Jammy)
 cbor2==5.4.6 ; python_version >= '3.11' and python_version < '3.12'  # (Bookworm)
@@ -115,7 +115,7 @@ numpy==1.26.4
 opencv-python-headless==4.10.0.84
 
 # Image Processing
-Pillow==10.3.0
+#Pillow==10.3.0
 
 # OCR Dependencies
 shapely==2.0.4
@@ -128,13 +128,14 @@ rapidfuzz==3.9.3
 
 # Utility Packages
 visualdl==2.5.3
+flask-babel==3.0.0
 premailer==3.10.0
 attrdict==2.0.1
 beautifulsoup4==4.12.3
-lxml==5.2.2
+#lxml==5.2.2
 tqdm==4.66.4
 PyYAML==6.0.1
-requests==2.32.3
+#requests==2.32.3
 
 # Optional PDF Support
 pdf2image==1.17.0

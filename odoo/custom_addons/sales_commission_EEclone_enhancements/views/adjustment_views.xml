@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ===========================================================
+                            TREE VIEW
+    ============================================================ -->
+
+    <record id="view_sales_commission_adjustment_tree" model="ir.ui.view">
+        <field name="name">sales.commission.adjustment.tree</field>
+        <field name="model">sales.commission.adjustment</field>
+
+        <field name="arch" type="xml">
+            <list>
+
+                <field name="salesperson_id"/>
+
+                <field name="plan_id"/>
+
+                <field name="adjustment_date"/>
+
+                <field name="amount"/>
+
+                <field name="reason"/>
+
+            </list>
+        </field>
+    </record>
+
+
+    <!-- ===========================================================
+                            FORM VIEW
+    ============================================================ -->
+
+    <record id="view_sales_commission_adjustment_form" model="ir.ui.view">
+        <field name="name">sales.commission.adjustment.form</field>
+        <field name="model">sales.commission.adjustment</field>
+
+        <field name="arch" type="xml">
+
+            <form string="Adjustment">
+
+                <sheet>
+
+                    <group>
+
+                        <field name="salesperson_id"/>
+
+                        <field name="plan_id"/>
+
+                        <field name="adjustment_date"/>
+
+                        <field name="amount"/>
+
+                        <field name="reason"/>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+
+    <!-- ===========================================================
+                            SEARCH VIEW
+    ============================================================ -->
+
+    <record id="view_sales_commission_adjustment_search" model="ir.ui.view">
+        <field name="name">sales.commission.adjustment.search</field>
+        <field name="model">sales.commission.adjustment</field>
+
+        <field name="arch" type="xml">
+
+            <search>
+
+                <field name="salesperson_id"/>
+
+                <field name="adjustment_date"/>
+
+            </search>
+
+        </field>
+    </record>
+
+
+    <!-- ===========================================================
+                            ACTION
+    ============================================================ -->
+
+    <record id="action_sales_commission_adjustment"
+            model="ir.actions.act_window">
+
+        <field name="name">Adjustments</field>
+
+        <field name="res_model">sales.commission.adjustment</field>
+
+        <field name="view_mode">list,form</field>
+
+        <field name="search_view_id"
+            ref="view_sales_commission_adjustment_search"/>
+
+    </record>
+
+</odoo>
