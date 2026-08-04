@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Universal Referral Support - ALL website pages            -->
+    <!-- ========================================================= -->
+
+    <!--
+        This was originally only added to the event page template
+        (see website_event_templates.xml), which meant the Share button
+        only carried a referral link when clicked on an event page.
+
+        Adding it here instead, on website.layout's #wrapwrap (the
+        single wrapper element present on every single frontend page -
+        event, product, blog, and anything else), means ANY page's
+        Share button can now attach "?ref=<partner_id>" automatically,
+        with no page-specific template needed per content type.
+
+        The existing attribute on the event page template is left in
+        place too (harmless duplication - referral_share.js just finds
+        whichever is closest) so nothing that already worked changes.
+    -->
+    <template
+        id="website_layout_referral_support"
+        inherit_id="website.layout">
+
+        <xpath expr="//div[@id='wrapwrap']" position="attributes">
+
+            <attribute name="t-att-data-referrer-id">
+                request.env.user.partner_id.id if request.env.user and not request.env.user._is_public() else ''
+            </attribute>
+
+        </xpath>
+
+    </template>
+
+</odoo>

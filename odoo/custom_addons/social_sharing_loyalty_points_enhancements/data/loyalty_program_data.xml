@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!--
+        Ready-to-use demo Loyalty Program, wired to the Event Referral
+        trigger via reward_trigger (see models/loyalty_program.py). Points
+        are granted programmatically through
+        handlers/event_referral.py -> services/reward_service.py whenever
+        a referred visitor registers for an event - never through a
+        purchase rule (rule_ids is left empty on purpose).
+
+        A single reward line is defined so referrers have something to
+        redeem their points against in the shop.
+
+        IMPORTANT: created INACTIVE on purpose. Only one program may be
+        assigned to a given Reward Trigger and be active at the same time
+        (see the constraint in models/loyalty_program.py). If you already
+        configured your own program for Event Referral, leave this demo
+        one inactive/unused, or delete it.
+    -->
+    <record id="loyalty_program_social_share" model="loyalty.program">
+        <field name="name">Social Share Event Referral Program</field>
+        <field name="program_type">loyalty</field>
+        <field name="applies_on">both</field>
+        <field name="trigger">auto</field>
+        <field name="portal_visible">True</field>
+        <field name="portal_point_name">Referral Points</field>
+        <field name="reward_trigger">event_referral</field>
+        <field name="reward_trigger_points">10</field>
+        <field name="active">False</field>
+    </record>
+
+    <record id="loyalty_reward_social_share_discount" model="loyalty.reward">
+        <field name="program_id" ref="loyalty_program_social_share"/>
+        <field name="reward_type">discount</field>
+        <field name="discount_mode">per_point</field>
+        <!-- Each accumulated point is worth 0.10 (in the shop's currency)
+             off the order total; tune this from the Loyalty Program UI. -->
+        <field name="discount">0.1</field>
+        <field name="discount_applicability">order</field>
+    </record>
+
+</odoo>

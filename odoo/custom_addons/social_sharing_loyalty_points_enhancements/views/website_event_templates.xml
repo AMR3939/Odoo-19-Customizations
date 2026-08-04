@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Event Page Referral Support -->
+    <!-- ========================================================= -->
+
+    <template
+        id="event_page_referral_support"
+        inherit_id="website_event.event_description_full">
+
+        <!--
+            NOTE: content type / source id used to also be stamped as
+            data-referral-type / data-referral-source-id attributes on
+            this section, read via `shareButton.closest(...)` in
+            referral_share.js. That broke silently: Odoo's native Share
+            widget opens its Facebook/X/LinkedIn popup via a dialog that
+            is not guaranteed to be a DOM descendant of this section, so
+            the JS's closest() lookup fell through to the site-wide
+            #wrapwrap fallback (data-referrer-id only, no type/source),
+            and every share on every page got silently tagged
+            ref_type=event regardless of what was actually shared.
+
+            A page-level window global sidesteps this entirely - it
+            doesn't matter where in the DOM the click/popup ends up,
+            referral_share.js just reads window.socialReferralContext
+            once per page load.
+        -->
+        <xpath expr="//section[@id='o_wevent_event_main']" position="attributes">
+
+            <attribute name="t-att-data-referrer-id">
+                request.env.user.partner_id.id if request.env.user and not request.env.user._is_public() else ''
+            </attribute>
+
+        </xpath>
+
+        <xpath expr="//section[@id='o_wevent_event_main']" position="before">
+            <!--
+                IMPORTANT: only the plain integer id goes through t-esc.
+                An earlier version t-esc'd the ENTIRE json.dumps(...) string,
+                including its double quotes - t-esc HTML-escapes quote
+                characters (" becomes &#34;), and browsers do NOT decode
+                HTML entities inside <script> tags (they're raw text per the
+                HTML spec), so the rendered script literally contained
+                &#34; instead of ", a JS syntax error that silently killed
+                the assignment before it ever ran. That's why the view was
+                correctly installed and active yet
+                window.socialReferralContext stayed undefined on every
+                page. Numbers are safe to t-esc (no special characters to
+                escape), so only the id goes through it; the rest of the
+                object literal is written directly as unescaped template
+                text.
+            -->
+            <script type="text/javascript">
+                window.socialReferralContext = {type: 'event', sourceId: <t t-esc="event.id"/>};
+            </script>
+        </xpath>
+
+    </template>
+
+</odoo>

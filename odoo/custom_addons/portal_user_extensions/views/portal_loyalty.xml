@@ -22,7 +22,7 @@
                         <table class="table table-striped table-sm gg_loyalty_table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th>Date</th>
+                                    <th>Date &amp; Time</th>
                                     <th>Description</th>
                                     <th class="text-end">Points</th>
                                 </tr>

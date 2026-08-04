@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Social Share Referral Support -->
+    <!-- ========================================================= -->
+
+    <template
+        id="social_share_referral"
+        inherit_id="website.s_share"
+        name="Social Share Referral">
+
+        <xpath expr="//div[contains(@t-attf-class, 's_share')]" position="attributes">
+
+            <attribute name="data-referral-enabled">1</attribute>
+
+        </xpath>
+
+    </template>
+
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Blog Post Page Referral Support -->
+    <!-- ========================================================= -->
+
+    <template
+        id="blog_post_referral_support"
+        inherit_id="website_blog.blog_post_complete">
+
+        <!-- See views/website_event_templates.xml for why type/source id
+             are set via window.socialReferralContext rather than a
+             data-* attribute read through DOM proximity. -->
+        <xpath expr="//section[@id='o_wblog_post_main']" position="attributes">
+
+            <attribute name="t-att-data-referrer-id">
+                request.env.user.partner_id.id if request.env.user and not request.env.user._is_public() else ''
+            </attribute>
+
+        </xpath>
+
+        <xpath expr="//section[@id='o_wblog_post_main']" position="before">
+            <!-- See views/website_event_templates.xml for why only the
+                 plain integer id is t-esc'd here, not the whole object:
+                 t-esc HTML-escapes its output (" becomes &#34;), and
+                 browsers do NOT decode HTML entities inside <script>
+                 tags, so t-esc'ing the entire json.dumps(...) string
+                 produced a JS syntax error that silently killed this
+                 assignment on every blog post page - source_res_id was
+                 therefore never captured for blog shares, and every
+                 blog share/referral pair fell back to the fragile
+                 legacy title-match (or matched nothing at all). -->
+            <script type="text/javascript">
+                window.socialReferralContext = {type: 'blog', sourceId: <t t-esc="blog_post.id"/>};
+            </script>
+        </xpath>
+
+    </template>
+
+</odoo>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+        Dedicated "Social Sharing, Referral & Loyalty Points"
+        configuration form - NOT res.config.settings.
+
+        Locked down as a true singleton form: no Create, no Delete, and
+        no breadcrumb/list step in between - the action below opens this
+        exact record directly.
+    -->
+    <record id="social_loyalty_config_view_form" model="ir.ui.view">
+        <field name="name">social.loyalty.config.view.form</field>
+        <field name="model">social.loyalty.config</field>
+        <field name="arch" type="xml">
+            <form string="Social Sharing, Referral &amp; Loyalty Points" create="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+
+                    <group>
+                        <group string="Social Sharing">
+                            <field name="enable_product_share_rewards"/>
+                            <field name="enable_blog_share_rewards"/>
+                            <field name="enable_event_share_rewards"/>
+                        </group>
+                        <group string="Referral">
+                            <field name="enable_event_referral_rewards"/>
+                            <field name="enable_product_referral_rewards"/>
+                            <field name="enable_blog_referral_rewards"/>
+                            <field name="referral_cookie_days"
+                                   invisible="not enable_event_referral_rewards and not enable_product_referral_rewards and not enable_blog_referral_rewards"/>
+                        </group>
+                        <group string="Customer Signup">
+                            <field name="enable_customer_signup_rewards"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Loyalty" name="loyalty">
+                            <group>
+                                <group>
+                                    <field name="fallback_loyalty_program_id" options="{'no_create': True}"/>
+                                    <field name="fallback_reward_points"
+                                           invisible="not fallback_loyalty_program_id"/>
+                                </group>
+                                <group>
+                                    <field name="registry_validation_enabled"/>
+                                    <field name="reward_logging_enabled"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Reward Trigger Status" name="reward_trigger_status">
+                            <field name="reward_trigger_status_html" nolabel="1"/>
+                            <p class="text-muted mt-3">
+                                To configure a trigger, open Discount &amp; Loyalty
+                                -&gt; Programs (Program Type = Loyalty Cards), and
+                                set its "Reward Trigger" and "Points per Action" -
+                                see the Loyalty Program form.
+                            </p>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!--
+        The action opens the singleton record directly (res_id resolved
+        from the data-loaded record below), so users land straight on
+        the form - never on an intermediate list view, and can never
+        create a second record.
+    -->
+    <record id="action_social_loyalty_config" model="ir.actions.act_window">
+        <field name="name">Social Sharing, Referral &amp; Loyalty Points</field>
+        <field name="res_model">social.loyalty.config</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="social_loyalty_config_view_form"/>
+        <field name="res_id" eval="ref('social_loyalty_config_singleton')"/>
+        <field name="target">current</field>
+    </record>
+
+    <!--
+        Sales -> Configuration -> Social Media & Loyalty
+                                       -> Social Sharing, Referral & Loyalty Points
+
+        Placed as a direct child of Configuration (menu_sale_config,
+        defined in the `sale` module), with sequence="50" - strictly
+        between "Online Payments" (sequence 45) and "Activities"
+        (sequence 55), i.e. immediately BEFORE Activities, exactly as
+        requested. Restricted to Sales Managers only (the existing,
+        native sales_team.group_sale_manager group) - no custom
+        security group is defined by this module.
+    -->
+    <menuitem id="menu_social_media_loyalty"
+              name="Social Media &amp; Loyalty"
+              parent="sale.menu_sale_config"
+              groups="sales_team.group_sale_manager"
+              sequence="50"/>
+
+    <menuitem id="menu_social_loyalty_config"
+              name="Social Sharing, Referral &amp; Loyalty Points"
+              parent="menu_social_media_loyalty"
+              action="action_social_loyalty_config"
+              groups="sales_team.group_sale_manager"
+              sequence="10"/>
+
+</odoo>

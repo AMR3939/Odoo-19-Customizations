@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Adds a single, clean "Reward Trigger" section to the standard
+         Loyalty Program form, replacing the previous four independent
+         boolean fields (is_social_share_program / social_share_points /
+         is_social_share_reward_program / social_share_reward_points).
+
+         Which handler runs for the selected trigger is resolved at
+         runtime through handlers/registry.py - this view never needs to
+         change when a new trigger/handler is added. -->
+    <record id="loyalty_program_view_form_reward_trigger" model="ir.ui.view">
+        <field name="name">loyalty.program.view.form.reward.trigger</field>
+        <field name="model">loyalty.program</field>
+        <field name="inherit_id" ref="loyalty.loyalty_program_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="before">
+                <div class="d-flex align-items-center mt-4 mb-2"
+                     invisible="program_type != 'loyalty'"
+                     style="gap:8px;">
+                    <i class="fa fa-magic" style="color:#714B67;"/>
+                    <span class="o_horizontal_separator mb-0">Social Sharing / Referral Reward Trigger</span>
+                </div>
+
+                <div class="mb-4"
+                     invisible="program_type != 'loyalty'"
+                     style="max-width:620px;">
+                    <div class="p-3" style="background:linear-gradient(155deg,#faf9fd 0%,#f3effa 100%);border:1px solid #e2ddef;border-left:4px solid #714B67;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="d-flex align-items-center justify-content-center me-2"
+                                  style="width:32px;height:32px;border-radius:50%;background:#714B67;flex-shrink:0;">
+                                <i class="fa fa-bullhorn text-white" title="Reward trigger"/>
+                            </span>
+                            <div>
+                                <strong style="font-size:14px;">Which action grants points?</strong><br/>
+                                <span class="text-muted" style="font-size:11px;">One trigger per program</span>
+                            </div>
+                        </div>
+
+                        <group>
+                            <field name="reward_trigger"/>
+                        </group>
+
+                        <div class="d-flex align-items-start gap-2 mb-2"
+                             style="font-size:11px;color:#8a6d3b;"
+                             invisible="not reward_trigger_name_hint">
+                            <i class="fa fa-info-circle mt-1" title="Name/trigger hint"/>
+                            <field name="reward_trigger_name_hint" nolabel="1" readonly="1" class="text-muted"/>
+                        </div>
+
+                        <!-- Prominent points badge, only once a real trigger is chosen -->
+                        <div class="d-flex align-items-center mt-2 p-2"
+                             style="background:white;border:1px dashed #c9bcd9;border-radius:6px;"
+                             invisible="reward_trigger == 'none'">
+                            <i class="fa fa-star me-2" style="color:#e6a817;"/>
+                            <span class="me-2" style="font-size:13px;">Points per Action:</span>
+                            <field name="reward_trigger_points"
+                                   required="reward_trigger != 'none'"
+                                   nolabel="1"
+                                   class="fw-bold"
+                                   style="font-size:18px;color:#2c7a52;width:70px;"/>
+                            <span class="text-muted ms-1" style="font-size:12px;">loyalty pt(s) every time it fires</span>
+                        </div>
+
+                        <p class="text-muted mb-0 mt-2" style="font-size:12px;"
+                           invisible="reward_trigger != 'none'">
+                            Select a trigger above (Product Share, Blog Share,
+                            Event Share, or one of the Referral triggers) to
+                            reveal the points field. Only one active program
+                            may serve a given trigger — create a separate
+                            program per trigger to award different point
+                            values for each event.
+                        </p>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- NOTE: a matching list-view inheritance (surfacing reward_trigger
+         as an optional column) was intentionally left out of this
+         package - the loyalty app's list view xmlid differs between
+         Odoo point releases, and guessing it wrong would break module
+         installation entirely. Add one for your exact instance with:
+
+           <record id="loyalty_program_view_list_reward_trigger" model="ir.ui.view">
+               <field name="name">loyalty.program.view.list.reward.trigger</field>
+               <field name="model">loyalty.program</field>
+               <field name="inherit_id" ref="loyalty.loyalty_program_view_tree"/>
+               <field name="arch" type="xml">
+                   <xpath expr="//list | //tree" position="inside">
+                       <field name="reward_trigger" optional="show"/>
+                   </xpath>
+               </field>
+           </record>
+    -->
+
+</odoo>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!--
+        The one and only social.loyalty.config row. Created once, here,
+        with a fixed, known XML ID so views/social_loyalty_config_views.xml's
+        action can open it directly (res_id=ref(...)) - no list view, no
+        "New" button, no way to end up with a second row from the UI.
+        noupdate="1" so re-running this data file on module upgrade never
+        touches a row that already exists.
+    -->
+    <record id="social_loyalty_config_singleton" model="social.loyalty.config">
+        <field name="name">Social Sharing, Referral &amp; Loyalty Points</field>
+    </record>
+
+    <!--
+        Every field on social.loyalty.config is a compute+inverse pair
+        over ir.config_parameter (see models/social_loyalty_config.py) -
+        the field's Python-side default is only what get_param() falls
+        back to when a key has never been written. Shipping the actual
+        parameter rows here means every switch is in its documented
+        ON/OFF state immediately after install, with no dependency on
+        an admin opening the configuration form first. Admin changes
+        made afterwards are preserved across upgrades (noupdate="1").
+    -->
+    <record id="config_param_enable_product_share_rewards" model="ir.config_parameter">
+        <field name="key">social_sharing_loyalty_points_enhancement.enable_product_share_rewards</field>
+        <field name="value">True</field>
+    </record>
+
+    <record id="config_param_enable_blog_share_rewards" model="ir.config_parameter">
+        <field name="key">social_sharing_loyalty_points_enhancement.enable_blog_share_rewards</field>
+        <field name="value">True</field>
+    </record>
+
+    <record id="config_param_enable_event_share_rewards" model="ir.config_parameter">
+        <field name="key">social_sharing_loyalty_points_enhancement.enable_event_share_rewards</field>
+        <field name="value">True</field>
+    </record>
+
+    <record id="config_param_enable_event_referral_rewards" model="ir.config_parameter">
+        <field name="key">social_sharing_loyalty_points_enhancement.enable_event_referral_rewards</field>
+        <field name="value">True</field>
+    </record>
+
+    <record id="config_param_enable_product_referral_rewards" model="ir.config_parameter">
+        <field name="key">social_sharing_loyalty_points_enhancement.enable_product_referral_rewards</field>
+        <field name="value">True</field>
+    </record>
+
+    <record id="config_param_enable_blog_referral_rewards" model="ir.config_parameter">
+        <field name="key">social_sharing_loyalty_points_enhancement.enable_blog_referral_rewards</field>
+        <field name="value">True</field>
+    </record>
+
+    <record id="config_param_enable_customer_signup_rewards" model="ir.config_parameter">
+        <field name="key">social_sharing_loyalty_points_enhancement.enable_customer_signup_rewards</field>
+        <field name="value">True</field>
+    </record>
+
+    <record id="config_param_registry_validation_enabled" model="ir.config_parameter">
+        <field name="key">social_sharing_loyalty_points_enhancement.registry_validation_enabled</field>
+        <field name="value">True</field>
+    </record>
+
+    <record id="config_param_reward_logging_enabled" model="ir.config_parameter">
+        <field name="key">social_sharing_loyalty_points_enhancement.reward_logging_enabled</field>
+        <field name="value">True</field>
+    </record>
+
+</odoo>
