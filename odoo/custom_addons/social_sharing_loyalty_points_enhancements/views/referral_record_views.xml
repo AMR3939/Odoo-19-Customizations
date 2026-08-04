@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Tree View -->
+    <!-- ========================================================= -->
+
+    <record id="view_social_referral_record_tree" model="ir.ui.view">
+        <field name="name">social.referral.record.tree</field>
+        <field name="model">social.referral.record</field>
+        <field name="arch" type="xml">
+
+            <list string="Referral Rewards">
+
+                <field name="referrer_partner_id"/>
+                <field name="referred_partner_id"/>
+                <field name="referral_type"/>
+                <field name="event_id"/>
+                <field name="product_id"/>
+                <field name="blog_post_id"/>
+                <field name="sale_order_id"/>
+                <field name="loyalty_program_id"/>
+                <field name="rewarded_points"/>
+                <field name="reward_date"/>
+                <field name="state"/>
+
+            </list>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Form View -->
+    <!-- ========================================================= -->
+
+    <record id="view_social_referral_record_form" model="ir.ui.view">
+        <field name="name">social.referral.record.form</field>
+        <field name="model">social.referral.record</field>
+        <field name="arch" type="xml">
+
+            <form string="Referral Reward">
+
+                <sheet>
+
+                    <group>
+
+                        <group>
+
+                            <field name="referral_type" readonly="1"/>
+                            <field name="referrer_partner_id" readonly="1"/>
+                            <field name="referred_partner_id" readonly="1"/>
+                            <field name="event_id" readonly="1" invisible="referral_type != 'event'"/>
+                            <field name="registration_id" readonly="1" invisible="referral_type != 'event'"/>
+                            <field name="product_id" readonly="1" invisible="referral_type != 'product'"/>
+                            <field name="blog_post_id" readonly="1" invisible="referral_type != 'blog'"/>
+
+                        </group>
+
+                        <group>
+
+                            <field name="sale_order_id" readonly="1"/>
+                            <field name="loyalty_program_id" readonly="1"/>
+                            <field name="loyalty_history_id" readonly="1"/>
+                            <field name="rewarded_points" readonly="1"/>
+                            <field name="reward_date" readonly="1"/>
+                            <field name="state" readonly="1"/>
+
+                        </group>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Search View -->
+    <!-- ========================================================= -->
+
+    <record id="view_social_referral_record_search" model="ir.ui.view">
+        <field name="name">social.referral.record.search</field>
+        <field name="model">social.referral.record</field>
+        <field name="arch" type="xml">
+
+            <search>
+
+                <field name="referrer_partner_id"/>
+                <field name="referred_partner_id"/>
+                <field name="referral_type"/>
+                <field name="event_id"/>
+                <field name="product_id"/>
+                <field name="blog_post_id"/>
+                <field name="sale_order_id"/>
+
+                <filter
+                    name="rewarded"
+                    string="Rewarded"
+                    domain="[('state','=','rewarded')]"/>
+
+                <filter
+                    name="pending"
+                    string="Pending"
+                    domain="[('state','=','pending')]"/>
+
+                <separator/>
+
+                <filter
+                    name="type_event"
+                    string="Event Referrals"
+                    domain="[('referral_type','=','event')]"/>
+
+                <filter
+                    name="type_product"
+                    string="Product Referrals"
+                    domain="[('referral_type','=','product')]"/>
+
+                <filter
+                    name="type_blog"
+                    string="Blog Referrals"
+                    domain="[('referral_type','=','blog')]"/>
+
+                <separator/>
+
+                <group>
+
+                    <filter
+                        name="group_referrer"
+                        string="Referrer"
+                        context="{'group_by':'referrer_partner_id'}"/>
+
+                    <filter
+                        name="group_type"
+                        string="Referral Type"
+                        context="{'group_by':'referral_type'}"/>
+
+                    <filter
+                        name="group_event"
+                        string="Event"
+                        context="{'group_by':'event_id'}"/>
+
+                    <filter
+                        name="group_state"
+                        string="Status"
+                        context="{'group_by':'state'}"/>
+
+                </group>
+
+            </search>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Action -->
+    <!-- ========================================================= -->
+
+    <record id="action_social_referral_record" model="ir.actions.act_window">
+
+        <field name="name">Referral Rewards</field>
+        <field name="res_model">social.referral.record</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_social_referral_record_search"/>
+
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Menu -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_social_referral_root"
+        name="Referral Rewards"
+        parent="event.menu_event_configuration"
+        sequence="90"
+        groups="sales_team.group_sale_manager"/>
+
+    <menuitem
+        id="menu_social_referral_records"
+        name="Referral Records"
+        parent="menu_social_referral_root"
+        action="action_social_referral_record"
+        sequence="1"
+        groups="sales_team.group_sale_manager"/>
+
+</odoo>

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_social_referral_record_manager,social.referral.record.manager,model_social_referral_record,sales_team.group_sale_manager,1,1,1,1
+access_social_referral_record_admin,social.referral.record.admin,model_social_referral_record,base.group_system,1,1,1,1
+access_social_share_record_manager,social.share.record.manager,model_social_share_record,sales_team.group_sale_manager,1,1,1,1
+access_social_share_record_admin,social.share.record.admin,model_social_share_record,base.group_system,1,1,1,1
+access_social_loyalty_config_manager,social.loyalty.config.manager,model_social_loyalty_config,sales_team.group_sale_manager,1,1,1,0
+access_social_loyalty_config_admin,social.loyalty.config.admin,model_social_loyalty_config,base.group_system,1,1,1,1

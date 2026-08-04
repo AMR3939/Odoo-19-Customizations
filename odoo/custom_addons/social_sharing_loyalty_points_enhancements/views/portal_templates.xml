@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- My Loyalty Points Page -->
+    <!-- ========================================================= -->
+    <!--
+        Single unified feed combining referral rewards and share
+        rewards - see controllers/portal.py, which builds `rows` with
+        Description / Category / Timestamp / Earned Points already
+        formatted, so this template just prints them.
+
+        Deliberately NOT linked from the portal sidebar menu (no
+        "My Loyalty Points" list-group-item here) - reachable only by
+        direct URL /my/loyalty for now.
+    -->
+
+    <template id="portal_my_loyalty"
+              name="My Loyalty Points">
+
+        <t t-call="portal.portal_layout">
+
+            <div class="container mt-4" id="o_loyalty_page">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+                        <h1>My Loyalty Points</h1>
+                        <p class="text-muted mb-0">
+                            Points earned from successful referrals (events, products, and blog signups) and from sharing content.
+                        </p>
+                    </div>
+
+                    <div class="text-end">
+
+                        <h5>Current Points Balance</h5>
+
+                        <h2 class="text-success">
+
+                            <span id="o_loyalty_total_points" t-out="total_points"/>
+
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <table class="table table-bordered table-hover">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Timestamp</th>
+                            <th>Earned Points</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="o_loyalty_history_tbody">
+
+                        <t t-if="rows">
+
+                            <t t-foreach="rows" t-as="row">
+
+                                <tr>
+
+                                    <td>
+                                        <t t-out="row['description']"/>
+                                    </td>
+
+                                    <td>
+                                        <span class="badge rounded-pill" style="background-color:#f5d5a8; color:#7a4a12;">
+                                            <t t-out="row['category']"/>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <t t-out="row['timestamp']"
+                                           t-options="{'widget': 'datetime', 'format': 'MM/dd/yyyy hh:mm a'}"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-attf-class="badge #{row['points'] &lt; 0 and 'bg-danger' or 'bg-success'}">
+                                            <t t-if="row['points'] >= 0">+</t><t t-out="row['points']"/>
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                            </t>
+
+                        </t>
+
+                        <t t-else="">
+
+                            <tr>
+
+                                <td colspan="4"
+                                    class="text-center text-muted py-4">
+
+                                    No loyalty points earned yet.
+
+                                </td>
+
+                            </tr>
+
+                        </t>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!--
+                Loaded as a plain, direct script tag here instead of via
+                the web.assets_frontend manifest bundle. On this Odoo
+                version, most of that bundle is lazy-loaded (served with
+                data-src instead of src) and only fetched after the user
+                scrolls/clicks/hovers - fine for widgets that only need to
+                react to interaction, but this script needs to start
+                polling the instant the page loads, with no interaction
+                required. Loading it directly here guarantees that.
+            -->
+            <script type="text/javascript"
+                    src="/social_sharing_loyalty_points_enhancement/static/src/js/loyalty_auto_refresh.js"/>
+
+        </t>
+
+    </template>
+
+</odoo>

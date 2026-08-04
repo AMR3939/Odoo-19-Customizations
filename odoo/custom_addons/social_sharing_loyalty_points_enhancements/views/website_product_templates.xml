@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Product Page Referral Support -->
+    <!-- ========================================================= -->
+
+    <template
+        id="product_page_referral_support"
+        inherit_id="website_sale.product">
+
+        <!-- See views/website_event_templates.xml for why type/source id
+             are set via window.socialReferralContext rather than a
+             data-* attribute read through DOM proximity. -->
+        <xpath expr="//section[@id='product_detail']" position="attributes">
+
+            <attribute name="t-att-data-referrer-id">
+                request.env.user.partner_id.id if request.env.user and not request.env.user._is_public() else ''
+            </attribute>
+
+        </xpath>
+
+        <!--
+            IMPORTANT: `product` here is a product.template record (that's
+            what website_sale.product's route casts it as), but
+            social.referral.record.product_id and sale.order.
+            referral_source_product_id are both Many2one("product.product")
+            - a different table with its own id sequence. Sending
+            product.id (the template id) here would silently fail to match
+            anything on the product.product side later, so the exact-match
+            cancellation would never fire even though everything else
+            works. product.product_variant_id.id gives the actual
+            product.product record instead.
+        -->
+        <xpath expr="//section[@id='product_detail']" position="before">
+            <!-- See views/website_event_templates.xml for why only the
+                 plain integer id is t-esc'd here, not the whole object. -->
+            <script type="text/javascript">
+                window.socialReferralContext = {type: 'product', sourceId: <t t-esc="product.product_variant_id.id"/>};
+            </script>
+        </xpath>
+
+    </template>
+
+</odoo>

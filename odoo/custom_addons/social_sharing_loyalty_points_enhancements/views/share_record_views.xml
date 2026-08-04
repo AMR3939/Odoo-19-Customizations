@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- Tree View -->
+    <!-- ========================================================= -->
+
+    <record id="view_social_share_record_tree" model="ir.ui.view">
+        <field name="name">social.share.record.tree</field>
+        <field name="model">social.share.record</field>
+        <field name="arch" type="xml">
+
+            <list string="Share Rewards">
+
+                <field name="sharer_partner_id"/>
+                <field name="content_type"/>
+                <field name="content_name"/>
+                <field name="loyalty_program_id"/>
+                <field name="rewarded_points"/>
+                <field name="share_date"/>
+
+            </list>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Form View -->
+    <!-- ========================================================= -->
+
+    <record id="view_social_share_record_form" model="ir.ui.view">
+        <field name="name">social.share.record.form</field>
+        <field name="model">social.share.record</field>
+        <field name="arch" type="xml">
+
+            <form string="Share Reward">
+
+                <sheet>
+
+                    <group>
+
+                        <group>
+
+                            <field name="sharer_partner_id" readonly="1"/>
+                            <field name="content_type" readonly="1"/>
+                            <field name="content_name" readonly="1"/>
+                            <field name="shared_url" readonly="1"/>
+                            <field name="source_res_id" readonly="1"/>
+
+                        </group>
+
+                        <group>
+
+                            <field name="loyalty_program_id" readonly="1"/>
+                            <field name="loyalty_history_id" readonly="1"/>
+                            <field name="rewarded_points" readonly="1"/>
+                            <field name="share_date" readonly="1"/>
+
+                        </group>
+
+                    </group>
+
+                </sheet>
+
+            </form>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Search View -->
+    <!-- ========================================================= -->
+
+    <record id="view_social_share_record_search" model="ir.ui.view">
+        <field name="name">social.share.record.search</field>
+        <field name="model">social.share.record</field>
+        <field name="arch" type="xml">
+
+            <search>
+
+                <field name="sharer_partner_id"/>
+                <field name="content_name"/>
+
+                <filter
+                    name="type_event"
+                    string="Events"
+                    domain="[('content_type','=','event')]"/>
+
+                <filter
+                    name="type_product"
+                    string="Products"
+                    domain="[('content_type','=','product')]"/>
+
+                <filter
+                    name="type_blog"
+                    string="Blog Posts"
+                    domain="[('content_type','=','blog')]"/>
+
+                <separator/>
+
+                <group>
+
+                    <filter
+                        name="group_sharer"
+                        string="Sharer"
+                        context="{'group_by':'sharer_partner_id'}"/>
+
+                    <filter
+                        name="group_content_type"
+                        string="Content Type"
+                        context="{'group_by':'content_type'}"/>
+
+                </group>
+
+            </search>
+
+        </field>
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Action -->
+    <!-- ========================================================= -->
+
+    <record id="action_social_share_record" model="ir.actions.act_window">
+
+        <field name="name">Share Rewards</field>
+        <field name="res_model">social.share.record</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_social_share_record_search"/>
+
+    </record>
+
+    <!-- ========================================================= -->
+    <!-- Menu -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_social_share_records"
+        name="Share Records"
+        parent="menu_social_referral_root"
+        action="action_social_share_record"
+        sequence="2"
+        groups="sales_team.group_sale_manager"/>
+
+</odoo>
